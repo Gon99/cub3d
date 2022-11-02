@@ -6,7 +6,7 @@
 #    By: goliano- <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/10/31 16:52:02 by goliano-          #+#    #+#              #
-#    Updated: 2022/10/31 16:55:32 by goliano-         ###   ########.fr        #
+#    Updated: 2022/11/02 11:49:12 by goliano-         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -14,7 +14,8 @@ NAME		= cub3d
 
 LIB_MLX		= libmlx.dylib
 
-SRCS =	./cub3d.c ./utils/strings.c
+SRCS =	./cub3d.c ./libft/ft_calloc.c ./libft/ft_strlen.c \
+		./libft/ft_strtrim.c ./libft/ft_memset.c ./libft/ft_strcmp.c
 
 OBJS		= $(SRCS:.c=.o)
 
@@ -36,22 +37,22 @@ $(LIB_MLX):		$(MLX_OBJS)
 			ranlib $(LIB_MLX)
 
 libft/libft.a:
-		make -C Libft
+		make -C libft
 
 mlx_t:
 		make -C mlx
 
-$(NAME):		Libft/libft.a $(OBJS)
+$(NAME):		libft/libft.a $(OBJS)
 				$(CC) $(OBJS) -Lmlx -lmlx -framework OpenGL -framework AppKit $(CFLAGS)	-o $(NAME)
 
 clean:
 		$(RM) $(OBJS)
-		make clean -C Libft
+		make clean -C libft
 		make clean -C mlx
 
 fclean:		clean
 			$(RM) $(NAME)
-			make fclean -C Libft
+			make fclean -C libft
 
 re:			fclean all
 

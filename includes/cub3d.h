@@ -6,7 +6,7 @@
 /*   By: goliano- <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/31 16:34:58 by goliano-          #+#    #+#             */
-/*   Updated: 2022/10/31 16:57:16 by goliano-         ###   ########.fr       */
+/*   Updated: 2022/11/02 16:05:44 by goliano-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,11 +15,17 @@
 
 #include <stdio.h>
 #include <unistd.h>
-#include "../Libft/libft.h"
+#include <fcntl.h>
+#include "../libft/libft.h"
 
-/*
- *	utils/strings.c
- */
-char	*last_four_chars(char *s);
+typedef struct s_data
+{
+	int		no;
+	int		so;
+	int		ea;
+	int		we;
+	char	*floor;
+	char	*roof;
+}	t_gdata;
 
 #endif
