@@ -6,38 +6,43 @@
 /*   By: goliano- <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/31 15:55:14 by goliano-          #+#    #+#             */
-/*   Updated: 2022/11/02 12:07:21 by goliano-         ###   ########.fr       */
+/*   Updated: 2022/11/10 15:59:38 by goliano-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "includes/cub3d.h"
 
-int	map_name_chequer(char *map)
+static void	init_gdata(t_gdata *gdata)
 {
-	int	l;
-	int	r;
-
-	map = ft_strtrim(map, " ");
-	l = ft_strlen(map) - 4;
-	r = -1;
-	if (l > 0)
-		r = ft_strcmp(&map[l], ".cub");
-	return (r);
-}
-
-int	open_map_chequer(char *map)
-{
-	int	r;
-
-	r = open(map, O_RDONLY);
+	gdata->no = 0;
+	gdata->so = 0;
+	gdata->ea = 0;
+	gdata->we = 0;
+	gdata->f = 0;
+	gdata->c = 0;
 }
 
 int	main(int argc, char **argv)
 {
+	t_gdata	gdata;
 	(void)argc;
-	if (!map_name_chequer(argv[1]))
-			return (0);
-	if (!open_map_chequer(argv[1]))
-		return (0);
+
+	if (map_name_chequer(argv[1]) < 0)
+		return (write(1, "Error\n", 6));
+	init_gdata(&gdata);
+	if (!fill_map(argv[1], &gdata))
+		return (write(1, "Error\n", 6));
+	printf("NO: %s\n", gdata.no);
+	printf("SO: %s\n", gdata.so);
+	printf("EA: %s\n", gdata.ea);
+	printf("WE: %s\n", gdata.we);
+	printf("F: %s\n", gdata.f);
+	printf("C: %s\n", gdata.c);
+	int i = 0;
+	while (gdata.map[i])
+	{
+		printf("MAP: %s\n", gdata.map[i]);
+		i++;
+	}
 	return (1);
 }

@@ -6,7 +6,7 @@
 #    By: goliano- <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/10/31 16:52:02 by goliano-          #+#    #+#              #
-#    Updated: 2022/11/02 11:49:12 by goliano-         ###   ########.fr        #
+#    Updated: 2022/11/10 13:47:57 by goliano-         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -15,7 +15,9 @@ NAME		= cub3d
 LIB_MLX		= libmlx.dylib
 
 SRCS =	./cub3d.c ./libft/ft_calloc.c ./libft/ft_strlen.c \
-		./libft/ft_strtrim.c ./libft/ft_memset.c ./libft/ft_strcmp.c
+		./libft/ft_strtrim.c ./libft/ft_memset.c ./libft/ft_strcmp.c \
+		./libft/get_next_line.c ./libft/get_next_line_utils.c ./libft/ft_strncmp.c \
+		./libft/ft_isspace.c ./utils/map.c ./utils/index.c ./utils/chequer.c
 
 OBJS		= $(SRCS:.c=.o)
 
