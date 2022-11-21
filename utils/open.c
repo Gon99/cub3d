@@ -1,21 +1,26 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   index.c                                            :+:      :+:    :+:   */
+/*   open.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: goliano- <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/11/10 13:43:47 by goliano-          #+#    #+#             */
-/*   Updated: 2022/11/21 15:24:08 by goliano-         ###   ########.fr       */
+/*   Created: 2022/11/21 16:00:18 by goliano-          #+#    #+#             */
+/*   Updated: 2022/11/21 16:02:13 by goliano-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/cub3d.h"
 
-int	iter_spaces_idx(char *line, int i)
+int	open_file(char *file)
 {
-	while (line[i] == ' ' || line[i] == '\n' || line[i] == '\t' \
-			|| line[i] == '\v' || line[i] == '\f' || line[i] == '\r')
-		i++;
-	return (i);
+	int	fd;
+
+	fd = open(file, O_RDONLY);
+	if (fd < 0)
+	{
+		perror(file);
+		return (0);
+	}
+	return (fd);
 }

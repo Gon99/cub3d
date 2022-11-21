@@ -6,7 +6,7 @@
 /*   By: goliano- <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/31 16:34:58 by goliano-          #+#    #+#             */
-/*   Updated: 2022/11/11 12:56:09 by goliano-         ###   ########.fr       */
+/*   Updated: 2022/11/21 16:02:35 by goliano-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,5 +50,10 @@ int	fill_map(char *map, t_gdata *gdata);
  *	utils/index.c
  */
 int	iter_spaces_idx(char *line, int i);
+
+/*
+ *	utils/open.c
+ */
+int	open_file(char *file);
 
 #endif

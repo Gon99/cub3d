@@ -6,7 +6,7 @@
 /*   By: goliano- <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/31 15:55:14 by goliano-          #+#    #+#             */
-/*   Updated: 2022/11/10 15:59:38 by goliano-         ###   ########.fr       */
+/*   Updated: 2022/11/21 15:26:33 by goliano-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,11 +38,11 @@ int	main(int argc, char **argv)
 	printf("WE: %s\n", gdata.we);
 	printf("F: %s\n", gdata.f);
 	printf("C: %s\n", gdata.c);
-	int i = 0;
-	while (gdata.map[i])
+	/*int i = 0;
+	while (gdata.file[i])
 	{
-		printf("MAP: %s\n", gdata.map[i]);
+		printf("MAP: %s\n", gdata.file[i]);
 		i++;
-	}
+	}*/
 	return (1);
 }
