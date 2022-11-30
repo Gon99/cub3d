@@ -6,7 +6,7 @@
 #    By: goliano- <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/10/31 16:52:02 by goliano-          #+#    #+#              #
-#    Updated: 2022/11/21 16:02:30 by goliano-         ###   ########.fr        #
+#    Updated: 2022/11/30 16:22:07 by goliano-         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -18,7 +18,8 @@ SRCS =	./cub3d.c ./libft/ft_calloc.c ./libft/ft_strlen.c \
 		./libft/ft_strtrim.c ./libft/ft_memset.c ./libft/ft_strcmp.c \
 		./libft/get_next_line.c ./libft/get_next_line_utils.c ./libft/ft_strncmp.c \
 		./libft/ft_isspace.c ./utils/map.c ./utils/index.c ./utils/chequer.c \
-		./utils/open.c
+		./utils/open.c ./srcs/flood_fill.c ./utils/length.c ./utils/init.c \
+		./utils/chequer2.c ./utils/strings.c
 
 OBJS		= $(SRCS:.c=.o)
 

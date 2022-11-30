@@ -6,31 +6,36 @@
 /*   By: goliano- <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/10 13:21:34 by goliano-          #+#    #+#             */
-/*   Updated: 2022/11/21 16:01:38 by goliano-         ###   ########.fr       */
+/*   Updated: 2022/11/30 13:22:15 by goliano-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/cub3d.h"
 
-static int	file_length(int fd)
+static void	copy_map(t_gdata *gdata, int r)
 {
-	char	*line;
-	size_t	l;
+	int	x;
+	int	i;
 
-	line = get_next_line(fd);
-	l = 0;
-	while (line)
+	x = r;
+	i = 0;
+	while (is_map_line(gdata->file[r]))
 	{
-		free(line);
-		line = get_next_line(fd);
-		l++;
+		gdata->map_len++;
+		r++;
 	}
-	free(line);
-	close(fd);
-	return (l);
+	gdata->map = calloc(sizeof(char *), r + 1);
+	if (!gdata->map)
+		return ;
+	while (is_map_line(gdata->file[x]))
+	{
+		gdata->map[i] = gdata->file[x];
+		i++;
+		x++;
+	}
 }
 
-static void	fill_map_data(t_gdata *gdata)
+static void	copy_map_data(t_gdata *gdata)
 {
 	int		i;
 	size_t	r;
@@ -39,8 +44,6 @@ static void	fill_map_data(t_gdata *gdata)
 	while (gdata->file[++r])
 	{
 		i = iter_spaces_idx(gdata->file[r], i);
-		if (is_map_line(gdata->file[r]))
-			break ;
 		if (ft_strncmp(&gdata->file[r][i], "NO", 2) == 0)
 			gdata->no = &gdata->file[r][iter_spaces_idx(gdata->file[r], i + 2)];
 		else if (ft_strncmp(&gdata->file[r][i], "SO", 2) == 0)
@@ -53,17 +56,25 @@ static void	fill_map_data(t_gdata *gdata)
 			gdata->f = &gdata->file[r][iter_spaces_idx(gdata->file[r], i + 1)];
 		else if (ft_strncmp(gdata->file[r], "C", 1) == 0)
 			gdata->c = &gdata->file[r][iter_spaces_idx(gdata->file[r], i + 1)];
+		if (is_map_line(gdata->file[r]))
+			break ;
 		i = 0;
 	}
+	copy_map(gdata, r);
 }
 
-static void	fill_map_matrix(t_gdata *gdata, int fd)
+static void	copy_file(char *map, t_gdata *gdata)
 {
 	char	*line;
 	int		i;
+	int		fd;
 
-	line = get_next_line(fd);
 	i = 0;
+	fd = open_file(map);
+	gdata->file_len = file_length(fd);
+	gdata->file = calloc(sizeof(char *), gdata->file_len + 1);
+	fd = open_file(map);
+	line = get_next_line(fd);
 	while (line)
 	{
 		gdata->file[i] = line;
@@ -73,16 +84,13 @@ static void	fill_map_matrix(t_gdata *gdata, int fd)
 	close(fd);
 }
 
-int	fill_map(char *map, t_gdata *gdata)
+int	fill_map(char *map, t_gdata *gdata, t_pdata *pdata)
 {
-	int	fd;
-
-	fd = open_file(map);
-	gdata->file_len = file_length(fd);
-	gdata->file = calloc(sizeof(char *), gdata->file_len + 1);
-	fd = open_file(map);
-	fill_map_matrix(gdata, fd);
-	fill_map_data(gdata);
+	copy_file(map, gdata);
+	copy_map_data(gdata);
+	init_player_data(gdata->map, pdata);
+	if (repeated_chars_check(gdata->map))
+		return (0);
 	if (!map_data_chequer(gdata))
 		return (0);
 	return (1);
