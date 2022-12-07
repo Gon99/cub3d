@@ -6,7 +6,7 @@
 /*   By: goliano- <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/31 16:34:58 by goliano-          #+#    #+#             */
-/*   Updated: 2022/11/30 16:22:45 by goliano-         ###   ########.fr       */
+/*   Updated: 2022/12/07 10:54:37 by goliano-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,6 +31,7 @@ typedef struct s_data
 	char	**file;
 	size_t	file_len;
 	size_t	map_len;
+	int		error;
 }	t_gdata;
 
 typedef struct	p_data
@@ -77,7 +78,8 @@ int	file_length(int fd);
 /*
  *	srcs/flood_fill.c
  */
-void	flood_fill_check(t_gdata *gdata, t_pdata *pdata);
+//void	flood_fill_check(t_gdata *gdata, t_pdata *pdata);
+void	flood_fill(t_gdata *gdata, int x, int y);
 
 /*
  *	utils/init.c

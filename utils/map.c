@@ -6,7 +6,7 @@
 /*   By: goliano- <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/10 13:21:34 by goliano-          #+#    #+#             */
-/*   Updated: 2022/11/30 13:22:15 by goliano-         ###   ########.fr       */
+/*   Updated: 2022/12/07 10:01:29 by goliano-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,6 +41,7 @@ static void	copy_map_data(t_gdata *gdata)
 	size_t	r;
 
 	r = -1;
+	i = 0;
 	while (gdata->file[++r])
 	{
 		i = iter_spaces_idx(gdata->file[r], i);

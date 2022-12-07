@@ -6,7 +6,7 @@
 /*   By: goliano- <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/31 15:55:14 by goliano-          #+#    #+#             */
-/*   Updated: 2022/11/30 14:59:03 by goliano-         ###   ########.fr       */
+/*   Updated: 2022/12/07 10:59:23 by goliano-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,7 @@ static void	init_gdata(t_gdata *gdata)
 	gdata->c = 0;
 	gdata->file_len = 0;
 	gdata->map_len = 0;
+	gdata->error = 0;
 }
 
 int	main(int argc, char **argv)
@@ -35,7 +36,9 @@ int	main(int argc, char **argv)
 	init_gdata(&gdata);
 	if (!fill_map(argv[1], &gdata, &pdata))
 		return (write(1, "Error\n", 6));
-	flood_fill_check(&gdata, &pdata);
+	flood_fill(&gdata, pdata.x, pdata.y);
+	if (gdata.error)
+		return (write(1, "Error\n", 6));
 	printf("NO: %s\n", gdata.no);
 	printf("SO: %s\n", gdata.so);
 	printf("EA: %s\n", gdata.ea);
