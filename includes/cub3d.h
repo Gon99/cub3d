@@ -6,7 +6,7 @@
 /*   By: goliano- <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/31 16:34:58 by goliano-          #+#    #+#             */
-/*   Updated: 2022/12/07 10:54:37 by goliano-         ###   ########.fr       */
+/*   Updated: 2022/12/13 16:36:20 by goliano-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,6 +32,7 @@ typedef struct s_data
 	size_t	file_len;
 	size_t	map_len;
 	int		error;
+	void	*mlx;
 }	t_gdata;
 
 typedef struct	p_data
@@ -39,7 +40,24 @@ typedef struct	p_data
 	int		x;
 	int		y;
 	char	p;
+	double	pos_x;
+	double	pos_y;
+	double	dir_x;
+	double	dir_y;
+	double	plane_x;
+	double	plane_y;
+	double	time;
+	double	old_time;
 }	t_pdata;
+
+typedef struct	m_data
+{
+	void	*img;
+	char	*addr;
+	int		bpp;
+	int		line_length;
+	int		endian;
+}	t_mdata;
 
 /*
  * utils/chequer.c
@@ -90,4 +108,9 @@ void	init_player_data(char **map, t_pdata *pdata);
  * utils/strings.c
  */
 int	is_player_letter(char c);
+
+/*
+ * srcst/start,c
+ */
+void	start(t_pdata *pdata);
 #endif
