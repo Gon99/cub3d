@@ -6,7 +6,7 @@
 /*   By: goliano- <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/31 16:34:58 by goliano-          #+#    #+#             */
-/*   Updated: 2022/12/13 16:36:20 by goliano-         ###   ########.fr       */
+/*   Updated: 2022/12/19 16:15:14 by goliano-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,8 @@
 # include <unistd.h>
 # include <stdlib.h>
 # include <fcntl.h>
+# include <mlx.h>
+# include <math.h>
 # include "../libft/libft.h"
 
 typedef struct s_data
@@ -33,20 +35,25 @@ typedef struct s_data
 	size_t	map_len;
 	int		error;
 	void	*mlx;
+	int		height;
+	int		width;
 }	t_gdata;
 
 typedef struct	p_data
 {
-	int		x;
-	int		y;
+	//player position
+	double	x;
+	double	y;
 	char	p;
-	double	pos_x;
-	double	pos_y;
+	//initial direction vector
 	double	dir_x;
 	double	dir_y;
+	//the 2d raycaster version of camera plane
 	double	plane_x;
 	double	plane_y;
+	//time of current frame
 	double	time;
+	//time of previous frame
 	double	old_time;
 }	t_pdata;
 
@@ -76,7 +83,7 @@ int	is_whole_spaces(char *line);
 /*
  * utils/map.c
  */
-int	fill_map(char *map, t_gdata *gdata, t_pdata *pdata);
+int	fill_map(char *map, t_gdata *gdata);
 
 /*
  *	utils/index.c
@@ -110,7 +117,7 @@ void	init_player_data(char **map, t_pdata *pdata);
 int	is_player_letter(char c);
 
 /*
- * srcst/start,c
+ * srcs/start,c
  */
-void	start(t_pdata *pdata);
+void	start(t_pdata *pdata, t_gdata *gdata);
 #endif

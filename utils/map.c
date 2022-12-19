@@ -6,7 +6,7 @@
 /*   By: goliano- <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/10 13:21:34 by goliano-          #+#    #+#             */
-/*   Updated: 2022/12/07 10:01:29 by goliano-         ###   ########.fr       */
+/*   Updated: 2022/12/15 11:30:49 by goliano-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,11 +85,10 @@ static void	copy_file(char *map, t_gdata *gdata)
 	close(fd);
 }
 
-int	fill_map(char *map, t_gdata *gdata, t_pdata *pdata)
+int	fill_map(char *map, t_gdata *gdata)
 {
 	copy_file(map, gdata);
 	copy_map_data(gdata);
-	init_player_data(gdata->map, pdata);
 	if (repeated_chars_check(gdata->map))
 		return (0);
 	if (!map_data_chequer(gdata))

@@ -6,12 +6,11 @@
 /*   By: goliano- <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/31 15:55:14 by goliano-          #+#    #+#             */
-/*   Updated: 2022/12/13 17:05:20 by goliano-         ###   ########.fr       */
+/*   Updated: 2022/12/19 16:02:42 by goliano-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "includes/cub3d.h"
-#include <mlx.h>
 
 static void	init_gdata(t_gdata *gdata)
 {
@@ -24,12 +23,47 @@ static void	init_gdata(t_gdata *gdata)
 	gdata->file_len = 0;
 	gdata->map_len = 0;
 	gdata->error = 0;
+	gdata->height = 1280;
+	gdata->width = 1024;
+}
+
+static void	init_pdata(char **map, t_pdata *pdata)
+{
+	int	x;
+	int	z;
+
+	x = 0;
+	while(map[x])
+	{
+		z = 0;
+		while (map[x][z])
+		{
+			if (is_player_letter(map[x][z]))
+			{
+				pdata->x = x;
+				pdata->y = z;
+				pdata->p = map[x][z];
+			}
+			z++;
+		}
+		x++;
+	}
+	//initial direction of vector
+	pdata->dir_x = -1;
+	pdata->dir_y = 0;
+	//the 2d raycaster version of camera plane
+	pdata->plane_x = 0;
+	pdata->plane_y = 0.66;
+	//time of current frame
+	pdata->time = 0;
+	//time of previous frame
+	pdata->old_time = 0;
 }
 
 static void	init_mlx(t_mdata *mdata, t_gdata *gdata)
 {
 	gdata->mlx = mlx_init();
-	mdata->img = mlx_new_window(gdata->mlx, 1920, 1080, "Cub3d");
+	mdata->img = mlx_new_window(gdata->mlx, gdata->height, gdata->width, "Cub3d");
 	mdata->addr = mlx_get_data_addr(mdata->img, &mdata->bpp, &mdata->line_length, &mdata->endian);
 }
 
@@ -43,13 +77,14 @@ int	main(int argc, char **argv)
 	if (map_name_chequer(argv[1]) < 0)
 		return (write(1, "Error\n", 6));
 	init_gdata(&gdata);
-	if (!fill_map(argv[1], &gdata, &pdata))
+	if (!fill_map(argv[1], &gdata))
 		return (write(1, "Error\n", 6));
+	init_pdata(gdata.map, &pdata);
 	flood_fill(&gdata, pdata.x, pdata.y);
 	if (gdata.error)
 		return (write(1, "Error\n", 6));
 	init_mlx(&mdata, &gdata);
-	start(&pdata);
+	start(&pdata, &gdata);
 	mlx_loop(gdata.mlx);
 	printf("NO: %s\n", gdata.no);
 	printf("SO: %s\n", gdata.so);
