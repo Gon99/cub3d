@@ -6,7 +6,7 @@
 /*   By: goliano- <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/31 15:55:14 by goliano-          #+#    #+#             */
-/*   Updated: 2022/12/19 16:02:42 by goliano-         ###   ########.fr       */
+/*   Updated: 2022/12/28 15:51:48 by goliano-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,9 +62,9 @@ static void	init_pdata(char **map, t_pdata *pdata)
 
 static void	init_mlx(t_mdata *mdata, t_gdata *gdata)
 {
-	gdata->mlx = mlx_init();
-	mdata->img = mlx_new_window(gdata->mlx, gdata->height, gdata->width, "Cub3d");
-	mdata->addr = mlx_get_data_addr(mdata->img, &mdata->bpp, &mdata->line_length, &mdata->endian);
+	mdata->mlx = mlx_init();
+	mdata->win = mlx_new_window(mdata->mlx, gdata->height, gdata->width, "Cub3d");
+	mdata->addr = mlx_get_data_addr(mdata->win, &mdata->bpp, &mdata->line_length, &mdata->endian);
 }
 
 int	main(int argc, char **argv)
@@ -85,7 +85,8 @@ int	main(int argc, char **argv)
 		return (write(1, "Error\n", 6));
 	init_mlx(&mdata, &gdata);
 	start(&pdata, &gdata);
-	mlx_loop(gdata.mlx);
+	mlx_hook(mdata.win, 2, 1L<<0, hook_handler, &mdata);
+	mlx_loop(mdata.mlx);
 	printf("NO: %s\n", gdata.no);
 	printf("SO: %s\n", gdata.so);
 	printf("EA: %s\n", gdata.ea);

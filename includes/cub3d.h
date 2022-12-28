@@ -6,7 +6,7 @@
 /*   By: goliano- <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/31 16:34:58 by goliano-          #+#    #+#             */
-/*   Updated: 2022/12/19 16:15:14 by goliano-         ###   ########.fr       */
+/*   Updated: 2022/12/28 16:26:34 by goliano-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,6 @@ typedef struct s_data
 	size_t	file_len;
 	size_t	map_len;
 	int		error;
-	void	*mlx;
 	int		height;
 	int		width;
 }	t_gdata;
@@ -59,7 +58,8 @@ typedef struct	p_data
 
 typedef struct	m_data
 {
-	void	*img;
+	void	*mlx;
+	void	*win;
 	char	*addr;
 	int		bpp;
 	int		line_length;
@@ -120,4 +120,19 @@ int	is_player_letter(char c);
  * srcs/start,c
  */
 void	start(t_pdata *pdata, t_gdata *gdata);
+
+
+/*
+ * hooks/hooks.c
+ */
+int		hook_handler(int keycode, t_mdata *mdata);
+
+/*
+ * srcs/moves.c
+ */
+void	move_up(t_gdata *gdata, t_pdata *pdata, int move_speed);
+void	move_down(t_gdata *gdata, t_pdata *pdata, int move_speed);
+void	move_right(t_gdata *gdata, t_pdata *pdata, int rot_speed);
+void	move_left(t_gdata *gdata, t_pdata *pdata, int rot_speed);
+
 #endif

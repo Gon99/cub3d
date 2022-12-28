@@ -6,7 +6,7 @@
 /*   By: goliano- <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/13 16:16:19 by goliano-          #+#    #+#             */
-/*   Updated: 2022/12/19 16:32:25 by goliano-         ###   ########.fr       */
+/*   Updated: 2022/12/28 16:22:21 by goliano-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,47 +14,42 @@
 
 void	start(t_pdata *pdata, t_gdata *gdata)
 {
-	//which box of the map we are in
-	int		map_x = (int)pdata->x;
-	int		map_y = (int)pdata->y;
-	//length of ray from current position to next x or y-side
-	double	side_dist_x;
-	double	side_dist_y;
-	//length of ray from one x or y-side to next x or y-side
-	double	delta_dist_x;
-	double	delta_dist_y;
-	double	perp_wall_dist;
-	//direction to step in x or y-direction (+1 or -1)
-	int		step_x;
-	int		step_y;
-	//was there a wall hit
-	int		hit = 0;
-	//was NS or EW wall hit
-	int	side;
-	double	camera_x;
-	double	ray_dir_x;
-	double	ray_dir_y;
 	//count
 	int	x;
-	//height of line to draw on screen
-	int	line_height;
-	int	draw_start;
-	int	draw_end;
 
 	x = 0;
+	ft_print_matrix(gdata->map);
 	while (x < gdata->width)
 	{
+		//height of line to draw on screen
+		int	line_height;
+		int	draw_start;
+		int	draw_end;
+
 		//calculate ray position and direction
-		camera_x = 2 * x / (double)gdata->width + 1; //x-coord in camera space
-		ray_dir_x = pdata->dir_x + pdata->plane_x * camera_x;
-		ray_dir_y = pdata->dir_y + pdata->plane_y * camera_x;
-		if (ray_dir_x == 0)
-			delta_dist_x = 1e30;
-		else
+		double	camera_x = 2 * x / (double)gdata->width - 1; //x-coord in camera space
+		double	ray_dir_x = pdata->dir_x + pdata->plane_x * camera_x;
+		double	ray_dir_y = pdata->dir_y + pdata->plane_y * camera_x;
+		//which box of the map we are in
+		int		map_x = (int)pdata->x;
+		int		map_y = (int)pdata->y;
+		//length of ray from current position to next x or y-side
+		double	side_dist_x;
+		double	side_dist_y;
+		//direction to step in x or y-direction (+1 or -1)
+		int		step_x;
+		int		step_y;
+		//was there a wall hit
+		int		hit = 0;
+		//was NS or EW wall hit
+		int	side;
+		//length of ray from one x or y-side to next x or y-side
+		double	perp_wall_dist;
+		double	delta_dist_x = 1e30;
+		double	delta_dist_y = 1e30;
+		if (ray_dir_x != 0)
 			delta_dist_x = fabs(1 / ray_dir_x);
-		if (ray_dir_y == 0)
-			delta_dist_y = 1e30;
-		else
+		if (ray_dir_y != 0)
 			delta_dist_y = fabs(1 / ray_dir_y);
 		//calculate step and initial sideDist
 		if (ray_dir_x < 0)
@@ -94,6 +89,8 @@ void	start(t_pdata *pdata, t_gdata *gdata)
 				side = 1;
 			}
 			//Check if ray has hit a wall
+			//printf("MAP_X: %d\nMAP_Y: %d\n", map_x, map_y);
+			//printf("MAP: %c\n", gdata->map[map_x][map_y]);
 			if (gdata->map[map_x][map_y] > 0)
 				hit = 1;
 		}
@@ -124,6 +121,6 @@ void	start(t_pdata *pdata, t_gdata *gdata)
 	//redraw();
 	//cls();
 	//speed_modifiers
-	//double	move_speed = frame_time * 5.0;
-	//double	rot_speed = frame_time * 3.0;
+	double	move_speed = frame_time * 5.0;
+	double	rot_speed = frame_time * 3.0;
 }
