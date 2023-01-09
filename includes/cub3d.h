@@ -6,7 +6,7 @@
 /*   By: goliano- <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/31 16:34:58 by goliano-          #+#    #+#             */
-/*   Updated: 2023/01/09 11:28:11 by goliano-         ###   ########.fr       */
+/*   Updated: 2023/01/09 11:34:06 by ajimenez         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,9 +17,9 @@
 # include <unistd.h>
 # include <stdlib.h>
 # include <fcntl.h>
-# include <mlx.h>
 # include <math.h>
-# include "../libft/libft.h"
+# include "mlx/mlx.h"
+# include "libft/libft.h"
 
 typedef struct s_data
 {
