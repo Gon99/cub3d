@@ -6,7 +6,7 @@
 /*   By: goliano- <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/10 12:00:50 by goliano-          #+#    #+#             */
-/*   Updated: 2023/01/09 12:21:23 by ajimenez         ###   ########.fr       */
+/*   Updated: 2023/01/09 12:39:25 by ajimenez         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,7 +74,7 @@ int	is_map_line(char *line)
 		return (0);
 	while (line[i] && r)
 	{
-		if (!ft_isspace(line[i]) && line[i] != '0' && line[i] != '1' \
+		if (ft_isspace(line[i]) && line[i] != '0' && line[i] != '1' \
 				&& line[i] != 'N' && line[i] != 'S' \
 				&& line[i] != 'W' && line[i] != 'E')
 			r = 0;
