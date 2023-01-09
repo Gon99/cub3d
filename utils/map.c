@@ -6,7 +6,7 @@
 /*   By: goliano- <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/10 13:21:34 by goliano-          #+#    #+#             */
-/*   Updated: 2023/01/09 12:40:37 by ajimenez         ###   ########.fr       */
+/*   Updated: 2023/01/09 15:00:44 by goliano-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,12 +90,8 @@ int	fill_map(char *map, t_gdata *gdata)
 	copy_file(map, gdata);
 	copy_map_data(gdata);
 	if (repeated_chars_check(gdata->map))
-	{
 		return (0);
-	}
 	if (!map_data_chequer(gdata))
-	{
 		return (0);
-	}
 	return (1);
 }

@@ -6,7 +6,7 @@
 /*   By: goliano- <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/31 15:55:14 by goliano-          #+#    #+#             */
-/*   Updated: 2023/01/09 12:27:25 by ajimenez         ###   ########.fr       */
+/*   Updated: 2023/01/09 15:18:01 by goliano-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,15 +91,16 @@ int	main(int argc, char **argv)
 		return (write(1, "Error\n", 6));
 	init_mlx(&mdata, &gdata);
 	start(&pdata, &gdata);
-	mlx_hook(mdata.win, 2, 1L<<0, hook_handler, &mdata);
-	mlx_key_hook(mdata.win, key_hook, 0);
-	mlx_loop(mdata.mlx);
+	ft_putmatrix(gdata.map);
 	printf("NO: %s\n", gdata.no);
 	printf("SO: %s\n", gdata.so);
 	printf("EA: %s\n", gdata.ea);
 	printf("WE: %s\n", gdata.we);
 	printf("F: %s\n", gdata.f);
 	printf("C: %s\n", gdata.c);
+	mlx_hook(mdata.win, 2, 1L<<0, hook_handler, &mdata);
+	mlx_key_hook(mdata.win, key_hook, 0);
+	mlx_loop(mdata.mlx);
 	/*int i = 0;
 	while (gdata.file[i])
 	{
