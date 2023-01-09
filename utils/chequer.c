@@ -6,7 +6,7 @@
 /*   By: goliano- <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/10 12:00:50 by goliano-          #+#    #+#             */
-/*   Updated: 2022/12/07 09:55:30 by goliano-         ###   ########.fr       */
+/*   Updated: 2023/01/09 12:21:23 by ajimenez         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,6 +37,7 @@ int	repeated_chars_check(char **map)
 	return (1);
 }
 
+//TODO -> Chequear extension 
 int	map_name_chequer(char *map)
 {
 	int	l;

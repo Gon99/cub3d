@@ -6,7 +6,7 @@
 #    By: ajimenez <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/08/01 17:15:58 by ajimenez          #+#    #+#              #
-#    Updated: 2023/01/08 15:47:02 by ajimenez         ###   ########.fr        #
+#    Updated: 2023/01/09 12:17:40 by ajimenez         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 CC		= gcc
@@ -30,7 +30,7 @@ SRCS	= ft_isalpha.c ft_isdigit.c ft_isalnum.c ft_isascii.c ft_isprint.c \
 			ft_matrix_data.c ft_max_int.c ft_min_int.c ft_countchars.c \
 			ft_dlstadd_back.c ft_dlstadd_front.c ft_dlstclear.c \
 			ft_dlstdelone.c ft_dlstlast.c ft_dlstnew.c ft_dlstsize.c \
-			ft_dlstnew_struct.c ft_atob.c ft_boti.c
+			ft_dlstnew_struct.c ft_atob.c ft_boti.c ft_strcmp.c
 
 
 

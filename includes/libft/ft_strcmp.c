@@ -1,26 +1,25 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_putmatrix.c                                     :+:      :+:    :+:   */
+/*   ft_strcmp.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ajimenez <ajimenez@student.42madrid>       +#+  +:+       +#+        */
+/*   By: ajimenez <ajimenez@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/10/08 18:46:56 by ajimenez          #+#    #+#             */
-/*   Updated: 2023/01/09 12:19:20 by ajimenez         ###   ########.fr       */
+/*   Created: 2023/01/09 12:16:53 by ajimenez          #+#    #+#             */
+/*   Updated: 2023/01/09 12:17:02 by ajimenez         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-void	ft_putmatrix(char **s)
+int	ft_strcmp(char *s1, char *s2)
 {
-	size_t	aux;
+	size_t	i;
 
-	aux = 0;
-	while (s[aux])
-	{
-		ft_putstr_fd(s[aux], 1);
-		aux++;
-		write (1, "\n", 1);
-	}
+	i = 0;
+	if (!s1 || !s2)
+		return (0);
+	while (s1[i] == s2[i] && s1[i] != '\0' && s2[i] != '\0')
+		i++;
+	return (s1[i] - s2[i]);
 }

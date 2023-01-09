@@ -6,7 +6,7 @@
 /*   By: ajimenez <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/04 14:13:14 by ajimenez          #+#    #+#             */
-/*   Updated: 2023/01/08 15:46:52 by ajimenez         ###   ########.fr       */
+/*   Updated: 2023/01/09 12:19:35 by ajimenez         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,6 +75,7 @@ void			*ft_memcpy(void *dst, const void *src, size_t n);
 void			*ft_memmove(void *dst, const void *src, size_t len);
 void			*ft_memchr(const void *s, int c, size_t n);
 int				ft_memcmp(const void *s1, const void *s2, size_t n);
+int				ft_strcmp(char *s1, char *s2);
 size_t			ft_strlen(const char *s);
 size_t			ft_strlcpy(char *dst, const char *src, size_t dstsize);
 void			ft_strcpy(char *dst, const char *src);
@@ -122,7 +123,7 @@ void			ft_putchar_fd(char c, int fd);
 void			ft_putstr_fd(char *s, int fd);
 void			ft_putnbr_fd(int nb, int fd);
 void			ft_putendl_fd(char *s, int fd);
-void			ft_putmatrix(char **s, size_t lines);
+void			ft_putmatrix(char **s);
 
 /*
 ** LST - BONUS

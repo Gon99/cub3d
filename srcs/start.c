@@ -6,7 +6,7 @@
 /*   By: goliano- <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/13 16:16:19 by goliano-          #+#    #+#             */
-/*   Updated: 2023/01/09 11:28:21 by goliano-         ###   ########.fr       */
+/*   Updated: 2023/01/09 12:19:01 by ajimenez         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ void	start(t_pdata *pdata, t_gdata *gdata)
 	int	x;
 
 	x = 0;
-	ft_print_matrix(gdata->map);
+	ft_putmatrix(gdata->map);
 	while (x < gdata->width)
 	{
 		//height of line to draw on screen
