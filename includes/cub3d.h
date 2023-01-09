@@ -6,7 +6,7 @@
 /*   By: goliano- <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/31 16:34:58 by goliano-          #+#    #+#             */
-/*   Updated: 2022/12/28 16:26:34 by goliano-         ###   ########.fr       */
+/*   Updated: 2023/01/09 11:28:11 by goliano-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -130,9 +130,9 @@ int		hook_handler(int keycode, t_mdata *mdata);
 /*
  * srcs/moves.c
  */
-void	move_up(t_gdata *gdata, t_pdata *pdata, int move_speed);
-void	move_down(t_gdata *gdata, t_pdata *pdata, int move_speed);
-void	move_right(t_gdata *gdata, t_pdata *pdata, int rot_speed);
-void	move_left(t_gdata *gdata, t_pdata *pdata, int rot_speed);
+void	move_up(t_gdata *gdata, t_pdata *pdata);
+void	move_down(t_gdata *gdata, t_pdata *pdata);
+void	move_right(t_pdata *pdata);
+void	move_left(t_pdata *pdata);
 
 #endif

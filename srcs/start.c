@@ -6,7 +6,7 @@
 /*   By: goliano- <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/13 16:16:19 by goliano-          #+#    #+#             */
-/*   Updated: 2022/12/28 16:22:21 by goliano-         ###   ########.fr       */
+/*   Updated: 2023/01/09 11:28:21 by goliano-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -121,6 +121,6 @@ void	start(t_pdata *pdata, t_gdata *gdata)
 	//redraw();
 	//cls();
 	//speed_modifiers
-	double	move_speed = frame_time * 5.0;
-	double	rot_speed = frame_time * 3.0;
+	//double	move_speed = frame_time * 5.0;
+//	double	rot_speed = frame_time * 3.0;
 }

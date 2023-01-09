@@ -6,7 +6,7 @@
 /*   By: goliano- <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/31 15:55:14 by goliano-          #+#    #+#             */
-/*   Updated: 2022/12/28 15:51:48 by goliano-         ###   ########.fr       */
+/*   Updated: 2023/01/09 10:27:28 by goliano-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,6 +67,12 @@ static void	init_mlx(t_mdata *mdata, t_gdata *gdata)
 	mdata->addr = mlx_get_data_addr(mdata->win, &mdata->bpp, &mdata->line_length, &mdata->endian);
 }
 
+int	key_hook(int keycode, int x)
+{
+	printf("KEEEEEY: %d\n X: %d\n", keycode, x);
+	return (0);
+}
+
 int	main(int argc, char **argv)
 {
 	t_gdata	gdata;
@@ -86,6 +92,7 @@ int	main(int argc, char **argv)
 	init_mlx(&mdata, &gdata);
 	start(&pdata, &gdata);
 	mlx_hook(mdata.win, 2, 1L<<0, hook_handler, &mdata);
+	mlx_key_hook(mdata.win, key_hook, 0);
 	mlx_loop(mdata.mlx);
 	printf("NO: %s\n", gdata.no);
 	printf("SO: %s\n", gdata.so);
