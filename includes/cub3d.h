@@ -6,7 +6,7 @@
 /*   By: goliano- <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/31 16:34:58 by goliano-          #+#    #+#             */
-/*   Updated: 2023/01/09 14:45:02 by goliano-         ###   ########.fr       */
+/*   Updated: 2023/01/09 16:47:39 by goliano-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,23 +20,6 @@
 # include <math.h>
 # include "mlx/mlx.h"
 # include "libft/libft.h"
-
-typedef struct s_data
-{
-	char	*no;
-	char	*so;
-	char	*ea;
-	char	*we;
-	char	*f;
-	char	*c;
-	char	**map;
-	char	**file;
-	size_t	file_len;
-	size_t	map_len;
-	int		error;
-	int		height;
-	int		width;
-}	t_gdata;
 
 typedef struct	p_data
 {
@@ -55,6 +38,24 @@ typedef struct	p_data
 	//time of previous frame
 	double	old_time;
 }	t_pdata;
+
+typedef struct s_data
+{
+	char	*no;
+	char	*so;
+	char	*ea;
+	char	*we;
+	char	*f;
+	char	*c;
+	char	**map;
+	char	**file;
+	size_t	file_len;
+	size_t	map_len;
+	int		error;
+	int		height;
+	int		width;
+	t_pdata	*pdata;
+}	t_gdata;
 
 typedef struct	m_data
 {
@@ -130,9 +131,14 @@ int		hook_handler(int keycode, t_mdata *mdata);
 /*
  * srcs/moves.c
  */
-void	move_up(t_gdata *gdata, t_pdata *pdata);
-void	move_down(t_gdata *gdata, t_pdata *pdata);
-void	move_right(t_pdata *pdata);
-void	move_left(t_pdata *pdata);
+void	move_up(t_gdata *gdata);
+void	move_down(t_gdata *gdata);
+void	move_right(t_gdata *gdata);
+void	move_left(t_gdata *gdata);
+
+/*
+ * srcs/hooks/hooks.c
+ */
+void	hooks_call(void *win, t_gdata *gdata, t_mdata *mdata);
 
 #endif

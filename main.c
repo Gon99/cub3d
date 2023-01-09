@@ -6,13 +6,13 @@
 /*   By: goliano- <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/31 15:55:14 by goliano-          #+#    #+#             */
-/*   Updated: 2023/01/09 15:18:01 by goliano-         ###   ########.fr       */
+/*   Updated: 2023/01/09 16:47:12 by goliano-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "includes/cub3d.h"
 
-static void	init_gdata(t_gdata *gdata)
+static void	init_gdata(t_gdata *gdata, t_pdata *pdata)
 {
 	gdata->no = 0;
 	gdata->so = 0;
@@ -25,6 +25,7 @@ static void	init_gdata(t_gdata *gdata)
 	gdata->error = 0;
 	gdata->height = 1280;
 	gdata->width = 1024;
+	gdata->pdata = pdata;
 }
 
 static void	init_pdata(char **map, t_pdata *pdata)
@@ -82,7 +83,7 @@ int	main(int argc, char **argv)
 
 	if (map_name_chequer(argv[1]) < 0)
 		return (write(1, "Error name\n", 11));
-	init_gdata(&gdata);
+	init_gdata(&gdata, &pdata);
 	if (!fill_map(argv[1], &gdata))
 		return (write(1, "Error data\n", 11));
 	init_pdata(gdata.map, &pdata);
@@ -98,8 +99,7 @@ int	main(int argc, char **argv)
 	printf("WE: %s\n", gdata.we);
 	printf("F: %s\n", gdata.f);
 	printf("C: %s\n", gdata.c);
-	mlx_hook(mdata.win, 2, 1L<<0, hook_handler, &mdata);
-	mlx_key_hook(mdata.win, key_hook, 0);
+	hooks_call(mdata.win, &gdata, &mdata);
 	mlx_loop(mdata.mlx);
 	/*int i = 0;
 	while (gdata.file[i])
