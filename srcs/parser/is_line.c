@@ -1,67 +1,16 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   chequer.c                                          :+:      :+:    :+:   */
+/*   is_line.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: goliano- <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: ajimenez <ajimenez@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/11/10 12:00:50 by goliano-          #+#    #+#             */
-/*   Updated: 2023/01/09 14:59:14 by goliano-         ###   ########.fr       */
+/*   Created: 2023/01/11 19:05:24 by ajimenez          #+#    #+#             */
+/*   Updated: 2023/01/11 19:22:03 by ajimenez         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../includes/cub3d.h"
-
-int	repeated_chars_check(char **map)
-{
-	int	i;
-	int	c;
-	int	z;
-
-	c = 0;
-	i = 0;
-	while (map[i])
-	{
-		z = 0;
-		while (map[i][z])
-		{
-			if (map[i][z] == 'S' || map[i][z] == 'N' \
-					|| map[i][z] == 'E' || map[i][z] == 'W')
-				c++;
-			z++;
-		}
-		i++;
-	}
-	if (c == 1)
-		return (0);
-	return (1);
-}
-
-//TODO -> Chequear extension 
-int	map_name_chequer(char *map)
-{
-	int	l;
-	int	r;
-
-	map = ft_strtrim(map, " ");
-	l = ft_strlen(map) - 4;
-	r = -1;
-	if (l > 0)
-		r = ft_strcmp(&map[l], ".cub");
-	return (r);
-}
-
-int	map_data_chequer(t_gdata *gdata)
-{
-	int	r;
-
-	r = 1;
-	if (gdata->no == 0 || gdata->so == 0 || gdata->ea == 0)
-		r = 0;
-	if (gdata->we == 0 || gdata->f == 0 || gdata->c == 0)
-		r = 0;
-	return (r);
-}
+#include "../../includes/cub3d.h"
 
 int	is_map_line(char *line)
 {
@@ -97,5 +46,33 @@ int	is_empty_line(char *line)
 			r = 0;
 		i++;
 	}
+	return (r);
+}
+
+int	is_whole_spaces(char *line)
+{
+	int	i;
+	int	it_is;
+
+	i = 0;
+	it_is = 1;
+	if (!line)
+		it_is = 0;
+	while (line[i])
+	{
+		if (line[i] != ' ')
+			it_is = 0;
+		i++;
+	}
+	return (it_is);
+}
+
+int	is_player_letter(char c)
+{
+	int	r;
+
+	r = 0;
+	if (c == 'N' || c == 'S' || c == 'W' || c == 'E')
+		r = 1;
 	return (r);
 }

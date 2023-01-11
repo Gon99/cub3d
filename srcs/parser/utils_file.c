@@ -1,21 +1,31 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   index.c                                            :+:      :+:    :+:   */
+/*   utils_file.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: goliano- <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: ajimenez <ajimenez@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/11/10 13:43:47 by goliano-          #+#    #+#             */
-/*   Updated: 2022/12/07 10:00:15 by goliano-         ###   ########.fr       */
+/*   Created: 2023/01/11 19:26:20 by ajimenez          #+#    #+#             */
+/*   Updated: 2023/01/11 19:28:00 by ajimenez         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../includes/cub3d.h"
+#include "../../includes/cub3d.h"
 
-int	iter_spaces_idx(char *line, int i)
+int	file_length(int fd)
 {
-	while (line[i] == ' ' || line[i] == '\n' || line[i] == '\t' \
-			|| line[i] == '\v' || line[i] == '\f' || line[i] == '\r')
-		i++;
-	return (i);
+	char	*line;
+	size_t	l;
+
+	line = get_next_line(fd);
+	l = 0;
+	while (line)
+	{
+		free(line);
+		line = get_next_line(fd);
+		l++;
+	}
+	free(line);
+	close(fd);
+	return (l);
 }

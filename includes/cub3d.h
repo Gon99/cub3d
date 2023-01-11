@@ -6,7 +6,7 @@
 /*   By: goliano- <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/31 16:34:58 by goliano-          #+#    #+#             */
-/*   Updated: 2023/01/11 13:33:59 by goliano-         ###   ########.fr       */
+/*   Updated: 2023/01/11 19:33:37 by ajimenez         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,44 +76,28 @@ typedef struct	t_data
 }	t_tdata;
 
 /*
- * utils/chequer.c
+ * SRCS/INIT/
  */
-int	map_name_chequer(char *map);
-int	map_data_chequer(t_gdata *gdata);
-int	is_map_line(char *line);
-int	is_empty_line(char *line);
-int	repeated_chars_check(char **map);
+
+void	init_gdata(t_gdata *gdata, t_pdata *pdata);
+void	init_pdata(char **map, t_pdata *pdata);
 
 /*
- * utils/chequer2.c
+ * SRCS/PARSER/
  */
-int	is_whole_spaces(char *line);
 
-/*
- * utils/map.c
- */
-int	fill_map(char *map, t_gdata *gdata);
-
-/*
- *	utils/index.c
- */
-int	iter_spaces_idx(char *line, int i);
-
-/*
- *	utils/open.c
- */
-int	open_file(char *file);
-
-/*
- * utils/length.c
- */
-int	file_length(int fd);
-
-/*
- *	srcs/flood_fill.c
- */
-//void	flood_fill_check(t_gdata *gdata, t_pdata *pdata);
+int		map_name_chequer(char *map);
+int		map_data_chequer(t_gdata *gdata);
+int		is_map_line(char *line);
+int		is_empty_line(char *line);
+int		repeated_chars_check(char **map);
+int		is_whole_spaces(char *line);
+int		fill_map(char *map, t_gdata *gdata);
+int		iter_spaces_idx(char *line, int i);
+int		file_length(int fd);
 void	flood_fill(t_gdata *gdata, int x, int y);
+int		is_player_letter(char c);
+char	*rm_nl(char *line);
 
 /*
  *	utils/init.c
@@ -123,8 +107,6 @@ void	init_player_data(char **map, t_pdata *pdata);
 /*
  * utils/strings.c
  */
-int		is_player_letter(char c);
-char	*rm_nl(char *line);
 
 /*
  * srcs/start,c

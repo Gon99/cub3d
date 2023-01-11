@@ -1,37 +1,34 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   strings.c                                          :+:      :+:    :+:   */
+/*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: goliano- <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/11/30 16:19:23 by goliano-          #+#    #+#             */
-/*   Updated: 2023/01/11 13:33:44 by goliano-         ###   ########.fr       */
+/*   Created: 2022/10/31 15:55:14 by goliano-          #+#    #+#             */
+/*   Updated: 2023/01/11 19:54:02 by ajimenez         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/cub3d.h"
 
-int	is_player_letter(char c)
+
+int	main(int argc, char **argv)
 {
-	int	r;
+	t_gdata	gdata;
+	t_pdata	pdata;
+	t_mdata	mdata;
+	t_tdata	tdata;
+	(void)argc;
 
-	r = 0;
-	if (c == 'N' || c == 'S' || c == 'W' || c == 'E')
-		r = 1;
-	return (r);
-}
-
-char	*rm_nl(char *line)
-{
-	int	i;
-
-	i = 0;
-	while (line[i])
-	{
-		if (line[i] == '\n')
-			line[i] = '\0';
-		i++;
-	}
-	return (line);
+	if (map_name_chequer(argv[1]) < 0)
+		return (write(1, "Error name\n", 11));
+	init_gdata(&gdata, &pdata);
+	if (!fill_map(argv[1], &gdata))
+		return (write(1, "Error data\n", 11));
+	init_pdata(gdata.map, &pdata);
+	flood_fill(&gdata, pdata.x, pdata.y);
+	if (gdata.error)
+		return (write(1, "Error\n", 6));
+	return (1);
 }

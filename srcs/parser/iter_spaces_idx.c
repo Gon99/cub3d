@@ -1,26 +1,21 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   open.c                                             :+:      :+:    :+:   */
+/*   iter_spaces_idx.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: goliano- <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/11/21 16:00:18 by goliano-          #+#    #+#             */
-/*   Updated: 2022/11/21 16:02:13 by goliano-         ###   ########.fr       */
+/*   Created: 2022/11/10 13:43:47 by goliano-          #+#    #+#             */
+/*   Updated: 2023/01/11 19:17:29 by ajimenez         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../includes/cub3d.h"
+#include "../../includes/cub3d.h"
 
-int	open_file(char *file)
+int	iter_spaces_idx(char *line, int i)
 {
-	int	fd;
-
-	fd = open(file, O_RDONLY);
-	if (fd < 0)
-	{
-		perror(file);
-		return (0);
-	}
-	return (fd);
+	while (line[i] == ' ' || line[i] == '\n' || line[i] == '\t' \
+			|| line[i] == '\v' || line[i] == '\f' || line[i] == '\r')
+		i++;
+	return (i);
 }
