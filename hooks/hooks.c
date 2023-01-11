@@ -6,7 +6,7 @@
 /*   By: goliano- <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/28 15:19:17 by goliano-          #+#    #+#             */
-/*   Updated: 2023/01/09 16:53:12 by goliano-         ###   ########.fr       */
+/*   Updated: 2023/01/11 10:17:37 by goliano-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,5 +38,5 @@ static int	hook_handler(int keycode, t_mdata *mdata)
 void	hooks_call(void	*win, t_gdata *gdata, t_mdata *mdata)
 {
 	mlx_key_hook(win, key_hooks, gdata);
-	mlx_hook(win, 2, 1L<<0, hook_handler, &mdata);
+	mlx_hook(win, 2, 1L<<0, hook_handler, mdata);
 }

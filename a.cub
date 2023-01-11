@@ -1,7 +1,7 @@
-NO       ./ruta_a_la_textura_norte
-SO 		./ruta_a_la_textura_sur
-WE ./ruta_a_la_textura_oeste
-EA ./ruta_a_la_textura_este
+NO       ./pics/wood.xpm
+SO 		./pics/redbrick.xpm
+WE ./pics/greenlight.xpm
+EA ./pics/mossy.xpm
 F 220,100,0
 C 225,30,0
 
@@ -18,7 +18,6 @@ C 225,30,0
 10000000000000001100000010001
 10000000000000001101010010001
 11000001110101011111011110N0111
-1 0 0 000 0 0 0 0 0 000 00 0 1
 10000000000000001101010010001
 10000000000000001101010010001
 11110111 1110101 101111010001

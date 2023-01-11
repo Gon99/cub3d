@@ -6,7 +6,7 @@
 /*   By: goliano- <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/31 15:55:14 by goliano-          #+#    #+#             */
-/*   Updated: 2023/01/09 16:47:12 by goliano-         ###   ########.fr       */
+/*   Updated: 2023/01/11 15:49:15 by goliano-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,10 +68,20 @@ static void	init_mlx(t_mdata *mdata, t_gdata *gdata)
 	mdata->addr = mlx_get_data_addr(mdata->win, &mdata->bpp, &mdata->line_length, &mdata->endian);
 }
 
-int	key_hook(int keycode, int x)
+void	init_textures(t_tdata *tdata, t_gdata *gdata, t_mdata *mdata)
 {
-	printf("KEEEEEY: %d\n X: %d\n", keycode, x);
-	return (0);
+	int height;
+	int	width;
+
+	tdata->no_text = mlx_xpm_file_to_image(mdata->mlx, rm_nl(gdata->no), &width, &height);
+	tdata->so_text = mlx_xpm_file_to_image(mdata->mlx, rm_nl(gdata->so), &width, &height);
+	tdata->ea_text = mlx_xpm_file_to_image(mdata->mlx, rm_nl(gdata->ea), &width, &height);
+	tdata->we_text = mlx_xpm_file_to_image(mdata->mlx, rm_nl(gdata->we), &width, &height);
+	if (!tdata->no_text || !tdata->so_text || !tdata->ea_text || !tdata->we_text)
+	{
+		write(1, "Invalid texture\n", 16);
+		exit(0);
+	}
 }
 
 int	main(int argc, char **argv)
@@ -79,6 +89,7 @@ int	main(int argc, char **argv)
 	t_gdata	gdata;
 	t_pdata	pdata;
 	t_mdata	mdata;
+	t_tdata	tdata;
 	(void)argc;
 
 	if (map_name_chequer(argv[1]) < 0)
@@ -91,6 +102,14 @@ int	main(int argc, char **argv)
 	if (gdata.error)
 		return (write(1, "Error\n", 6));
 	init_mlx(&mdata, &gdata);
+	init_textures(&tdata, &gdata, &mdata);
+	/* 
+	 * PUT IMAGES
+	mlx_put_image_to_window(mdata.mlx, mdata.win, tdata.no_text, 0, 100);
+	mlx_put_image_to_window(mdata.mlx, mdata.win, tdata.so_text, 0, 200);
+	mlx_put_image_to_window(mdata.mlx, mdata.win, tdata.ea_text, 0, 300);
+	mlx_put_image_to_window(mdata.mlx, mdata.win, tdata.we_text, 0, 0);
+	*/
 	start(&pdata, &gdata);
 	ft_putmatrix(gdata.map);
 	printf("NO: %s\n", gdata.no);

@@ -6,7 +6,7 @@
 /*   By: goliano- <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/31 16:34:58 by goliano-          #+#    #+#             */
-/*   Updated: 2023/01/09 16:47:39 by goliano-         ###   ########.fr       */
+/*   Updated: 2023/01/11 13:33:59 by goliano-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,6 +67,14 @@ typedef struct	m_data
 	int		endian;
 }	t_mdata;
 
+typedef struct	t_data
+{
+	void	*no_text;
+	void	*so_text;
+	void	*we_text;
+	void	*ea_text;
+}	t_tdata;
+
 /*
  * utils/chequer.c
  */
@@ -115,18 +123,13 @@ void	init_player_data(char **map, t_pdata *pdata);
 /*
  * utils/strings.c
  */
-int	is_player_letter(char c);
+int		is_player_letter(char c);
+char	*rm_nl(char *line);
 
 /*
  * srcs/start,c
  */
 void	start(t_pdata *pdata, t_gdata *gdata);
-
-
-/*
- * hooks/hooks.c
- */
-int		hook_handler(int keycode, t_mdata *mdata);
 
 /*
  * srcs/moves.c

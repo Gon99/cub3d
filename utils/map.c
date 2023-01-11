@@ -6,7 +6,7 @@
 /*   By: goliano- <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/10 13:21:34 by goliano-          #+#    #+#             */
-/*   Updated: 2023/01/09 15:00:44 by goliano-         ###   ########.fr       */
+/*   Updated: 2023/01/11 13:38:55 by goliano-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ static void	copy_map(t_gdata *gdata, int r)
 		return ;
 	while (is_map_line(gdata->file[x]))
 	{
-		gdata->map[i] = gdata->file[x];
+		gdata->map[i] = rm_nl(gdata->file[x]);
 		i++;
 		x++;
 	}

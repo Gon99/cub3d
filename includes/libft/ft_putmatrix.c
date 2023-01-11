@@ -6,7 +6,7 @@
 /*   By: ajimenez <ajimenez@student.42madrid>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/08 18:46:56 by ajimenez          #+#    #+#             */
-/*   Updated: 2023/01/09 12:19:20 by ajimenez         ###   ########.fr       */
+/*   Updated: 2023/01/11 10:28:52 by goliano-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,5 @@ void	ft_putmatrix(char **s)
 	{
 		ft_putstr_fd(s[aux], 1);
 		aux++;
-		write (1, "\n", 1);
 	}
 }

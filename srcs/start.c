@@ -6,7 +6,7 @@
 /*   By: goliano- <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/13 16:16:19 by goliano-          #+#    #+#             */
-/*   Updated: 2023/01/09 15:18:49 by goliano-         ###   ########.fr       */
+/*   Updated: 2023/01/11 11:15:48 by goliano-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -108,6 +108,13 @@ void	start(t_pdata *pdata, t_gdata *gdata)
 		if (draw_end >= gdata->height)
 			draw_end = gdata->height - 1;
 		//check colors
+		int	color;
+		if (gdata->map[map_x][map_y] == 1)
+			color = 0x802020;
+		else if (gdata->map[map_x][map_y] == 0)
+			color = 0xffffff;
+		if (side == 1)
+			color = color / 2;
 		x++;
 	}
 	//timing for input and FPS counter
