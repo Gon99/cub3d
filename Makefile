@@ -6,26 +6,35 @@
 #    By: goliano- <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/10/31 16:52:02 by goliano-          #+#    #+#              #
-#    Updated: 2023/01/09 12:11:53 by ajimenez         ###   ########.fr        #
+#    Updated: 2023/01/16 14:36:25 by ajimenez         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
-CC		= gcc
-CFLAGS	= -Wall -Wextra -Werror -g
-MLXFLGS = -framework OpenGL -framework AppKit
-SAN		= -fsanitize=address
-LIB 	= ar -rcs
-RM		= /bin/rm -rf
+CC		     = gcc
+CFLAGS	     = -Wall -Wextra -Werror -g
+MLXFLGS      = -framework OpenGL -framework AppKit
+SAN		     = -fsanitize=address
+LIB 	     = ar -rcs
+RM		     = /bin/rm -rf
 
-LIBFT	= ./includes/libft/libft.a
-LIBMLX	= ./includes/mlx/libmlx.a
-LIBP	= so_long.a 
+LIBFT	     = ./includes/libft/libft.a
+LIBMLX	     = ./includes/mlx/libmlx.a
+LIBP	     = cub3D.a 
 
-NAME	= cub3d
+NAME	     = cub3d
 
-SRCS =	./main.c ./utils/map.c ./utils/index.c ./utils/chequer.c \
-		./utils/open.c ./srcs/flood_fill.c ./utils/length.c ./utils/chequer2.c \
-		./utils/strings.c ./srcs/start.c ./hooks/hooks.c ./srcs/moves.c $(MLX)
+GAME_PATH	 = srcs/game
+INIT_PATH	 = srcs/init
+PARSER_PATH  = srcs/parser
+
+GAME_FL		 = key_hook.c game.c 
+INIT_FL		 = init_gdata.c init_pdata.c
+PARSER_FL	 = utils_file.c iter_spaces_idx.c is_line.c flood_fill.c fill_map.c check.c
+
+SRCS         = 	srcs/main.c \
+				$(addprefix $(GAME_PATH), $(GAME_FL)) \
+				$(addprefix $(INIT_PATH), $(INIT_FL)) \
+				$(addprefix $(PARSER_PATH), $(PARSER_FL))
 
 OBJS	= $(SRCS:.c=.o)
 COMP	= $(CC) $(CFLAGS) $(SRCS) $(LIBFT) $(LIBMLX) $(MLXFLGS) -o $(NAME)
