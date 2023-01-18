@@ -6,12 +6,12 @@
 #    By: goliano- <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/10/31 16:52:02 by goliano-          #+#    #+#              #
-#    Updated: 2023/01/16 14:36:25 by ajimenez         ###   ########.fr        #
+#    Updated: 2023/01/18 14:31:00 by ajimenez         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 CC		     = gcc
-CFLAGS	     = -Wall -Wextra -Werror -g
+CFLAGS	     = #-Wall -Wextra -Werror -g
 MLXFLGS      = -framework OpenGL -framework AppKit
 SAN		     = -fsanitize=address
 LIB 	     = ar -rcs
@@ -23,11 +23,11 @@ LIBP	     = cub3D.a
 
 NAME	     = cub3d
 
-GAME_PATH	 = srcs/game
-INIT_PATH	 = srcs/init
-PARSER_PATH  = srcs/parser
+GAME_PATH	 = srcs/game/
+INIT_PATH	 = srcs/init/
+PARSER_PATH  = srcs/parser/
 
-GAME_FL		 = key_hook.c game.c 
+GAME_FL		 = game.c key_hook.c 
 INIT_FL		 = init_gdata.c init_pdata.c
 PARSER_FL	 = utils_file.c iter_spaces_idx.c is_line.c flood_fill.c fill_map.c check.c
 

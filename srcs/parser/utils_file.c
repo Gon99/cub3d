@@ -6,7 +6,7 @@
 /*   By: ajimenez <ajimenez@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/11 19:26:20 by ajimenez          #+#    #+#             */
-/*   Updated: 2023/01/11 19:28:00 by ajimenez         ###   ########.fr       */
+/*   Updated: 2023/01/18 14:48:18 by ajimenez         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,4 +28,18 @@ int	file_length(int fd)
 	free(line);
 	close(fd);
 	return (l);
+}
+
+char	*rm_nl(char *line)
+{
+	int	i;
+
+	i = 0;
+	while (line[i])
+	{
+		if (line[i] == '\n')
+			line[i] = '\0';
+		i++;
+	}
+	return (line);
 }
