@@ -6,7 +6,7 @@
 /*   By: ajimenez <ajimenez@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/16 14:08:17 by ajimenez          #+#    #+#             */
-/*   Updated: 2023/01/16 14:15:49 by ajimenez         ###   ########.fr       */
+/*   Updated: 2023/01/23 14:06:06 by ajimenez         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,12 +30,21 @@
 # define LEFT_Y		0
 # define LEFT_X		-1
 
+/*
+ * PLAYER_DATA
+ */
 typedef struct	p_data
 {
 	//player position
 	double	x;
 	double	y;
 	char	p;
+	
+	int	move;
+	int	spin;
+	float	angle;
+	float	vel;
+	float	vel_spin;
 	//initial direction vector
 	double	dir_x;
 	double	dir_y;
@@ -48,6 +57,24 @@ typedef struct	p_data
 	double	old_time;
 }	t_pdata;
 
+/*
+ * MLX DATA
+ */
+typedef struct	m_data
+{
+	void	*ptr;
+	void	*win;
+	void	*img;
+	char	*addr;
+	int		bpp;
+	int		line_length;
+	int		endian;
+}	t_mdata;
+
+
+/*
+ * GLOBAL DATA
+ */
 typedef struct s_data
 {
 	char	*no;
@@ -64,18 +91,12 @@ typedef struct s_data
 	int		height;
 	int		width;
 	t_pdata	*pdata;
+	t_mdata *mdata;
 }	t_gdata;
 
-typedef struct	m_mlx
-{
-	void	*ptr;
-	void	*win;
-	char	*addr;
-	int		bpp;
-	int		line_length;
-	int		endian;
-}	t_mlx;
-
+/*
+ * TEXTURE DATA
+ */
 typedef struct	t_data
 {
 	void	*no_text;

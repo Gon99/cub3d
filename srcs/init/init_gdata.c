@@ -6,13 +6,13 @@
 /*   By: ajimenez <ajimenez@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/11 19:28:57 by ajimenez          #+#    #+#             */
-/*   Updated: 2023/01/11 19:30:02 by ajimenez         ###   ########.fr       */
+/*   Updated: 2023/01/23 14:10:38 by ajimenez         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/cub3d.h"
 
-void	init_gdata(t_gdata *gdata, t_pdata *pdata)
+void	init_gdata(t_gdata *gdata, t_pdata *pdata, t_mdata *mdata)
 {
 	gdata->no = 0;
 	gdata->so = 0;
@@ -23,8 +23,9 @@ void	init_gdata(t_gdata *gdata, t_pdata *pdata)
 	gdata->file_len = 0;
 	gdata->map_len = 0;
 	gdata->error = 0;
-	gdata->height = 1280;
-	gdata->width = 1024;
+	gdata->height = 600;
+	gdata->width = 600;
 	gdata->pdata = pdata;
+	gdata->mdata = mdata;
 }
 

@@ -6,7 +6,7 @@
 /*   By: ajimenez <ajimenez@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/16 14:12:07 by ajimenez          #+#    #+#             */
-/*   Updated: 2023/01/18 14:51:49 by ajimenez         ###   ########.fr       */
+/*   Updated: 2023/01/23 14:11:59 by ajimenez         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,8 +27,10 @@
  * SRCS/INIT/
  */
 
-void	init_gdata(t_gdata *gdata, t_pdata *pdata);
+void	init_gdata(t_gdata *gdata, t_pdata *pdata, t_mdata *mdata);
 void	init_pdata(char **map, t_pdata *pdata);
+void	init_textures(t_tdata *tdata, t_gdata *gdata, t_mdata *mdata);
+void	init_mlx(t_mdata *mdata, t_gdata *gdata);
 
 /*
  * SRCS/PARSER/
@@ -56,10 +58,6 @@ void	init_player_data(char **map, t_pdata *pdata);
  * utils/strings.c
  */
 
-/*
- * srcs/start,c
- */
-void	start(t_pdata *pdata, t_gdata *gdata);
 
 /*
  * srcs/moves.c
@@ -73,8 +71,21 @@ void	move_left(t_gdata *gdata);
  * srcs/game
  */
 
-int		key_hook(int keycode, t_mlx *mlx);
-int		close_mlx(t_mlx *mlx, char *msg);
-void	ft_game(t_mlx *mlx);
+int		parse_color(char *str);
+int		key_hook(int keycode, t_mdata *mlx);
+void	hooks_call(void	*win, t_gdata *gdata, t_mdata *mdata);
+int		close_mlx(t_mdata *mlx, char *msg);
+void	ft_game(t_mdata *mdata, t_gdata *gdata, t_tdata *tdata, t_pdata *pdata);
+
+/*
+ * START
+ */
+
+void	update_player(t_mdata *mdata, t_pdata *pdata, t_gdata *gdata);
+void	draw_first_part_map(t_gdata *gdata, t_mdata *mdata);
+void	my_mlx_pixel_put(t_mdata *mdata, int x, int y, int color);
+void	draw_dir_line(float x_line, float y_line, t_mdata *mdata, float px);
+int		player_colision(float px, float py, t_gdata *gdata);
+void	start(t_pdata *pdata, t_gdata *gdata, t_mdata *mdata);
 
 #endif

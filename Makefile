@@ -6,7 +6,7 @@
 #    By: goliano- <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/10/31 16:52:02 by goliano-          #+#    #+#              #
-#    Updated: 2023/01/18 14:31:00 by ajimenez         ###   ########.fr        #
+#    Updated: 2023/01/23 14:16:22 by ajimenez         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -27,7 +27,8 @@ GAME_PATH	 = srcs/game/
 INIT_PATH	 = srcs/init/
 PARSER_PATH  = srcs/parser/
 
-GAME_FL		 = game.c key_hook.c 
+GAME_FL		 = game.c init_mlx.c init_textures.c key_hook.c moves.c parse_color.c \
+			   start.c
 INIT_FL		 = init_gdata.c init_pdata.c
 PARSER_FL	 = utils_file.c iter_spaces_idx.c is_line.c flood_fill.c fill_map.c check.c
 
