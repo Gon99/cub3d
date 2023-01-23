@@ -6,7 +6,7 @@
 /*   By: ajimenez <ajimenez@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/11 19:16:11 by ajimenez          #+#    #+#             */
-/*   Updated: 2023/01/18 14:48:37 by ajimenez         ###   ########.fr       */
+/*   Updated: 2023/01/23 15:18:51 by goliano-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -106,5 +106,6 @@ int	fill_map(char *map, t_gdata *gdata)
 		return (0);
 	if (!map_data_check(gdata))
 		return (0);
+	gdata->height = ft_matrix_data(gdata->map).height;
 	return (1);
 }

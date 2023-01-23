@@ -6,7 +6,7 @@
 /*   By: ajimenez <ajimenez@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/16 14:08:17 by ajimenez          #+#    #+#             */
-/*   Updated: 2023/01/23 14:06:06 by ajimenez         ###   ########.fr       */
+/*   Updated: 2023/01/23 16:58:09 by goliano-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,6 +30,8 @@
 # define LEFT_Y		0
 # define LEFT_X		-1
 
+# define MAP_HEIGHT	640
+# define MAP_WIDTH 480
 /*
  * PLAYER_DATA
  */
@@ -42,7 +44,7 @@ typedef struct	p_data
 	
 	int	move;
 	int	spin;
-	float	angle;
+	double	angle;
 	float	vel;
 	float	vel_spin;
 	//initial direction vector

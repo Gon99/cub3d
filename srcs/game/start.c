@@ -6,7 +6,7 @@
 /*   By: goliano- <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/13 16:16:19 by goliano-          #+#    #+#             */
-/*   Updated: 2023/01/23 14:33:11 by ajimenez         ###   ########.fr       */
+/*   Updated: 2023/01/23 17:03:49 by goliano-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,13 +28,13 @@ void	draw_first_part_map(t_gdata *gdata, t_mdata *mdata)
 	int	middle;
 
 	x = -1;
-	middle = gdata->height / 2;
-	while (++x < gdata->width)
+	middle = MAP_HEIGHT / 2;
+	while (++x < MAP_WIDTH)
 	{
 		y = 0;
 		while (++y < middle)
 			my_mlx_pixel_put(mdata, x, y, parse_color(gdata->f));
-		while (++y < gdata->height)
+		while (++y < MAP_HEIGHT)
 			my_mlx_pixel_put(mdata, x, y, parse_color(gdata->c));
 	}
 }
@@ -63,15 +63,17 @@ int	player_colision(float px, float py, t_gdata *gdata)
 	return (col);
 }
 
-int	normalize_angle(float angle)
+double	normalize_angle(double angle)
 {
-	if (angle > 2 * M_PI)
-		angle -= 2 * M_PI;	
-	angle = angle % (2 * M_PI);
+//	if (angle > 2 * M_PI)
+//		angle -= 2 * M_PI;	
+	//TODO -> resetea a 0 el angulo
+	angle = fmod(angle, 2 * M_PI);
 	if (angle < 0)
 	{
 		angle = angle + (2 * M_PI);
 	}
+	return (angle);
 }
 	
 
@@ -107,7 +109,7 @@ void	update_player(t_mdata *mdata, t_pdata *pdata, t_gdata *gdata)
 	y_line = pdata->y + sin(pdata->angle) * 20;
 	printf("X_L: %f\n", x_line);
 	printf("Y_L: %f\n", y_line);
-	mdata->img = mlx_new_image(mdata->ptr, gdata->height, gdata->width);
+	mdata->img = mlx_new_image(mdata->ptr, MAP_WIDTH, MAP_HEIGHT);
 	mdata->addr = mlx_get_data_addr(mdata->img, &mdata->bpp, &mdata->line_length, &mdata->endian);
 	draw_first_part_map(gdata, mdata);
 	draw_dir_line(x_line, y_line, mdata, pdata->x);

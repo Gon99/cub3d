@@ -6,7 +6,7 @@
 /*   By: ajimenez <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/04 14:13:14 by ajimenez          #+#    #+#             */
-/*   Updated: 2023/01/09 12:19:35 by ajimenez         ###   ########.fr       */
+/*   Updated: 2023/01/23 15:02:30 by goliano-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,6 +38,7 @@ typedef struct s_dlist
 typedef struct s_matrix_data
 {
 	ssize_t		line_count;
+	ssize_t		height;
 	ssize_t		*lenght_str;
 	ssize_t		max;
 	ssize_t		min;

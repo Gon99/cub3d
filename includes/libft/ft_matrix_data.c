@@ -6,7 +6,7 @@
 /*   By: ajimenez <ajimenez@student.42madrid>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/10 15:04:29 by ajimenez          #+#    #+#             */
-/*   Updated: 2021/12/13 11:44:17 by ajimenez         ###   ########.fr       */
+/*   Updated: 2023/01/23 15:26:20 by goliano-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,15 +30,28 @@ static ssize_t	*ft_length(char **matrix)
 	return (length_str);
 }
 
+static size_t ft_matrixheight(char **matrix)
+{
+	ssize_t	height;
+
+	height = 0;
+	while (matrix[height])
+		height++;
+	return (height);
+}
+
+
 t_matrix_data	ft_matrix_data(char **matrix)
 {
 	t_matrix_data	data;
 
 	if (!matrix)
-		return ((t_matrix_data){0, 0, 0, 0});
+		return ((t_matrix_data){0, 0, 0, 0, 0});
 	data.line_count = ft_matrixlen(matrix);
 	data.lenght_str = ft_length(matrix);
+	data.height = ft_matrixheight(matrix);
 	data.max = ft_max_int(data.lenght_str, data.line_count);
 	data.min = ft_min_int(data.lenght_str, data.line_count);
+	printf("%zu\n", data.height);
 	return (data);
 }

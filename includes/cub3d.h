@@ -6,7 +6,7 @@
 /*   By: ajimenez <ajimenez@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/16 14:12:07 by ajimenez          #+#    #+#             */
-/*   Updated: 2023/01/23 14:11:59 by ajimenez         ###   ########.fr       */
+/*   Updated: 2023/01/23 15:20:01 by goliano-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@
 void	init_gdata(t_gdata *gdata, t_pdata *pdata, t_mdata *mdata);
 void	init_pdata(char **map, t_pdata *pdata);
 void	init_textures(t_tdata *tdata, t_gdata *gdata, t_mdata *mdata);
-void	init_mlx(t_mdata *mdata, t_gdata *gdata);
+void	init_mlx(t_mdata *mdata);
 
 /*
  * SRCS/PARSER/

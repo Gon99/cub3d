@@ -6,12 +6,12 @@
 #    By: goliano- <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/10/31 16:52:02 by goliano-          #+#    #+#              #
-#    Updated: 2023/01/23 14:16:22 by ajimenez         ###   ########.fr        #
+#    Updated: 2023/01/23 14:43:00 by goliano-         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 CC		     = gcc
-CFLAGS	     = #-Wall -Wextra -Werror -g
+CFLAGS	     = -Wall -Wextra -Werror -g
 MLXFLGS      = -framework OpenGL -framework AppKit
 SAN		     = -fsanitize=address
 LIB 	     = ar -rcs
