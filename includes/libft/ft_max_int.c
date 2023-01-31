@@ -11,7 +11,7 @@
 /* ************************************************************************** */
 
 #include "libft.h"
-#include <sys/_types/_size_t.h>
+//#include <sys/_types/_size_t.h>
 
 ssize_t	ft_max_int(ssize_t *str, ssize_t len)
 {

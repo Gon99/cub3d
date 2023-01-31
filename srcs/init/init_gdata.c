@@ -28,4 +28,3 @@ void	init_gdata(t_gdata *gdata, t_pdata *pdata, t_mdata *mdata)
 	gdata->pdata = pdata;
 	gdata->mdata = mdata;
 }
-

@@ -32,6 +32,9 @@
 
 # define MAP_HEIGHT	640
 # define MAP_WIDTH 480
+
+# define TILE_SIZE 50
+
 /*
  * PLAYER_DATA
  */

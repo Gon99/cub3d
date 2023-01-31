@@ -18,8 +18,8 @@
 */
 # include <stdio.h>
 # include <stdlib.h>
-# include <sys/_types/_size_t.h>
-# include <sys/_types/_ssize_t.h>
+//# include <sys/_types/_size_t.h>
+//# include <sys/_types/_ssize_t.h>
 # include <unistd.h>
 
 typedef struct s_list

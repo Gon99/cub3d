@@ -12,7 +12,7 @@
 
 #include "../../includes/cub3d.h"
 
-int	close_mlx(t_mdata *mlx, char *msg)
+static int	close_mlx(t_mdata *mlx, char *msg)
 {
 	printf("%s\n", msg);
 	mlx_destroy_window(mlx->ptr, mlx->win);
@@ -21,21 +21,58 @@ int	close_mlx(t_mdata *mlx, char *msg)
 	return (0);
 }
 
-static int	key_hooks(int keycode, t_gdata *gdata)
+int	key_type(int key)
 {
-	if (keycode == 13 || keycode == 119)
-		move_up(gdata);
-	else if (keycode == 1 || keycode == 97)
-		move_down(gdata);
-	else if (keycode == 0 || keycode == 115)
-		move_left(gdata);
-	else if (keycode == 2 || keycode == 100)
-		move_right(gdata);
-	update_player(gdata->mdata, gdata->pdata, gdata);
+	int	type;
+
+	type = 0;
+	if (key == 13 || key == 119)
+		type = 1;
+	else if (key == 1 || key == 97)
+		type = 2;
+	else if (key == 0 || key == 115)
+		type = 3;
+	else if (key == 2 || key == 100)
+		type = 4;
+	else if (key == 124 || key == 65363)
+		type = 5;
+	else if (key == 123 || key == 65361)
+		type = 6;
+	return (type);
+}
+
+static int	key_hooks_up(int keycode, t_gdata *gdata)
+{
+	int	type;
+
+	type = key_type(keycode);
+	if (type >= 1 && type <= 4)
+		gdata->pdata->move = 0;
+	else if (type == 5 || type == 6)
+		gdata->pdata->spin = 0;
+	update_player(gdata, keycode);
 	return (0);
 }
 
-static int	hook_handler(int keycode, t_mdata *mdata)
+
+static int	key_hooks_down(int keycode, t_gdata *gdata)
+{
+	int	type;
+
+	type = key_type(keycode);
+	if (type == 1 || type == 4)
+		move_ahead(gdata);
+	else if (type == 2 || type == 3)
+		move_back(gdata);
+	else if (type == 5)
+		turn_right(gdata);
+	else if (type == 6)
+		turn_left(gdata);
+	update_player(gdata, keycode);
+	return (0);
+}
+
+/*static int	hook_handler(int keycode, t_mdata *mdata)
 {
 	if (keycode == 53)
 	{
@@ -43,11 +80,13 @@ static int	hook_handler(int keycode, t_mdata *mdata)
 		exit(1);
 	}
 	return (0);
-}
+}*/
 
-void	hooks_call(void	*win, t_gdata *gdata, t_mdata *mdata)
+void	hooks_call(t_gdata *gdata, t_mdata *mdata)
 {
+	mlx_hook(mdata->win, 2, 1L << 0, key_hooks_down, gdata);
+	mlx_hook(mdata->win, 3, 1L << 1, key_hooks_up, gdata);
 	mlx_hook(mdata->win, 17, 1L << 1, close_mlx, mdata);
-	mlx_key_hook(win, key_hooks, gdata);
-	mlx_hook(win, 2, 1L<<0, hook_handler, mdata);
+//	mlx_key_hook(win, key_hooks, gdata);
+//	mlx_hook(win, 2, 1L<<0, hook_handler, mdata);
 }

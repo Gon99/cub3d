@@ -12,11 +12,10 @@
 
 #include "../../includes/cub3d.h"
 
-void	ft_game(t_mdata *mdata, t_gdata *gdata, t_tdata *tdata, t_pdata *pdata)
+void	ft_game(t_mdata *mdata, t_gdata *gdata, t_tdata *tdata)
 {
 	init_mlx(mdata);
 	init_textures(tdata, gdata, mdata);
-	start(pdata, gdata, mdata);
-	hooks_call(mdata->win, gdata, mdata);
+	hooks_call(gdata, mdata);
 	mlx_loop(mdata->ptr);
 }

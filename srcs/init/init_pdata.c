@@ -12,6 +12,20 @@
 
 #include "../../includes/cub3d.h"
 
+double	init_angle(char pv)
+{
+	double	angle;
+
+	angle = 0;
+	if (pv == 'N')
+		angle = 3 * M_PI / 2;
+	else if (pv == 'S')
+		angle = M_PI / 2;
+	else if (pv == 'W')
+		angle = M_PI;
+	return (angle);
+}
+
 void	init_pdata(char **map, t_pdata *pdata)
 {
 	int	x;
@@ -35,7 +49,7 @@ void	init_pdata(char **map, t_pdata *pdata)
 	}
 	pdata->move = 0;
 	pdata->spin = 0;
-	pdata->angle = 0;
+	pdata->angle = init_angle(pdata->p);
 	pdata->vel = 3;
 	pdata->vel_spin = 3 * (M_PI / 180);
 	/*

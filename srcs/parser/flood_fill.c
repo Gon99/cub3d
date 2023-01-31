@@ -21,8 +21,10 @@ void	flood_fill(t_gdata *gdata, int x, int y)
 	}
 	if (gdata->map[x][y] == '0' || is_player_letter(gdata->map[x][y]))
 	{
-		if (!is_player_letter(gdata->map[x][y]))
-			gdata->map[x][y] = '2';
+//		if (!is_player_letter(gdata->map[x][y]))
+		gdata->map[x][y] = '2';
+//		else
+//			gdata->map[x][y] = '4';
 		flood_fill(gdata, x + 1, y);
 		flood_fill(gdata, x - 1, y);
 		flood_fill(gdata, x, y + 1);

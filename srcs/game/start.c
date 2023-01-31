@@ -39,29 +39,63 @@ void	draw_first_part_map(t_gdata *gdata, t_mdata *mdata)
 	}
 }
 
-void	draw_dir_line(float x_line, float y_line, t_mdata *mdata, float px)
+void	draw_dir_line(float x_line, float y_line, t_mdata *mdata, t_pdata *pdata)
 {
-	while (x_line > px)
+	float	aux_px;
+	float	aux_py;
+
+	aux_px = pdata->x;
+	aux_py = pdata->y;
+	float c1 = x_line - aux_px;
+	float c2 = y_line - aux_py;
+	int hip = sqrt(pow(c1, 2) + pow(c2, 2));
+//	printf("--------\n");
+//	printf("X_LINE: %f\n", x_line);
+//	printf("Y_LINE: %f\n", x_line);
+//	printf("PX: %f\n", aux_px);
+//	printf("PY: %f\n", aux_py);
+//	printf("HIP: %d\n", hip);
+//	printf("ANGLE: %f\n", pdata->angle);
+//	printf("----------\n");
+//	printf("Y: %f\n", y_line);
+//	printf("HIP: %d\n", hip);
+	int c = 0;
+	while (c < hip)
 	{
-		my_mlx_pixel_put(mdata, x_line, y_line, parse_color("0, 0, 0"));
-		x_line--;
+		my_mlx_pixel_put(mdata, aux_px, aux_py, parse_color("0, 0, 0"));
+		if (aux_px < x_line)
+			aux_px++;
+		if (aux_py < y_line)
+			aux_py++;
+		if (aux_px > x_line)
+			aux_px--;
+		if (aux_py > y_line)
+			aux_py--;
+		c++;
 	}
 }
 
-int	player_colision(float px, float py, t_gdata *gdata)
+/*int	player_colision(float px, float py, t_gdata *gdata)
 {
 	int	col;
 	int	pxm;
 	int	pym;
 
-	pxm = (int)px / gdata->width;
-	pym = (int)py / gdata->height;
+	pxm = (int)px / TILE_SIZE;
+	pym = (int)py / TILE_SIZE;
 	col = 1;
+	printf("WIDTH: %d\n", gdata->width);
+	printf("HEIGHT: %d\n", gdata->height);
+	printf("POSX: %d\n", (int)px);
+	printf("POSY: %d\n", (int)py);
+	printf("POSXM: %d\n", pxm);
+	printf("POSYM: %d\n", pym);
 	printf("CASILLA: %c\n", gdata->map[pym][pxm]);
-	if (gdata->map[pym][pxm] != 0)
-		col = 1;
+	if (gdata->map[pym][pxm] == 0)
+		col = 0;
 	return (col);
 }
+*/
 
 double	normalize_angle(double angle)
 {
@@ -75,53 +109,132 @@ double	normalize_angle(double angle)
 	}
 	return (angle);
 }
-	
 
-void	update_player(t_mdata *mdata, t_pdata *pdata, t_gdata *gdata)
+void	draw_all(t_mdata *mdata, t_pdata *pdata, t_gdata *gdata)
 {
-	float	new_px;
-	float	new_py;
 	float	x_line;
 	float	y_line;
 
-	printf("----------------\n");
-	printf("X: %f\n", pdata->x);
-	printf("Y: %f\n", pdata->y);
-	printf("DIR: %d\n", pdata->move);
-	printf("SP: %d\n", pdata->spin);
-	new_px = pdata->x;
-	new_py = pdata->y;
-	/*if (!player_colision(pdata->x, pdata->y, gdata))
-	{
-		new_px = pdata->x + (pdata->move * cos(pdata->angle) * pdata->vel);
-		new_py = pdata->y + (pdata->move * sin(pdata->angle) * pdata->vel);
-	}*/
-	new_px = pdata->x + (pdata->move * cos(pdata->angle) * pdata->vel);
-	new_py = pdata->y + (pdata->move * sin(pdata->angle) * pdata->vel);
-	pdata->x = new_px;
-	pdata->y = new_py;
-	pdata->angle += pdata->spin * pdata->vel_spin;
-	pdata->angle = normalize_angle(pdata->angle);//TODO-> check angle
-	printf("SPIN: %d\n", pdata->spin);
-	printf("VSPIN: %f\n", pdata->vel_spin);
-	printf("ANGLE: %f\n", pdata->angle);
 	x_line = pdata->x + cos(pdata->angle) * 20;
 	y_line = pdata->y + sin(pdata->angle) * 20;
-	printf("X_L: %f\n", x_line);
-	printf("Y_L: %f\n", y_line);
+
 	mdata->img = mlx_new_image(mdata->ptr, MAP_WIDTH, MAP_HEIGHT);
 	mdata->addr = mlx_get_data_addr(mdata->img, &mdata->bpp, &mdata->line_length, &mdata->endian);
 	draw_first_part_map(gdata, mdata);
-	draw_dir_line(x_line, y_line, mdata, pdata->x);
+	draw_dir_line(x_line, y_line, mdata, pdata);
 	my_mlx_pixel_put(mdata, pdata->x, pdata->y, parse_color("0, 0, 0"));
 	mlx_put_image_to_window(mdata->ptr, mdata->win, mdata->img, 0, 0);
-	printf("----------------\n");
+//	printf("----------------\n");
 }
 
-void	start(t_pdata *pdata, t_gdata *gdata, t_mdata *mdata)
+void	update_player(t_gdata *gdata, int key)
 {
-	update_player(mdata, pdata, gdata);
+	float	new_px;
+	float	new_py;
+	int	type;
+
+	//printf("----------------\n");
+	//printf("X: %f\n", pdata->x);
+	//printf("Y: %f\n", pdata->y);
+	//printf("DIR: %d\n", pdata->move);
+	//printf("SP: %d\n", pdata->spin);
+	type = key_type(key);
+	new_px = gdata->pdata->x;
+	new_py = gdata->pdata->y;
+	//printf(">>>>>>>>>>>>>>>>\n");
+	//int	x = 0;
+	//while (gdata->map[x])
+	//{
+	//	printf("%s\n", gdata->map[x]);
+	//	x++;
+	//}
+	//printf("<<<<<<<<<<<<<<<<\n");
+	if (type == 1 || type == 3)
+	{
+		new_px = gdata->pdata->x + (gdata->pdata->move * cos(gdata->pdata->angle) * gdata->pdata->vel);
+		new_py = gdata->pdata->y + (gdata->pdata->move * sin(gdata->pdata->angle) * gdata->pdata->vel);
+	}
+	else if (type == 4 || type == 2)
+	{
+		//CHECK WHY
+		new_px = gdata->pdata->x + (gdata->pdata->move * cos(gdata->pdata->angle + (M_PI / 2)) * gdata->pdata->vel);
+		new_py = gdata->pdata->y + (gdata->pdata->move * sin(gdata->pdata->angle + (M_PI / 2)) * gdata->pdata->vel);
+	}
+	gdata->pdata->x = new_px;
+	gdata->pdata->y = new_py;
+/*	if (!player_colision(pdata->x, pdata->y, gdata))
+	{
+		pdata->x = new_px;
+		pdata->y = new_py;
+	}*/
+//	new_px = pdata->x + (pdata->move * cos(pdata->angle) * pdata->vel);
+//	new_py = pdata->y + (pdata->move * sin(pdata->angle) * pdata->vel);
+	gdata->pdata->angle += gdata->pdata->spin * gdata->pdata->vel_spin;
+	gdata->pdata->angle = normalize_angle(gdata->pdata->angle);//TODO-> check angle
+	draw_all(gdata->mdata, gdata->pdata, gdata);
+//	int	ray;
+	//RAY DIRECTION
+	int	down = 0;
+	int	left = 0;
+	if (gdata->pdata->angle < M_PI)
+		down = 1;
+	if (gdata->pdata->angle < 3 * M_PI / 2 && gdata->pdata->angle > M_PI / 2)
+		left = 1;
+//	//HORIZONTAL HIT
+	float	x_intercept = 0;
+	float	y_intercept = 0;
+	int	hor_hit = 0;
+	y_intercept = floor(gdata->pdata->y / TILE_SIZE) * TILE_SIZE;
+
+	//SI APUNTA HACIA ABAJO, INCREMENTAMOS UN TILE
+	if (down)
+		y_intercept += TILE_SIZE;
+	float	adyacent = (y_intercept - gdata->pdata->y) / tan(gdata->pdata->angle);
+	x_intercept = pdata->x + adyacent;
+	//CALCULAMOS LA DISTANCIA DE CADA PASO
+	float y_step = TILE_SIZE;
+	float x_step = y_step / tan(gdata->pdata->angle);
+	//SI VAMOS HACIA ARRIBA INVERTIMOS STEP Y
+	if (!down)
+		y_step = -y_step;
+	//COMPROBAMOS QUE EL PASO X ES COHERENTE
+	if ((left && x_step > 0) || (!left && x_step < 0))
+		x_step = -x_step;
+	float	next_x_hor = x_intercept;
+	float	next_y_hor = y_intercept;
+	//SI APUNTA HACIA ARRIBA RESTO UN PIXEL PARA FORZAR LA COLISIÓN CON LA CASILLA
+	if (!down)
+		next_y_hor--;
+	int wall_hit_x = 0;
+	int wall_hit_y = 0;
+	int wall_hit_x_hor = 0;
+	int wall_hit_y_hor = 0;
+	int wall_hit_x_ver = 0;
+	int wall_hit_y_ver = 0;
+	//BUCLE PARA BUSCAR PUNTO DE COLISIÓN
+	while (!hor_hit)
+	{
+		//OBTENEMOS LA CASILLA (REDONDEANDO POR ABAJO)
+		int	cas_x = next_x_hor / TILE_SIZE;
+		int	cas_y = next_y_hor / TILE_SIZE;
+		if (player_colision(cas_x, cas_y, gdata))
+		{
+			hor_hit = 1;
+			wall_hit_x_hor = next_x_hor;
+			wall_hit_y_hor = next_y_hor;
+		}
+		else
+		{
+			next_x_hor += x_step;
+			next_y_hor += y_step;
+		}
+	}
+	//MOSTRAR LINEA RAYO
+	int x_dest;
+	int y_dest;
+
 }
+
 /*void	start(t_pdata *pdata, t_gdata *gdata)
 {
 	//count

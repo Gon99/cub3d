@@ -12,7 +12,6 @@
 
 #include "../includes/cub3d.h"
 
-
 int	main(int argc, char **argv)
 {
 	t_gdata	gdata;
@@ -30,6 +29,6 @@ int	main(int argc, char **argv)
 	flood_fill(&gdata, pdata.x, pdata.y);
 	if (gdata.error)
 		return (write(1, "Error\n", 6));
-	ft_game(&mdata, &gdata, &tdata, &pdata);
+	ft_game(&mdata, &gdata, &tdata);
 	return (1);
 }

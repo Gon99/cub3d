@@ -18,7 +18,7 @@
 # include <stdlib.h>
 # include <fcntl.h>
 # include <math.h>
-# include "mlx/mlx.h"
+# include "mlx_linux/mlx.h"
 # include "libft/libft.h"
 # include "structs_macros_cub3d.h"
 
@@ -62,10 +62,10 @@ void	init_player_data(char **map, t_pdata *pdata);
 /*
  * srcs/moves.c
  */
-void	move_up(t_gdata *gdata);
-void	move_down(t_gdata *gdata);
-void	move_right(t_gdata *gdata);
-void	move_left(t_gdata *gdata);
+void	move_ahead(t_gdata *gdata);
+void	move_back(t_gdata *gdata);
+void	turn_right(t_gdata *gdata);
+void	turn_left(t_gdata *gdata);
 
 /*
  * srcs/game
@@ -73,19 +73,22 @@ void	move_left(t_gdata *gdata);
 
 int		parse_color(char *str);
 int		key_hook(int keycode, t_mdata *mlx);
-void	hooks_call(void	*win, t_gdata *gdata, t_mdata *mdata);
-int		close_mlx(t_mdata *mlx, char *msg);
-void	ft_game(t_mdata *mdata, t_gdata *gdata, t_tdata *tdata, t_pdata *pdata);
+void	ft_game(t_mdata *mdata, t_gdata *gdata, t_tdata *tdata);
+
+/*
+ * srcs/game/key_hook.c
+ */
+void	hooks_call(t_gdata *gdata, t_mdata *mdata);
+int	key_type(int key);
 
 /*
  * START
  */
 
-void	update_player(t_mdata *mdata, t_pdata *pdata, t_gdata *gdata);
+void	update_player(t_gdata *gdata, int key);
 void	draw_first_part_map(t_gdata *gdata, t_mdata *mdata);
 void	my_mlx_pixel_put(t_mdata *mdata, int x, int y, int color);
-void	draw_dir_line(float x_line, float y_line, t_mdata *mdata, float px);
+void	draw_dir_line(float x_line, float y_line, t_mdata *mdata, t_pdata *pdata);
 int		player_colision(float px, float py, t_gdata *gdata);
-void	start(t_pdata *pdata, t_gdata *gdata, t_mdata *mdata);
 
 #endif

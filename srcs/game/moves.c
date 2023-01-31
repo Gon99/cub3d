@@ -13,7 +13,7 @@
 
 #include "../../includes/cub3d.h"
 
-void	move_up(t_gdata *gdata)
+void	move_ahead(t_gdata *gdata)
 {
 	gdata->pdata->move = 1;
 /*	double	frame_time;
@@ -43,7 +43,7 @@ void	move_up(t_gdata *gdata)
 	*/
 }
 
-void	move_down(t_gdata *gdata)
+void	move_back(t_gdata *gdata)
 {
 	gdata->pdata->move = -1;
 	/*double	frame_time;
@@ -58,7 +58,7 @@ void	move_down(t_gdata *gdata)
 		*/
 }
 
-void	move_right(t_gdata *gdata)
+void	turn_right(t_gdata *gdata)
 {
 	gdata->pdata->spin = 1;
 /*	double	old_dir_x;
@@ -77,7 +77,7 @@ void	move_right(t_gdata *gdata)
 	*/
 }
 
-void	move_left(t_gdata *gdata)
+void	turn_left(t_gdata *gdata)
 {
 	gdata->pdata->spin = -1;
 /*	double	old_dir_x;
