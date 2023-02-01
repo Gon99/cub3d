@@ -106,6 +106,7 @@ int	fill_map(char *map, t_gdata *gdata)
 		return (0);
 	if (!map_data_check(gdata))
 		return (0);
+	gdata->width = ft_matrix_data(gdata->map).width;
 	gdata->height = ft_matrix_data(gdata->map).height;
 	return (1);
 }

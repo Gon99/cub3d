@@ -33,7 +33,7 @@
 # define MAP_HEIGHT	640
 # define MAP_WIDTH 480
 
-# define TILE_SIZE 50
+# define TILE_SIZE 10
 
 /*
  * PLAYER_DATA
@@ -69,11 +69,16 @@ typedef struct	m_data
 {
 	void	*ptr;
 	void	*win;
-	void	*img;
-	char	*addr;
-	int		bpp;
-	int		line_length;
-	int		endian;
+	void	*win_img;
+	void	*map_img;
+	char	*win_addr;
+	char	*map_addr;
+	int		bpp_win;
+	int		bpp_map;
+	int		ll_win;
+	int		ll_map;
+	int		end_win;
+	int		end_map;
 }	t_mdata;
 
 

@@ -40,18 +40,37 @@ static size_t ft_matrixheight(char **matrix)
 	return (height);
 }
 
+static	size_t	ft_matrixwidth(char **matrix)
+{
+	ssize_t	width;
+	int	x;
+	int	j;
+
+	width = 0;
+	x = 0;
+	while (matrix[x])
+	{
+		j = 0;
+		while (matrix[x][j])
+			j++;
+		if (width < j)
+			width = j;
+		x++;
+	}
+	return (width);
+}
 
 t_matrix_data	ft_matrix_data(char **matrix)
 {
 	t_matrix_data	data;
 
 	if (!matrix)
-		return ((t_matrix_data){0, 0, 0, 0, 0});
+		return ((t_matrix_data){0, 0, 0, 0, 0, 0});
 	data.line_count = ft_matrixlen(matrix);
 	data.lenght_str = ft_length(matrix);
 	data.height = ft_matrixheight(matrix);
+	data.width = ft_matrixwidth(matrix);
 	data.max = ft_max_int(data.lenght_str, data.line_count);
 	data.min = ft_min_int(data.lenght_str, data.line_count);
-	printf("%zu\n", data.height);
 	return (data);
 }

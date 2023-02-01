@@ -17,75 +17,30 @@ void	my_mlx_pixel_put(t_mdata *mdata, int x, int y, int color)
 	char	*dst;
 
 	//Align bytes, line_length differs from the window with
-	dst = mdata->addr + (y * mdata->line_length + x * (mdata->bpp / 8));
+	dst = mdata->win_addr + (y * mdata->ll_win + x * (mdata->bpp_win / 8));
 	*(unsigned int *)dst = color;
 }
 
-void	draw_first_part_map(t_gdata *gdata, t_mdata *mdata)
-{
-	int	x;
-	int	y;
-	int	middle;
-
-	x = -1;
-	middle = MAP_HEIGHT / 2;
-	while (++x < MAP_WIDTH)
-	{
-		y = 0;
-		while (++y < middle)
-			my_mlx_pixel_put(mdata, x, y, parse_color(gdata->f));
-		while (++y < MAP_HEIGHT)
-			my_mlx_pixel_put(mdata, x, y, parse_color(gdata->c));
-	}
-}
-
-void	draw_dir_line(float x_line, float y_line, t_mdata *mdata, t_pdata *pdata)
-{
-	float	aux_px;
-	float	aux_py;
-
-	aux_px = pdata->x;
-	aux_py = pdata->y;
-	float c1 = x_line - aux_px;
-	float c2 = y_line - aux_py;
-	int hip = sqrt(pow(c1, 2) + pow(c2, 2));
-//	printf("--------\n");
-//	printf("X_LINE: %f\n", x_line);
-//	printf("Y_LINE: %f\n", x_line);
-//	printf("PX: %f\n", aux_px);
-//	printf("PY: %f\n", aux_py);
-//	printf("HIP: %d\n", hip);
-//	printf("ANGLE: %f\n", pdata->angle);
-//	printf("----------\n");
-//	printf("Y: %f\n", y_line);
-//	printf("HIP: %d\n", hip);
-	int c = 0;
-	while (c < hip)
-	{
-		my_mlx_pixel_put(mdata, aux_px, aux_py, parse_color("0, 0, 0"));
-		if (aux_px < x_line)
-			aux_px++;
-		if (aux_py < y_line)
-			aux_py++;
-		if (aux_px > x_line)
-			aux_px--;
-		if (aux_py > y_line)
-			aux_py--;
-		c++;
-	}
-}
-
-/*int	player_colision(float px, float py, t_gdata *gdata)
+int	player_colision(int x, int y, t_gdata *gdata)
 {
 	int	col;
+
+	col = 0;
+	printf("X: %d\n", x);
+	printf("Y: %d\n", y);
+	if (gdata->map[x][y] == '1')
+		col = 1;
+	printf("MAP[x][y]: %c\n", gdata->map[x][y]);
+	printf("COL: %d\n", col);
+	printf("--------------\n");
+	return (col);
+/*	int	col;
 	int	pxm;
 	int	pym;
 
 	pxm = (int)px / TILE_SIZE;
 	pym = (int)py / TILE_SIZE;
 	col = 1;
-	printf("WIDTH: %d\n", gdata->width);
-	printf("HEIGHT: %d\n", gdata->height);
 	printf("POSX: %d\n", (int)px);
 	printf("POSY: %d\n", (int)py);
 	printf("POSXM: %d\n", pxm);
@@ -94,8 +49,8 @@ void	draw_dir_line(float x_line, float y_line, t_mdata *mdata, t_pdata *pdata)
 	if (gdata->map[pym][pxm] == 0)
 		col = 0;
 	return (col);
+	*/
 }
-*/
 
 double	normalize_angle(double angle)
 {
@@ -110,22 +65,10 @@ double	normalize_angle(double angle)
 	return (angle);
 }
 
-void	draw_all(t_mdata *mdata, t_pdata *pdata, t_gdata *gdata)
-{
-	float	x_line;
-	float	y_line;
-
-	x_line = pdata->x + cos(pdata->angle) * 20;
-	y_line = pdata->y + sin(pdata->angle) * 20;
-
-	mdata->img = mlx_new_image(mdata->ptr, MAP_WIDTH, MAP_HEIGHT);
-	mdata->addr = mlx_get_data_addr(mdata->img, &mdata->bpp, &mdata->line_length, &mdata->endian);
-	draw_first_part_map(gdata, mdata);
-	draw_dir_line(x_line, y_line, mdata, pdata);
-	my_mlx_pixel_put(mdata, pdata->x, pdata->y, parse_color("0, 0, 0"));
-	mlx_put_image_to_window(mdata->ptr, mdata->win, mdata->img, 0, 0);
-//	printf("----------------\n");
-}
+//double set_angle(double angle, double increment)
+//{
+//	return (normalize_angle(angle + increment);
+//}
 
 void	update_player(t_gdata *gdata, int key)
 {
@@ -160,18 +103,18 @@ void	update_player(t_gdata *gdata, int key)
 		new_px = gdata->pdata->x + (gdata->pdata->move * cos(gdata->pdata->angle + (M_PI / 2)) * gdata->pdata->vel);
 		new_py = gdata->pdata->y + (gdata->pdata->move * sin(gdata->pdata->angle + (M_PI / 2)) * gdata->pdata->vel);
 	}
-	gdata->pdata->x = new_px;
-	gdata->pdata->y = new_py;
-/*	if (!player_colision(pdata->x, pdata->y, gdata))
+//	gdata->pdata->x = new_px;
+//	gdata->pdata->y = new_py;
+	if (!player_colision(gdata->pdata->x, gdata->pdata->y, gdata))
 	{
-		pdata->x = new_px;
-		pdata->y = new_py;
-	}*/
+		gdata->pdata->x = new_px;
+		gdata->pdata->y = new_py;
+	}
 //	new_px = pdata->x + (pdata->move * cos(pdata->angle) * pdata->vel);
 //	new_py = pdata->y + (pdata->move * sin(pdata->angle) * pdata->vel);
 	gdata->pdata->angle += gdata->pdata->spin * gdata->pdata->vel_spin;
 	gdata->pdata->angle = normalize_angle(gdata->pdata->angle);//TODO-> check angle
-	draw_all(gdata->mdata, gdata->pdata, gdata);
+//	gdata->pdata->angle = set_angle(gdata->pdata->angle);
 //	int	ray;
 	//RAY DIRECTION
 	int	down = 0;
@@ -190,10 +133,16 @@ void	update_player(t_gdata *gdata, int key)
 	if (down)
 		y_intercept += TILE_SIZE;
 	float	adyacent = (y_intercept - gdata->pdata->y) / tan(gdata->pdata->angle);
-	x_intercept = pdata->x + adyacent;
+	x_intercept = gdata->pdata->x + adyacent;
+	printf("ANGLE: %f\n", gdata->pdata->angle);
+	printf("TAN: %f\n", tan(gdata->pdata->angle));
+	printf("ADY: %f\n", adyacent);
+	printf("Y_INTER: %f\n", y_intercept);
+	printf("X_INTER: %f\n", x_intercept);
 	//CALCULAMOS LA DISTANCIA DE CADA PASO
 	float y_step = TILE_SIZE;
 	float x_step = y_step / tan(gdata->pdata->angle);
+	printf("X_STEP %f\n", x_step);
 	//SI VAMOS HACIA ARRIBA INVERTIMOS STEP Y
 	if (!down)
 		y_step = -y_step;
@@ -205,13 +154,17 @@ void	update_player(t_gdata *gdata, int key)
 	//SI APUNTA HACIA ARRIBA RESTO UN PIXEL PARA FORZAR LA COLISIÓN CON LA CASILLA
 	if (!down)
 		next_y_hor--;
+	//DONDE EL RAYO HACE COLISION
 	int wall_hit_x = 0;
 	int wall_hit_y = 0;
+
 	int wall_hit_x_hor = 0;
 	int wall_hit_y_hor = 0;
-	int wall_hit_x_ver = 0;
-	int wall_hit_y_ver = 0;
+//	int wall_hit_x_ver = 0;
+//	int wall_hit_y_ver = 0;
 	//BUCLE PARA BUSCAR PUNTO DE COLISIÓN
+	printf("NEXT_X: %f\n", next_x_hor);
+	printf("NEXT_Y: %f\n", next_y_hor);
 	while (!hor_hit)
 	{
 		//OBTENEMOS LA CASILLA (REDONDEANDO POR ABAJO)
@@ -232,7 +185,11 @@ void	update_player(t_gdata *gdata, int key)
 	//MOSTRAR LINEA RAYO
 	int x_dest;
 	int y_dest;
-
+	wall_hit_x = wall_hit_x_hor;
+	wall_hit_y = wall_hit_y_hor;
+	x_dest = wall_hit_x;
+	y_dest = wall_hit_y;
+	draw_all(gdata, x_dest, y_dest);
 }
 
 /*void	start(t_pdata *pdata, t_gdata *gdata)

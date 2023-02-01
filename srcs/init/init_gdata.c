@@ -23,8 +23,8 @@ void	init_gdata(t_gdata *gdata, t_pdata *pdata, t_mdata *mdata)
 	gdata->file_len = 0;
 	gdata->map_len = 0;
 	gdata->error = 0;
-	gdata->height = 600;
-	gdata->width = 600;
+	gdata->height = 0;
+	gdata->width = 0;
 	gdata->pdata = pdata;
 	gdata->mdata = mdata;
 }

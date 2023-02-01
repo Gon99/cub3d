@@ -14,7 +14,7 @@
 
 void	ft_game(t_mdata *mdata, t_gdata *gdata, t_tdata *tdata)
 {
-	init_mlx(mdata);
+	init_mlx(gdata);
 	init_textures(tdata, gdata, mdata);
 	hooks_call(gdata, mdata);
 	mlx_loop(mdata->ptr);

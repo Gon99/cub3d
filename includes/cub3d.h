@@ -30,7 +30,7 @@
 void	init_gdata(t_gdata *gdata, t_pdata *pdata, t_mdata *mdata);
 void	init_pdata(char **map, t_pdata *pdata);
 void	init_textures(t_tdata *tdata, t_gdata *gdata, t_mdata *mdata);
-void	init_mlx(t_mdata *mdata);
+void	init_mlx(t_gdata *gdata);
 
 /*
  * SRCS/PARSER/
@@ -86,9 +86,12 @@ int	key_type(int key);
  */
 
 void	update_player(t_gdata *gdata, int key);
-void	draw_first_part_map(t_gdata *gdata, t_mdata *mdata);
 void	my_mlx_pixel_put(t_mdata *mdata, int x, int y, int color);
-void	draw_dir_line(float x_line, float y_line, t_mdata *mdata, t_pdata *pdata);
-int		player_colision(float px, float py, t_gdata *gdata);
+int		player_colision(int x, int y, t_gdata *gdata);
+
+/*
+ * srcs/draw/draw.c
+ */
+void	draw_all(t_gdata *gdata, int x_dest, int y_dest);
 
 #endif

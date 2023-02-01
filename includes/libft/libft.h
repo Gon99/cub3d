@@ -39,6 +39,7 @@ typedef struct s_matrix_data
 {
 	ssize_t		line_count;
 	ssize_t		height;
+	ssize_t		width;
 	ssize_t		*lenght_str;
 	ssize_t		max;
 	ssize_t		min;
