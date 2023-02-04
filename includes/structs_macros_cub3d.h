@@ -6,7 +6,7 @@
 /*   By: ajimenez <ajimenez@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/16 14:08:17 by ajimenez          #+#    #+#             */
-/*   Updated: 2023/02/04 16:44:12 by ajimenez         ###   ########.fr       */
+/*   Updated: 2023/02/04 17:05:49 by ajimenez         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,6 +58,8 @@
 
 # define LEFT_MAC 		123
 # define LEFT_LINUX 	65361
+
+# define ESC            53
 /*
  * PLAYER_DATA
  */
