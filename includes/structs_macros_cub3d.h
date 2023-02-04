@@ -33,7 +33,7 @@
 # define MAP_HEIGHT	640
 # define MAP_WIDTH 480
 
-# define TILE_SIZE 10
+# define TILE_SIZE 1
 
 /*
  * PLAYER_DATA
@@ -100,6 +100,8 @@ typedef struct s_data
 	int		error;
 	int		height;
 	int		width;
+	int	h_prop;
+	int	w_prop;
 	t_pdata	*pdata;
 	t_mdata *mdata;
 }	t_gdata;

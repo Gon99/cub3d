@@ -28,7 +28,7 @@
  */
 
 void	init_gdata(t_gdata *gdata, t_pdata *pdata, t_mdata *mdata);
-void	init_pdata(char **map, t_pdata *pdata);
+void	init_pdata(t_gdata *gdata);
 void	init_textures(t_tdata *tdata, t_gdata *gdata, t_mdata *mdata);
 void	init_mlx(t_gdata *gdata);
 

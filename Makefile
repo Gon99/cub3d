@@ -11,7 +11,7 @@
 # **************************************************************************** #
 
 CC		     = gcc
-CFLAGS	     = -Wall -Wextra -Werror -g
+#CFLAGS	     = -Wall -Wextra -Werror -g
 MLXFLGS      = -lXext -lX11 -lm -lz
 SAN		     = -fsanitize=address
 LIB 	     = ar -rcs

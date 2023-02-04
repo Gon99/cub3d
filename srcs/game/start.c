@@ -21,16 +21,26 @@ void	my_mlx_pixel_put(t_mdata *mdata, int x, int y, int color)
 	*(unsigned int *)dst = color;
 }
 
-int	player_colision(int x, int y, t_gdata *gdata)
+int	player_colision(int y, int x, t_gdata *gdata)
 {
 	int	col;
 
 	col = 0;
-	printf("X: %d\n", x);
-	printf("Y: %d\n", y);
-	if (gdata->map[x][y] == '1')
+	printf("XCOL:: %d\n", x);
+	printf("YCOL:: %d\n", y);
+//	y = y / gdata->h_prop;
+//	x = x / gdata->w_prop;
+	printf("X_PROP: %d\n", x * gdata->w_prop);
+	printf("Y_PROP: %d\n", y * gdata->h_prop);
+	if (y < 0 || y > gdata->height)
+		return (1);
+	if (x < 0 || x > gdata->width)
+		return (1);
+//	if (gdata->map[y - 1][x] == '1' || gdata->map[y + 1][x] == '1')
+//		col = 1;
+	if (gdata->map[y][x] == '1')
 		col = 1;
-	printf("MAP[x][y]: %c\n", gdata->map[x][y]);
+	printf("MAP[x][y]: %c\n", gdata->map[y][x]);
 	printf("COL: %d\n", col);
 	printf("--------------\n");
 	return (col);
@@ -105,10 +115,12 @@ void	update_player(t_gdata *gdata, int key)
 	}
 //	gdata->pdata->x = new_px;
 //	gdata->pdata->y = new_py;
-	if (!player_colision(gdata->pdata->x, gdata->pdata->y, gdata))
+	if (!player_colision(new_py, new_px, gdata))
 	{
 		gdata->pdata->x = new_px;
 		gdata->pdata->y = new_py;
+		printf("NEW_PX: %f\n", gdata->pdata->x);
+		printf("NEW_PY: %f\n", gdata->pdata->y);
 	}
 //	new_px = pdata->x + (pdata->move * cos(pdata->angle) * pdata->vel);
 //	new_py = pdata->y + (pdata->move * sin(pdata->angle) * pdata->vel);
@@ -116,33 +128,33 @@ void	update_player(t_gdata *gdata, int key)
 	gdata->pdata->angle = normalize_angle(gdata->pdata->angle);//TODO-> check angle
 //	gdata->pdata->angle = set_angle(gdata->pdata->angle);
 //	int	ray;
-	//RAY DIRECTION
+	//RAY DIRECTION 0 -> -- M_PI <- -- 3 * M_PI / 2 (ARR) -- M_PI / 2 (AB)
 	int	down = 0;
 	int	left = 0;
 	if (gdata->pdata->angle < M_PI)
 		down = 1;
 	if (gdata->pdata->angle < 3 * M_PI / 2 && gdata->pdata->angle > M_PI / 2)
 		left = 1;
-//	//HORIZONTAL HIT
+	//HORIZONTAL HIT
 	float	x_intercept = 0;
-	float	y_intercept = 0;
+	float	y_intercept = gdata->pdata->y;
 	int	hor_hit = 0;
-	y_intercept = floor(gdata->pdata->y / TILE_SIZE) * TILE_SIZE;
+//CHEECCK
+//	y_intercept = floor(gdata->pdata->y / TILE_SIZE) * TILE_SIZE;
 
 	//SI APUNTA HACIA ABAJO, INCREMENTAMOS UN TILE
 	if (down)
 		y_intercept += TILE_SIZE;
 	float	adyacent = (y_intercept - gdata->pdata->y) / tan(gdata->pdata->angle);
 	x_intercept = gdata->pdata->x + adyacent;
-	printf("ANGLE: %f\n", gdata->pdata->angle);
-	printf("TAN: %f\n", tan(gdata->pdata->angle));
-	printf("ADY: %f\n", adyacent);
-	printf("Y_INTER: %f\n", y_intercept);
-	printf("X_INTER: %f\n", x_intercept);
+//	printf("ANGLE: %f\n", gdata->pdata->angle);
+//	printf("TAN: %f\n", tan(gdata->pdata->angle));
+//	printf("ADY: %f\n", adyacent);
+//	printf("Y_INTER: %f\n", y_intercept);
+//	printf("X_INTER: %f\n", x_intercept);
 	//CALCULAMOS LA DISTANCIA DE CADA PASO
-	float y_step = TILE_SIZE;
+	float y_step = 1;
 	float x_step = y_step / tan(gdata->pdata->angle);
-	printf("X_STEP %f\n", x_step);
 	//SI VAMOS HACIA ARRIBA INVERTIMOS STEP Y
 	if (!down)
 		y_step = -y_step;
@@ -163,14 +175,16 @@ void	update_player(t_gdata *gdata, int key)
 //	int wall_hit_x_ver = 0;
 //	int wall_hit_y_ver = 0;
 	//BUCLE PARA BUSCAR PUNTO DE COLISIÓN
-	printf("NEXT_X: %f\n", next_x_hor);
-	printf("NEXT_Y: %f\n", next_y_hor);
+	printf("Y_INTER: %f\n", y_intercept);
+	printf("X_INTER: %f\n", x_intercept);
+	printf("X_STEP: %f\n", x_step);
+	printf("Y_STEP: %f\n", y_step);
 	while (!hor_hit)
 	{
 		//OBTENEMOS LA CASILLA (REDONDEANDO POR ABAJO)
-		int	cas_x = next_x_hor / TILE_SIZE;
-		int	cas_y = next_y_hor / TILE_SIZE;
-		if (player_colision(cas_x, cas_y, gdata))
+	//	int	cas_x = next_x_hor / TILE_SIZE;
+	//	int	cas_y = next_y_hor / TILE_SIZE;
+		if (player_colision(next_y_hor, next_x_hor, gdata))
 		{
 			hor_hit = 1;
 			wall_hit_x_hor = next_x_hor;
@@ -187,6 +201,8 @@ void	update_player(t_gdata *gdata, int key)
 	int y_dest;
 	wall_hit_x = wall_hit_x_hor;
 	wall_hit_y = wall_hit_y_hor;
+	printf("COL X EN: %d\n", wall_hit_x);
+	printf("COL Y EN: %d\n", wall_hit_y);
 	x_dest = wall_hit_x;
 	y_dest = wall_hit_y;
 	draw_all(gdata, x_dest, y_dest);

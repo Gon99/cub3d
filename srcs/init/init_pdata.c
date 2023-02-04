@@ -26,32 +26,34 @@ double	init_angle(char pv)
 	return (angle);
 }
 
-void	init_pdata(char **map, t_pdata *pdata)
+void	init_pdata(t_gdata *gdata)
 {
 	int	x;
 	int	z;
 
 	x = 0;
-	while(map[x])
+	gdata->h_prop = MAP_HEIGHT / gdata->height;
+	gdata->w_prop = MAP_WIDTH / gdata->width;
+	while(gdata->map[x])
 	{
 		z = 0;
-		while (map[x][z])
+		while (gdata->map[x][z])
 		{
-			if (is_player_letter(map[x][z]))
+			if (is_player_letter(gdata->map[x][z]))
 			{
-				pdata->x = x;
-				pdata->y = z;
-				pdata->p = map[x][z];
+				gdata->pdata->x = z;
+				gdata->pdata->y = x;
+				gdata->pdata->p = gdata->map[x][z];
 			}
 			z++;
 		}
 		x++;
 	}
-	pdata->move = 0;
-	pdata->spin = 0;
-	pdata->angle = init_angle(pdata->p);
-	pdata->vel = 3;
-	pdata->vel_spin = 3 * (M_PI / 180);
+	gdata->pdata->move = 0;
+	gdata->pdata->spin = 0;
+	gdata->pdata->vel = 1;
+	gdata->pdata->vel_spin = 1 * (M_PI / 180);
+	gdata->pdata->angle = init_angle(gdata->pdata->p);
 	/*
 	//initial direction of vector
 	pdata->dir_x = -1;

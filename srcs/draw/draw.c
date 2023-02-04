@@ -18,13 +18,15 @@ static void	draw_first_part_map(t_gdata *gdata)
 	}
 }
 
-static void	draw_dir_line(float x_line, float y_line, t_gdata *gdata)
+static void	draw_dir_line(t_gdata *gdata)
 {
-	float	aux_px;
-	float	aux_py;
+	float	aux_px = gdata->pdata->x * gdata->w_prop;
+	float	aux_py = gdata->pdata->y * gdata->h_prop;
+	float	x_line;
+	float	y_line;
 
-	aux_px = gdata->pdata->x;
-	aux_py = gdata->pdata->y;
+	x_line = aux_px + cos(gdata->pdata->angle) * 20;
+	y_line = aux_py + sin(gdata->pdata->angle) * 20;
 	float c1 = x_line - aux_px;
 	float c2 = y_line - aux_py;
 	int hip = sqrt(pow(c1, 2) + pow(c2, 2));
@@ -54,37 +56,40 @@ static void	draw_dir_line(float x_line, float y_line, t_gdata *gdata)
 	}
 }
 
-/*static void	draw_col_line(int x_dest, int y_dest, t_gdata *gdata)
+static void	draw_col_line(int x_dest, int y_dest, t_gdata *gdata)
 {
 	float	aux_px;
 	float	aux_py;
+	int	y_len = gdata->pdata->y - y_dest;
+	int	c = 0;
 
 	printf("----------COL:\n");
+	printf("Y_LEN: %d\nY_LEN_PROP: %d\n", y_len, y_len * gdata->h_prop);
 	printf("X_DEST: %d\n", x_dest);
 	printf("Y_DEST: %d\n", y_dest);
-	aux_px = gdata->pdata->x;
-	aux_py = gdata->pdata->y;
-	printf("AUX_PX: %f\n", aux_px);
-	printf("AUX_PY: %f\n", aux_py);
+	aux_px = gdata->pdata->x * gdata->w_prop;
+	aux_py = gdata->pdata->y * gdata->h_prop;
+	printf("AUX_PX_PROP: %f\n", aux_px);
+	printf("AUX_PY_PROP: %f\n", aux_py);
+	while (c <  y_len * gdata->h_prop)
+	{
+		my_mlx_pixel_put(gdata->mdata, aux_px, aux_py, parse_color("0, 0, 0"));
+		aux_py--;
+		c++;
+	}
 	printf("---------------\n");
-}*/
+	printf("---------------\n");
+	printf("---------------\n");
+}
 
 void	draw_all(t_gdata *gdata, int x_dest, int y_dest)
 {
-	float	x_line;
-	float	y_line;
-
-	printf("XDEST: %d\n", x_dest);
-	printf("YDEST: %d\n", y_dest);
-	x_line = gdata->pdata->x + cos(gdata->pdata->angle) * 20;
-	y_line = gdata->pdata->y + sin(gdata->pdata->angle) * 20;
-
 	gdata->mdata->win_img = mlx_new_image(gdata->mdata->ptr, MAP_WIDTH, MAP_HEIGHT);
 	gdata->mdata->win_addr = mlx_get_data_addr(gdata->mdata->win_img, &gdata->mdata->bpp_win, &gdata->mdata->ll_win, &gdata->mdata->end_win);
 	draw_first_part_map(gdata);
-//	draw_col_line(x_dest, y_dest, gdata);
-	draw_dir_line(x_line, y_line, gdata);
-	my_mlx_pixel_put(gdata->mdata, gdata->pdata->x, gdata->pdata->y, parse_color("0, 0, 0"));
+	draw_col_line(x_dest, y_dest, gdata);
+	draw_dir_line(gdata);
+	my_mlx_pixel_put(gdata->mdata, gdata->pdata->x * gdata->w_prop, gdata->pdata->y * gdata->h_prop, parse_color("0, 0, 0"));
 	mlx_put_image_to_window(gdata->mdata->ptr, gdata->mdata->win, gdata->mdata->win_img, 0, 0);
 //	printf("----------------\n");
 }

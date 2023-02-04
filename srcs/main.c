@@ -25,8 +25,8 @@ int	main(int argc, char **argv)
 	init_gdata(&gdata, &pdata, &mdata);
 	if (!fill_map(argv[1], &gdata))
 		return (write(1, "Error data\n", 11));
-	init_pdata(gdata.map, &pdata);
-	flood_fill(&gdata, pdata.x, pdata.y);
+	init_pdata(&gdata);
+	flood_fill(&gdata, pdata.y / gdata.h_prop, pdata.x / gdata.w_prop);
 	if (gdata.error)
 		return (write(1, "Error\n", 6));
 	ft_game(&mdata, &gdata, &tdata);
