@@ -6,7 +6,7 @@
 /*   By: ajimenez <ajimenez@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/16 14:12:07 by ajimenez          #+#    #+#             */
-/*   Updated: 2023/01/23 15:20:01 by goliano-         ###   ########.fr       */
+/*   Updated: 2023/02/04 12:40:22 by goliano-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -93,5 +93,6 @@ int		player_colision(int x, int y, t_gdata *gdata);
  * srcs/draw/draw.c
  */
 void	draw_all(t_gdata *gdata, int x_dest, int y_dest);
+void	draw_first_part_map(t_gdata *gdata);
 
 #endif

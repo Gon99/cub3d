@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: goliano- <marvin@42.fr>                    +#+  +:+       +#+         #
+#    By: ajimenez <ajimenez@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
-#    Created: 2022/10/31 16:52:02 by goliano-          #+#    #+#              #
-#    Updated: 2023/02/04 13:32:04 by ajimenez         ###   ########.fr        #
+#    Created: 2023/02/04 15:43:39 by ajimenez          #+#    #+#              #
+#    Updated: 2023/02/04 15:43:41 by ajimenez         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -95,4 +95,3 @@ fclean: 	clean
 re:			fclean all
 
 .PHONY: all clean fclean re
- 

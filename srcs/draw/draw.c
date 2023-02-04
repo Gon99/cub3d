@@ -1,6 +1,19 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   draw.c                                             :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: goliano- <marvin@42.fr>                    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2023/02/04 11:58:30 by goliano-          #+#    #+#             */
+/*   Updated: 2023/02/04 12:56:23 by goliano-         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../../includes/cub3d.h"
 
-static void	draw_first_part_map(t_gdata *gdata)
+/* PINTA EL MAPA (TECHO Y SUELO) */
+void	draw_first_part_map(t_gdata *gdata)
 {
 	int	x;
 	int	y;
@@ -41,17 +54,19 @@ static void	draw_dir_line(t_gdata *gdata)
 //	printf("Y: %f\n", y_line);
 //	printf("HIP: %d\n", hip);
 	int c = 0;
+	float x_step = x_line / hip;
+	float y_step = y_line / hip;
 	while (c < hip)
 	{
 		my_mlx_pixel_put(gdata->mdata, aux_px, aux_py, parse_color("0, 0, 0"));
 		if (aux_px < x_line)
-			aux_px++;
+			aux_px += x_step;
 		if (aux_py < y_line)
-			aux_py++;
+			aux_py += y_step;
 		if (aux_px > x_line)
-			aux_px--;
+			aux_px -= x_step;
 		if (aux_py > y_line)
-			aux_py--;
+			aux_py -= y_step;
 		c++;
 	}
 }
@@ -87,8 +102,8 @@ void	draw_all(t_gdata *gdata, int x_dest, int y_dest)
 	gdata->mdata->win_img = mlx_new_image(gdata->mdata->ptr, MAP_WIDTH, MAP_HEIGHT);
 	gdata->mdata->win_addr = mlx_get_data_addr(gdata->mdata->win_img, &gdata->mdata->bpp_win, &gdata->mdata->ll_win, &gdata->mdata->end_win);
 	draw_first_part_map(gdata);
-	draw_col_line(x_dest, y_dest, gdata);
-	draw_dir_line(gdata);
+	draw_col_line(x_dest, y_dest, gdata); // PINTA LA LINEA DE COLISIÓN HASTA QUE ENCUENTRA UNA PARED
+	draw_dir_line(gdata); // PINTA LA LINEA PEQUEÑA
 	my_mlx_pixel_put(gdata->mdata, gdata->pdata->x * gdata->w_prop, gdata->pdata->y * gdata->h_prop, parse_color("0, 0, 0"));
 	mlx_put_image_to_window(gdata->mdata->ptr, gdata->mdata->win, gdata->mdata->win_img, 0, 0);
 //	printf("----------------\n");
