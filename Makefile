@@ -6,19 +6,19 @@
 #    By: goliano- <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/10/31 16:52:02 by goliano-          #+#    #+#              #
-#    Updated: 2023/01/23 14:43:00 by goliano-         ###   ########.fr        #
+#    Updated: 2023/02/04 10:50:08 by goliano-         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 CC		     = gcc
-#CFLAGS	     = -Wall -Wextra -Werror -g
-MLXFLGS      = -lXext -lX11 -lm -lz
+CFLAGS	     = -Wall -Wextra -Werror -g
+MLXFLGS      = -framework OpenGL -framework AppKit
 SAN		     = -fsanitize=address
 LIB 	     = ar -rcs
 RM		     = /bin/rm -rf
 
 LIBFT	     = ./includes/libft/libft.a
-LIBMLX	     = ./includes/mlx_linux/libmlx.a
+LIBMLX	     = ./includes/mlx_mac/libmlx.a
 LIBP	     = cub3D.a 
 
 NAME	     = cub3d
@@ -49,8 +49,8 @@ all: 		$(NAME)
 $(NAME):			$(OBJS)
 					@echo "\n\033[33mMaking libft! ░░░░░░ /(._.)\ ░░░░░\033[39m\n"
 					@make -sC ./includes/libft
-					@make -sC ./includes/mlx_linux
-					@cp ./includes/mlx_linux/libmlx.a ./
+					@make -sC ./includes/mlx_mac
+					@cp ./includes/mlx_mac/libmlx.a ./
 					@cp ./includes/libft/libft.a ./
 					$(LIB) $(LIBP) $(OBJS)
 					$(COMP) 
@@ -59,8 +59,8 @@ $(NAME):			$(OBJS)
 fsanitize:			$(OBJS)
 					@echo "\n\033[33mMaking libft! ░░░░░░ /(ಠ_ಠ)\ ░░░░░\033[39m\n"
 					@make -sC ./includes/libft
-					@make -C ./includes/mlx_linux
-					@cp ./includes/mlx_linux/libmlx.a ./
+					@make -C ./includes/mlx_mac
+					@cp ./includes/mlx_mac/libmlx.a ./
 					@cp ./includes/libft/libft.a ./
 					$(LIB) $(LIBP) $(OBJS)
 					$(SANCOMP)
