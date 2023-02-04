@@ -6,7 +6,7 @@
 /*   By: ajimenez <ajimenez@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/16 14:08:17 by ajimenez          #+#    #+#             */
-/*   Updated: 2023/02/04 11:08:05 by goliano-         ###   ########.fr       */
+/*   Updated: 2023/02/04 16:44:12 by ajimenez         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,11 +30,34 @@
 # define LEFT_Y		0
 # define LEFT_X		-1
 
-# define MAP_HEIGHT	640
-# define MAP_WIDTH 480
+# define MAP_HEIGHT	480
+# define MAP_WIDTH  640
 
 # define TILE_SIZE 1
 
+
+
+/*
+ * KEY'S MACROS
+ */
+
+# define W_MAC			13
+# define W_LINUX		119
+
+# define S_MAC			1
+# define S_LINUX		97
+
+# define A_MAC			0
+# define A_LINUX		115
+
+# define D_MAC			2
+# define D_LINUX		100
+
+# define RIGHT_MAC  	124
+# define RIGHT_LINUX 	65363
+
+# define LEFT_MAC 		123
+# define LEFT_LINUX 	65361
 /*
  * PLAYER_DATA
  */

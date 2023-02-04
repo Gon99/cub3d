@@ -6,7 +6,7 @@
 /*   By: ajimenez <ajimenez@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/16 14:16:48 by ajimenez          #+#    #+#             */
-/*   Updated: 2023/02/04 11:06:04 by goliano-         ###   ########.fr       */
+/*   Updated: 2023/02/04 16:46:44 by ajimenez         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,17 +26,18 @@ int	key_type(int key)
 	int	type;
 
 	type = 0;
-	if (key == 13 || key == 119)
+	printf("\nKEYY: %i\n", key);
+	if (key == W_MAC || key == W_LINUX) //W
 		type = 1;
-	else if (key == 1 || key == 97)
+	else if (key == S_MAC || key == S_LINUX)
 		type = 2;
-	else if (key == 0 || key == 115)
+	else if (key == A_MAC || key == A_LINUX)
 		type = 3;
-	else if (key == 2 || key == 100)
+	else if (key == D_MAC || key == D_LINUX)
 		type = 4;
-	else if (key == 124 || key == 65363)
+	else if (key == RIGHT_MAC || key == RIGHT_LINUX)
 		type = 5;
-	else if (key == 123 || key == 65361)
+	else if (key == LEFT_MAC || key == LEFT_LINUX)
 		type = 6;
 	return (type);
 }
