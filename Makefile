@@ -6,22 +6,34 @@
 #    By: goliano- <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/10/31 16:52:02 by goliano-          #+#    #+#              #
-#    Updated: 2023/01/23 14:43:00 by goliano-         ###   ########.fr        #
+#    Updated: 2023/02/04 13:32:04 by ajimenez         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 CC		     = gcc
-#CFLAGS	     = -Wall -Wextra -Werror -g
-MLXFLGS      = -lXext -lX11 -lm -lz
+CFLAGS	     = -Wall -Wextra -Werror -g
 SAN		     = -fsanitize=address
 LIB 	     = ar -rcs
 RM		     = /bin/rm -rf
 
-LIBFT	     = ./includes/libft/libft.a
-LIBMLX	     = ./includes/mlx_linux/libmlx.a
-LIBP	     = cub3D.a 
+OS  		 = $(shell uname -s)
 
 NAME	     = cub3d
+
+LIBFT	     = ./includes/libft/libft.a
+LIBP	     = cub3D.a 
+
+ifeq ($(OS), Darwin)
+	MLXFLGS  = -lz -framework OpenGL -framework AppKit -lm
+	MLXDIR   = ./includes/mlx_mac
+	LIBMLX   = ./includes/mlx_mac/libmlx.a
+endif
+ifeq ($(OS), Linux)
+	MLXFLGS  = -lXext -lX11 -lm -lz
+	MLXDIR   = ./includes/mlx_linux
+	LIBMLX   = ./includes/mlx_linux/libmlx.a
+endif
+
 
 GAME_PATH	 = srcs/game/
 DRAW_PATH	 = srcs/draw/
@@ -49,9 +61,10 @@ all: 		$(NAME)
 $(NAME):			$(OBJS)
 					@echo "\n\033[33mMaking libft! ░░░░░░ /(._.)\ ░░░░░\033[39m\n"
 					@make -sC ./includes/libft
-					@make -sC ./includes/mlx_linux
-					@cp ./includes/mlx_linux/libmlx.a ./
+					@make -sC $(MLXDIR)
 					@cp ./includes/libft/libft.a ./
+					@echo $(MLXDIR)
+					@cp $(LIBMLX) ./
 					$(LIB) $(LIBP) $(OBJS)
 					$(COMP) 
 					@echo "\n\033[1;32mEverything done! ░░░░░░ ＼(>o<)ノ ░░░░░\033[39m\n"
@@ -59,9 +72,9 @@ $(NAME):			$(OBJS)
 fsanitize:			$(OBJS)
 					@echo "\n\033[33mMaking libft! ░░░░░░ /(ಠ_ಠ)\ ░░░░░\033[39m\n"
 					@make -sC ./includes/libft
-					@make -C ./includes/mlx_linux
-					@cp ./includes/mlx_linux/libmlx.a ./
 					@cp ./includes/libft/libft.a ./
+					@make -sC $(MLXDIR)
+					@cp $(LIBMLX) ./
 					$(LIB) $(LIBP) $(OBJS)
 					$(SANCOMP)
 					@echo "\n\033[1;32mEverything done! ░░░░░░ ＼(>o<)ノ ░░░░░\033[39m\n"
@@ -69,7 +82,8 @@ fsanitize:			$(OBJS)
 clean:
 					@make clean -sC ./includes/libft
 					$(RM) $(OBJS) $(OBJS_B)
-					@rm libft.a libmlx.a
+					@rm -rf libft.a libmlx.a cub3d.dSYM cub3d.a
+					@rm $(LIBMLX)
 
 fclean: 	clean
 					@make fclean -sC ./includes/libft
