@@ -80,6 +80,11 @@ double	normalize_angle(double angle)
 //	return (normalize_angle(angle + increment);
 //}
 
+int	get_distance(int px, int py, int cx, int cy)
+{
+	return (sqrt((cx - px) * (cx - px) + (cy - py) * (cy - py)));
+}
+
 void	update_player(t_gdata *gdata, int key)
 {
 	float	new_px;
@@ -155,6 +160,7 @@ void	update_player(t_gdata *gdata, int key)
 	//CALCULAMOS LA DISTANCIA DE CADA PASO
 	float y_step = 1;
 	float x_step = y_step / tan(gdata->pdata->angle);
+	printf("X_STEP0: %f\n", x_step);
 	//SI VAMOS HACIA ARRIBA INVERTIMOS STEP Y
 	if (!down)
 		y_step = -y_step;
@@ -172,8 +178,6 @@ void	update_player(t_gdata *gdata, int key)
 
 	int wall_hit_x_hor = 0;
 	int wall_hit_y_hor = 0;
-//	int wall_hit_x_ver = 0;
-//	int wall_hit_y_ver = 0;
 	//BUCLE PARA BUSCAR PUNTO DE COLISIÓN
 	printf("Y_INTER: %f\n", y_intercept);
 	printf("X_INTER: %f\n", x_intercept);
@@ -197,15 +201,82 @@ void	update_player(t_gdata *gdata, int key)
 		}
 	}
 	//MOSTRAR LINEA RAYO
-	int x_dest;
-	int y_dest;
-	wall_hit_x = wall_hit_x_hor;
-	wall_hit_y = wall_hit_y_hor;
-	printf("COL X EN: %d\n", wall_hit_x);
-	printf("COL Y EN: %d\n", wall_hit_y);
-	x_dest = wall_hit_x;
-	y_dest = wall_hit_y;
-	draw_all(gdata, x_dest, y_dest);
+//	int x_dest;
+//	int y_dest;
+//	wall_hit_x = wall_hit_x_hor;
+//	wall_hit_y = wall_hit_y_hor;
+//	printf("COL X EN: %d\n", wall_hit_x);
+//	printf("COL Y EN: %d\n", wall_hit_y);
+//	x_dest = wall_hit_x;
+//	y_dest = wall_hit_y;
+	
+	//COLISIÓN VERTICAL
+	int ver_hit = 0;
+
+	//BUSCAMOS LA PRIMERA INTERSECCIÓN
+	x_intercept = gdata->pdata->x;
+	if (!left)
+		x_intercept += TILE_SIZE;
+	//SE LE SUMA EL CATETO OPUESTO
+	float op = (x_intercept - gdata->pdata->x) * tan(gdata->pdata->angle);
+	y_intercept = gdata->pdata->y + op;
+
+	//CALCULAMOS LA DISTANCIA DE CADA PASO
+	x_step = TILE_SIZE;
+
+	//SI VA A LA IZQUIERDA, INVERTIMOS
+	if (left)
+		x_step *= -1;
+	y_step = tan(gdata->pdata->angle) * TILE_SIZE;
+	//CONTROLAMOS EL INCREMENTO DE Y, NO SEA QUE ESTE INVERTIDO
+	if ((y_step > 0 && !down) || (y_step < 0 && down))
+		y_step *= -1;
+
+	float next_x_vert = x_intercept;
+	float next_y_vert = y_intercept;
+	printf("NEXT_X_VERT: %f\n", next_x_vert);
+	printf("NEXT_Y_VERT: %f\n", next_y_vert);
+	printf("X_STEP_VER: %f\n", x_step);
+	printf("Y_STEP_VER: %f\n", y_step);
+
+	if (left)
+		next_y_vert--;
+	int wall_hit_x_vert = 0;
+	int wall_hit_y_vert = 0;
+	//BUCLE CON SALTOS PARA DETECTAR COLISIÓN
+	while (!ver_hit && (next_x_vert >= 0 && next_y_vert >= 0 && next_x_vert < gdata->width && next_y_vert < gdata->height))
+	{
+		//OBTENEMOS LA CASILLA REDONDEANDO POR ABAJO
+		if (player_colision(next_y_vert, next_x_vert, gdata))
+		{
+			ver_hit = 1;
+			wall_hit_x_vert = next_x_vert;
+			wall_hit_y_vert = next_y_vert;
+		}
+		else
+		{
+			next_x_vert += x_step;
+			next_y_vert += y_step;
+		}
+	}
+	wall_hit_x = wall_hit_x_vert;
+	wall_hit_y = wall_hit_y_vert;
+	int hor_dist = 99999999;
+	int ver_dist = 99999999;
+	if (hor_hit)
+		hor_dist = get_distance(gdata->pdata->x, gdata->pdata->y, wall_hit_x_hor, wall_hit_y_hor);
+	if (ver_hit)
+		ver_dist = get_distance(gdata->pdata->x, gdata->pdata->y, wall_hit_x_vert, wall_hit_y_vert);
+	//COMPARAMOS LAS DISTANCIAS
+	if (hor_dist < ver_dist)
+	{
+		printf("MENOR HOR\n");
+		wall_hit_x = wall_hit_x_hor;
+		wall_hit_y = wall_hit_y_hor;
+	}
+	printf("COL_X: %d\n", wall_hit_x);
+	printf("COL_Y: %d\n", wall_hit_y);
+	draw_all(gdata, wall_hit_x, wall_hit_y);
 }
 
 /*void	start(t_pdata *pdata, t_gdata *gdata)

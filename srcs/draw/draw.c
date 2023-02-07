@@ -75,21 +75,32 @@ static void	draw_col_line(int x_dest, int y_dest, t_gdata *gdata)
 {
 	float	aux_px;
 	float	aux_py;
-	int	y_len = gdata->pdata->y - y_dest;
+	int	y_len;
 	int	c = 0;
 
+	y_len = y_dest - gdata->pdata->y;
+	if (gdata->pdata->y > y_dest)
+		y_len = gdata->pdata->y - y_dest;
 	printf("----------COL:\n");
 	printf("Y_LEN: %d\nY_LEN_PROP: %d\n", y_len, y_len * gdata->h_prop);
 	printf("X_DEST: %d\n", x_dest);
-	printf("Y_DEST: %d\n", y_dest);
+	printf("Y_DEST: %d\nY_DEST_PROP: %d\n", y_dest, y_dest * gdata->h_prop);
 	aux_px = gdata->pdata->x * gdata->w_prop;
 	aux_py = gdata->pdata->y * gdata->h_prop;
 	printf("AUX_PX_PROP: %f\n", aux_px);
 	printf("AUX_PY_PROP: %f\n", aux_py);
-	while (c <  y_len * gdata->h_prop)
+	int mul = y_dest * gdata->h_prop;
+	float inc_x = gdata->pdata->vel * cos(gdata->pdata->angle);
+	printf("INC_X: %f\n", inc_x);
+//	while (aux_py < mul)
+	while (c < y_len * gdata->h_prop)
 	{
 		my_mlx_pixel_put(gdata->mdata, aux_px, aux_py, parse_color("0, 0, 0"));
-		aux_py--;
+		aux_px += inc_x;
+		if (aux_py > mul)
+			aux_py--;
+		if (aux_py < mul)
+			aux_py++;
 		c++;
 	}
 	printf("---------------\n");
