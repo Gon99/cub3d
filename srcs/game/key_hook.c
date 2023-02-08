@@ -6,7 +6,7 @@
 /*   By: ajimenez <ajimenez@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/16 14:16:48 by ajimenez          #+#    #+#             */
-/*   Updated: 2023/02/04 17:07:01 by ajimenez         ###   ########.fr       */
+/*   Updated: 2023/02/08 16:41:43 by ajimenez         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,7 +46,7 @@ static int	key_hooks_up(int keycode, t_gdata *gdata)
 	int	type;
 
 	if (keycode == ESC)
-		return (1);
+		close_mlx(gdata->mdata, "ESC\n");
 	type = key_type(keycode);
 	if (type >= 1 && type <= 4)
 		gdata->pdata->move = 0;
@@ -62,7 +62,7 @@ static int	key_hooks_down(int keycode, t_gdata *gdata)
 	int	type;
 
 	if (keycode == ESC)
-		return (1);
+		close_mlx(gdata->mdata, "ESC\n");
 	type = key_type(keycode);
 	if (type == 1 || type == 4)
 		move_ahead(gdata);
@@ -91,6 +91,5 @@ void	hooks_call(t_gdata *gdata, t_mdata *mdata)
 	mlx_hook(mdata->win, 2, (1L << 0), key_hooks_down, gdata);
 	mlx_hook(mdata->win, 3, (1L << 1), key_hooks_up, gdata);
 	mlx_hook(mdata->win, 17, (1L << 17), close_mlx, mdata);
-//	mlx_key_hook(win, key_hooks, gdata);
 //	mlx_hook(win, 2, 1L<<0, hook_handler, mdata);
 }
