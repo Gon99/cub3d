@@ -27,10 +27,11 @@
  * SRCS/INIT/
  */
 
-void	init_gdata(t_gdata *gdata, t_pdata *pdata, t_mdata *mdata);
+void	init_gdata(t_gdata *gdata, t_pdata *pdata, t_mdata *mdata, t_rdata *rdata);
 void	init_pdata(t_gdata *gdata);
 void	init_textures(t_tdata *tdata, t_gdata *gdata, t_mdata *mdata);
 void	init_mlx(t_gdata *gdata);
+void	init_rdata(t_gdata *gdata);
 
 /*
  * SRCS/PARSER/
@@ -94,5 +95,12 @@ int		player_colision(int x, int y, t_gdata *gdata);
  */
 void	draw_all(t_gdata *gdata, int x_dest, int y_dest);
 void	draw_first_part_map(t_gdata *gdata);
+
+/*
+ * srcs/angle/angle.c
+ */
+double	to_radians(double angle);
+double	normalize_angle(double angle);
+void	set_angle(double angle, int i, t_gdata *gdata);
 
 #endif

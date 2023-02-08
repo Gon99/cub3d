@@ -18,14 +18,16 @@ int	main(int argc, char **argv)
 	t_pdata	pdata;
 	t_mdata mdata;
 	t_tdata	tdata;
-	(void)argc;
+	t_rdata	rdata;
 
+	(void)argc;
 	if (extension_check(argv[1]) < 0)
 		return (write(1, "Error name\n", 11));
-	init_gdata(&gdata, &pdata, &mdata);
+	init_gdata(&gdata, &pdata, &mdata, &rdata);
 	if (!fill_map(argv[1], &gdata))
 		return (write(1, "Error data\n", 11));
 	init_pdata(&gdata);
+	init_rdata(&gdata);
 	flood_fill(&gdata, pdata.y / gdata.h_prop, pdata.x / gdata.w_prop);
 	if (gdata.error)
 		return (write(1, "Error\n", 6));

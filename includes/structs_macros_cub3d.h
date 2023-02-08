@@ -34,6 +34,8 @@
 # define MAP_WIDTH 480
 
 # define TILE_SIZE 1
+# define FOV 60
+# define HALF_FOV FOV / 2
 
 /*
  * PLAYER_DATA
@@ -50,6 +52,7 @@ typedef struct	p_data
 	double	angle;
 	float	vel;
 	float	vel_spin;
+
 	//initial direction vector
 	double	dir_x;
 	double	dir_y;
@@ -81,6 +84,26 @@ typedef struct	m_data
 	int		end_map;
 }	t_mdata;
 
+typedef struct ray
+{
+	float	x;
+	float	y;
+	double	angle;
+	double	angle_inc;
+}	t_ray;
+
+/*
+ * RAY DATA
+ */
+typedef struct r_data
+
+	int	n_rays;
+	double	angle_inc;
+	double	angle_init;
+	double	angle_ray;
+	int	h_dist;
+	t_ray	*ray;
+}	t_rdata;
 
 /*
  * GLOBAL DATA
@@ -104,6 +127,7 @@ typedef struct s_data
 	int	w_prop;
 	t_pdata	*pdata;
 	t_mdata *mdata;
+	t_rdata *rdata;
 }	t_gdata;
 
 /*

@@ -12,7 +12,7 @@
 
 #include "../../includes/cub3d.h"
 
-void	init_gdata(t_gdata *gdata, t_pdata *pdata, t_mdata *mdata)
+void	init_gdata(t_gdata *gdata, t_pdata *pdata, t_mdata *mdata, t_rdata *rdata)
 {
 	gdata->no = 0;
 	gdata->so = 0;
@@ -27,4 +27,5 @@ void	init_gdata(t_gdata *gdata, t_pdata *pdata, t_mdata *mdata)
 	gdata->width = 0;
 	gdata->pdata = pdata;
 	gdata->mdata = mdata;
+	gdata->rdata = rdata;
 }

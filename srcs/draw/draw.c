@@ -31,7 +31,7 @@ void	draw_first_part_map(t_gdata *gdata)
 	}
 }
 
-static void	draw_dir_line(t_gdata *gdata)
+/*static void	draw_dir_line(t_gdata *gdata)
 {
 	float	aux_px = gdata->pdata->x * gdata->w_prop;
 	float	aux_py = gdata->pdata->y * gdata->h_prop;
@@ -43,16 +43,6 @@ static void	draw_dir_line(t_gdata *gdata)
 	float c1 = x_line - aux_px;
 	float c2 = y_line - aux_py;
 	int hip = sqrt(pow(c1, 2) + pow(c2, 2));
-//	printf("--------\n");
-//	printf("X_LINE: %f\n", x_line);
-//	printf("Y_LINE: %f\n", x_line);
-//	printf("PX: %f\n", aux_px);
-//	printf("PY: %f\n", aux_py);
-//	printf("HIP: %d\n", hip);
-//	printf("ANGLE: %f\n", pdata->angle);
-//	printf("----------\n");
-//	printf("Y: %f\n", y_line);
-//	printf("HIP: %d\n", hip);
 	int c = 0;
 	float x_step = x_line / hip;
 	float y_step = y_line / hip;
@@ -69,43 +59,46 @@ static void	draw_dir_line(t_gdata *gdata)
 			aux_py -= y_step;
 		c++;
 	}
-}
+}*/
 
 static void	draw_col_line(int x_dest, int y_dest, t_gdata *gdata)
 {
 	float	aux_px;
 	float	aux_py;
 	int	y_len;
+	int	x_len;
 	int	c = 0;
 
 	y_len = y_dest - gdata->pdata->y;
+	x_len = x_dest - gdata->pdata->x;
 	if (gdata->pdata->y > y_dest)
 		y_len = gdata->pdata->y - y_dest;
-	printf("----------COL:\n");
-	printf("Y_LEN: %d\nY_LEN_PROP: %d\n", y_len, y_len * gdata->h_prop);
-	printf("X_DEST: %d\n", x_dest);
-	printf("Y_DEST: %d\nY_DEST_PROP: %d\n", y_dest, y_dest * gdata->h_prop);
+	if (gdata->pdata->x > x_dest)
+		x_len = gdata->pdata->x - x_dest;
 	aux_px = gdata->pdata->x * gdata->w_prop;
 	aux_py = gdata->pdata->y * gdata->h_prop;
-	printf("AUX_PX_PROP: %f\n", aux_px);
-	printf("AUX_PY_PROP: %f\n", aux_py);
-	int mul = y_dest * gdata->h_prop;
+//	int mul = y_dest * gdata->h_prop;
 	float inc_x = gdata->pdata->vel * cos(gdata->pdata->angle);
-	printf("INC_X: %f\n", inc_x);
-//	while (aux_py < mul)
-	while (c < y_len * gdata->h_prop)
+	float inc_y = gdata->pdata->vel * sin(gdata->pdata->angle);
+	while (c < y_len * gdata->h_prop || c < x_len * gdata->w_prop)
 	{
 		my_mlx_pixel_put(gdata->mdata, aux_px, aux_py, parse_color("0, 0, 0"));
 		aux_px += inc_x;
-		if (aux_py > mul)
-			aux_py--;
-		if (aux_py < mul)
-			aux_py++;
+		aux_py += inc_y;
+//		if (aux_py > mul)
+//			aux_py--;
+//		if (aux_py < mul)
+//			aux_py++;
 		c++;
 	}
-	printf("---------------\n");
-	printf("---------------\n");
-	printf("---------------\n");
+}
+
+void	render_wall(t_gdata *gdata)
+{
+	int	tile_heigth = 20;
+	double	plane_dist = (gdata->width / 2) / tan(HALF_FOV);
+	double	wall_heigth = tile_height / gdata->rdata->h_dist * plane_dist;
+	//CALCULAMOS DONDE EMPIEZA Y ACABA LA LÍNEA
 }
 
 void	draw_all(t_gdata *gdata, int x_dest, int y_dest)
@@ -114,8 +107,7 @@ void	draw_all(t_gdata *gdata, int x_dest, int y_dest)
 	gdata->mdata->win_addr = mlx_get_data_addr(gdata->mdata->win_img, &gdata->mdata->bpp_win, &gdata->mdata->ll_win, &gdata->mdata->end_win);
 	draw_first_part_map(gdata);
 	draw_col_line(x_dest, y_dest, gdata); // PINTA LA LINEA DE COLISIÓN HASTA QUE ENCUENTRA UNA PARED
-	draw_dir_line(gdata); // PINTA LA LINEA PEQUEÑA
+//	draw_dir_line(gdata); // PINTA LA LINEA PEQUEÑA
 	my_mlx_pixel_put(gdata->mdata, gdata->pdata->x * gdata->w_prop, gdata->pdata->y * gdata->h_prop, parse_color("0, 0, 0"));
 	mlx_put_image_to_window(gdata->mdata->ptr, gdata->mdata->win, gdata->mdata->win_img, 0, 0);
-//	printf("----------------\n");
 }
