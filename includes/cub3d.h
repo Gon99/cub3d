@@ -6,7 +6,7 @@
 /*   By: ajimenez <ajimenez@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/16 14:12:07 by ajimenez          #+#    #+#             */
-/*   Updated: 2023/02/04 12:40:22 by goliano-         ###   ########.fr       */
+/*   Updated: 2023/02/09 18:18:11 by goliano-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,11 +56,6 @@ int		extension_check(char *map);
 void	init_player_data(char **map, t_pdata *pdata);
 
 /*
- * utils/strings.c
- */
-
-
-/*
  * srcs/moves.c
  */
 void	move_ahead(t_gdata *gdata);
@@ -102,5 +97,10 @@ void	draw_first_part_map(t_gdata *gdata);
 double	to_radians(double angle);
 double	normalize_angle(double angle);
 void	set_angle(double angle, int i, t_gdata *gdata);
+
+/*
+ * srcs/math/math.c
+ */
+int	get_distance(int px, int py, int cx, int cy);
 
 #endif

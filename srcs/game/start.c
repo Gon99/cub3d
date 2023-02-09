@@ -6,7 +6,7 @@
 /*   By: goliano- <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/13 16:16:19 by goliano-          #+#    #+#             */
-/*   Updated: 2023/02/04 11:54:36 by goliano-         ###   ########.fr       */
+/*   Updated: 2023/02/09 18:18:09 by goliano-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ void	my_mlx_pixel_put(t_mdata *mdata, int x, int y, int color)
 	*(unsigned int *)dst = color;
 }
 
-int	player_colision(int y, int x, t_gdata *gdata)
+static int	player_colision(int y, int x, t_gdata *gdata)
 {
 	int	col;
 
@@ -35,16 +35,11 @@ int	player_colision(int y, int x, t_gdata *gdata)
 	return (col);
 }
 
-int	get_distance(int px, int py, int cx, int cy)
-{
-	return (sqrt((cx - px) * (cx - px) + (cy - py) * (cy - py)));
-}
-
-void	update_player(t_gdata *gdata, int key)
+static void	player_move(t_gdata *gdata, int key)
 {
 	float	new_px;
 	float	new_py;
-	int	type;
+	int		type;
 
 	type = key_type(key);
 	new_px = gdata->pdata->x;
@@ -64,11 +59,14 @@ void	update_player(t_gdata *gdata, int key)
 	{
 		gdata->pdata->x = new_px;
 		gdata->pdata->y = new_py;
-	//	printf("NEW_PX: %f\n", gdata->pdata->x);
-	//	printf("NEW_PY: %f\n", gdata->pdata->y);
 	}
 	gdata->pdata->angle += gdata->pdata->spin * gdata->pdata->vel_spin;
 	gdata->pdata->angle = normalize_angle(gdata->pdata->angle);//TODO-> check angle
+}
+
+void	update_player(t_gdata *gdata, int key)
+{
+	player_move(gdata, key);
 	//INICIALIZAR EL HAZ DE RAYOS
 	int i = 0;
 	while (i < gdata->rdata->n_rays)
