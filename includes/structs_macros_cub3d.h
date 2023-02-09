@@ -6,7 +6,7 @@
 /*   By: ajimenez <ajimenez@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/16 14:08:17 by ajimenez          #+#    #+#             */
-/*   Updated: 2023/02/04 11:08:05 by goliano-         ###   ########.fr       */
+/*   Updated: 2023/02/09 15:03:07 by goliano-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -96,7 +96,7 @@ typedef struct ray
  * RAY DATA
  */
 typedef struct r_data
-
+{
 	int	n_rays;
 	double	angle_inc;
 	double	angle_init;

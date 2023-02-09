@@ -6,7 +6,7 @@
 /*   By: goliano- <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/04 11:58:30 by goliano-          #+#    #+#             */
-/*   Updated: 2023/02/04 12:56:23 by goliano-         ###   ########.fr       */
+/*   Updated: 2023/02/09 15:17:27 by goliano-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -97,8 +97,25 @@ void	render_wall(t_gdata *gdata)
 {
 	int	tile_heigth = 20;
 	double	plane_dist = (gdata->width / 2) / tan(HALF_FOV);
-	double	wall_heigth = tile_height / gdata->rdata->h_dist * plane_dist;
+	double	wall_heigth = tile_heigth / gdata->rdata->h_dist * plane_dist;
 	//CALCULAMOS DONDE EMPIEZA Y ACABA LA LÍNEA
+	float y0 = (int)gdata->height / 2 - wall_heigth / 2;
+	float y1 = y0 + tile_heigth;
+
+	float aux = y0;
+	int x = 0;
+	printf("Y0: %f\n", y0);
+	printf("Y1: %f\n", y1);
+	while (x < gdata->rdata->n_rays)
+	{
+		aux = y0;
+		while (aux < y1)
+		{
+			my_mlx_pixel_put(gdata->mdata, x, aux, parse_color("0, 0, 0"));
+			aux++;
+		}
+		x++;
+	}
 }
 
 void	draw_all(t_gdata *gdata, int x_dest, int y_dest)
@@ -108,6 +125,7 @@ void	draw_all(t_gdata *gdata, int x_dest, int y_dest)
 	draw_first_part_map(gdata);
 	draw_col_line(x_dest, y_dest, gdata); // PINTA LA LINEA DE COLISIÓN HASTA QUE ENCUENTRA UNA PARED
 //	draw_dir_line(gdata); // PINTA LA LINEA PEQUEÑA
+	render_wall(gdata);
 	my_mlx_pixel_put(gdata->mdata, gdata->pdata->x * gdata->w_prop, gdata->pdata->y * gdata->h_prop, parse_color("0, 0, 0"));
 	mlx_put_image_to_window(gdata->mdata->ptr, gdata->mdata->win, gdata->mdata->win_img, 0, 0);
 }
