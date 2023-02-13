@@ -180,13 +180,13 @@ void	update_player(t_gdata *gdata, int key)
 		hor_dist = get_distance(gdata->pdata->x, gdata->pdata->y, wall_hit_x_hor, wall_hit_y_hor);
 	if (ver_hit)
 		ver_dist = get_distance(gdata->pdata->x, gdata->pdata->y, wall_hit_x_vert, wall_hit_y_vert);
-	gdata->rdata->h_dist = ver_dist;
+	gdata->rdata->h_dist = ver_dist * gdata->h_prop;
 	//COMPARAMOS LAS DISTANCIAS
 	if (hor_dist < ver_dist)
 	{
 		wall_hit_x = wall_hit_x_hor;
 		wall_hit_y = wall_hit_y_hor;
-		gdata->rdata->h_dist = hor_dist;
+		gdata->rdata->h_dist = hor_dist * gdata->w_prop;
 	}
 	draw_all(gdata, wall_hit_x, wall_hit_y);
 }

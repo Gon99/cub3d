@@ -19,6 +19,7 @@ double	normalize_angle(double angle)
 
 void	set_angle(double angle, int i, t_gdata *gdata)
 {
-	gdata->pdata->angle = angle;
+//	NO HACE FALTA SE HACE EN PLAYR_MOVE PONERLO EN UNO DE LOS DOS LADOS
+//	gdata->pdata->angle = angle;
 	gdata->rdata->ray[i].angle = normalize_angle(angle + gdata->rdata->ray[i].angle_inc);
 }

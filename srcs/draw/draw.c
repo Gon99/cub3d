@@ -95,7 +95,7 @@ static void	draw_col_line(int x_dest, int y_dest, t_gdata *gdata)
 
 void	render_wall(t_gdata *gdata)
 {
-	int	tile_heigth = 20;
+	int	tile_heigth = 200;
 	double	plane_dist = (gdata->width / 2) / tan(HALF_FOV);
 	double	wall_heigth = tile_heigth / gdata->rdata->h_dist * plane_dist;
 	//CALCULAMOS DONDE EMPIEZA Y ACABA LA LÍNEA
@@ -118,6 +118,31 @@ void	render_wall(t_gdata *gdata)
 	}
 }
 
+void	draw_rays(t_gdata *gdata, int y_dest)
+{
+	int	i = 0;
+	
+	while (i < gdata->rdata->n_rays)
+	{
+		double y_len = gdata->rdata->ray[i].y - y_dest;
+		if (gdata->rdata->ray[i].y < y_dest)
+			y_len = y_dest - gdata->rdata->ray[i].y;
+		int x = 0;
+		double aux_px = gdata->rdata->ray[i].x * gdata->w_prop;
+		double aux_py = gdata->rdata->ray[i].y * gdata->h_prop;
+		double	x_step = gdata->pdata->vel * cos(gdata->rdata->ray[i].angle);
+		double	y_step = gdata->pdata->vel * sin(gdata->rdata->ray[i].angle);
+		while (x < y_len * gdata->h_prop)
+		{
+			my_mlx_pixel_put(gdata->mdata, aux_px, aux_py, parse_color("0, 0, 0"));
+			aux_px += x_step;
+			aux_py += y_step;
+			x++;
+		}
+		i++;
+	}
+}
+
 void	draw_all(t_gdata *gdata, int x_dest, int y_dest)
 {
 	gdata->mdata->win_img = mlx_new_image(gdata->mdata->ptr, MAP_WIDTH, MAP_HEIGHT);
@@ -125,6 +150,7 @@ void	draw_all(t_gdata *gdata, int x_dest, int y_dest)
 	draw_first_part_map(gdata);
 	draw_col_line(x_dest, y_dest, gdata); // PINTA LA LINEA DE COLISIÓN HASTA QUE ENCUENTRA UNA PARED
 //	draw_dir_line(gdata); // PINTA LA LINEA PEQUEÑA
+	draw_rays(gdata, y_dest);
 	render_wall(gdata);
 	my_mlx_pixel_put(gdata->mdata, gdata->pdata->x * gdata->w_prop, gdata->pdata->y * gdata->h_prop, parse_color("0, 0, 0"));
 	mlx_put_image_to_window(gdata->mdata->ptr, gdata->mdata->win, gdata->mdata->win_img, 0, 0);

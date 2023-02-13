@@ -83,7 +83,7 @@ int	key_type(int key);
 
 void	update_player(t_gdata *gdata, int key);
 void	my_mlx_pixel_put(t_mdata *mdata, int x, int y, int color);
-int		player_colision(int x, int y, t_gdata *gdata);
+//int		player_colision(int x, int y, t_gdata *gdata);
 
 /*
  * srcs/draw/draw.c
