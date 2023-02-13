@@ -96,18 +96,22 @@ static void	draw_col_line(int x_dest, int y_dest, t_gdata *gdata)
 void	render_wall(t_gdata *gdata)
 {
 	int	tile_heigth = 200;
-	double	plane_dist = (gdata->width / 2) / tan(HALF_FOV);
-	double	wall_heigth = tile_heigth / gdata->rdata->h_dist * plane_dist;
+	double	plane_dist = (MAP_WIDTH / 2) / tan(HALF_FOV);
+	printf("PLANE: %f\n", plane_dist);
 	//CALCULAMOS DONDE EMPIEZA Y ACABA LA LÍNEA
-	float y0 = (int)gdata->height / 2 - wall_heigth / 2;
-	float y1 = y0 + tile_heigth;
 
-	float aux = y0;
+	float aux;
 	int x = 0;
-	printf("Y0: %f\n", y0);
-	printf("Y1: %f\n", y1);
+	printf("N_RAYS: %d\n", gdata->rdata->n_rays);
 	while (x < gdata->rdata->n_rays)
 	{
+		double	wall_heigth = tile_heigth / gdata->rdata->ray[x].y_dest * plane_dist;
+		float y0 = MAP_HEIGHT / 2 - (int)wall_heigth / 2;
+		float y1 = y0 + tile_heigth;
+		printf("WALL: %f\n", wall_heigth);
+		printf("y0: %f\n", y0);
+		printf("XDEST: %f\n", gdata->rdata->ray[x].x_dest);
+		printf("YDEST: %f\n", gdata->rdata->ray[x].y_dest);
 		aux = y0;
 		while (aux < y1)
 		{
@@ -118,6 +122,38 @@ void	render_wall(t_gdata *gdata)
 	}
 }
 
+/*void	render_wall(t_gdata *gdata)
+{
+	int	tile_heigth = 200;
+	double	plane_dist = (MAP_WIDTH / 2) / tan(HALF_FOV);
+	printf("PLANE: %f\n", plane_dist);
+	double	wall_heigth = tile_heigth / gdata->rdata->h_dist * plane_dist;
+	printf("H_DIST: %d\n", gdata->rdata->h_dist);
+	//CALCULAMOS DONDE EMPIEZA Y ACABA LA LÍNEA
+	float y0 = MAP_HEIGHT / 2 - (int)wall_heigth / 2;
+	float y1 = y0 + tile_heigth;
+	printf("WALL_HEIGTH: %f\n", wall_heigth);
+
+	float aux = y0;
+	int x = 0;
+	printf("Y0: %f\n", y0);
+	printf("Y1: %f\n", y1);
+	printf("N_RAYS: %d\n", gdata->rdata->n_rays);
+	while (x < gdata->rdata->n_rays)
+	{
+		int p = 0;
+		printf("XDEST: %f\n", gdata->rdata->ray[x].x_dest);
+		printf("YDEST: %f\n", gdata->rdata->ray[x].y_dest);
+		aux = y0;
+		while (aux < y1)
+		{
+			my_mlx_pixel_put(gdata->mdata, x, aux, parse_color("0, 0, 0"));
+			aux++;
+		}
+		x++;
+	}
+}
+*/
 void	draw_rays(t_gdata *gdata, int y_dest)
 {
 	int	i = 0;
@@ -127,6 +163,7 @@ void	draw_rays(t_gdata *gdata, int y_dest)
 		double y_len = gdata->rdata->ray[i].y - y_dest;
 		if (gdata->rdata->ray[i].y < y_dest)
 			y_len = y_dest - gdata->rdata->ray[i].y;
+//		printf("Y_LEN: i: %f %d\n", y_len, i);
 		int x = 0;
 		double aux_px = gdata->rdata->ray[i].x * gdata->w_prop;
 		double aux_py = gdata->rdata->ray[i].y * gdata->h_prop;

@@ -64,6 +64,39 @@ static void	player_move(t_gdata *gdata, int key)
 	gdata->pdata->angle = normalize_angle(gdata->pdata->angle);//TODO-> check angle
 }
 
+void	get_ray_dest(t_gdata *gdata, int dest)
+{
+	int	i;
+	int	x;
+	double	x_step;
+	double	aux_px;
+	double	aux_py;
+	double	dest_diff;
+
+	i = 0;
+	while (i < gdata->rdata->n_rays)
+	{
+		x = 0;
+		dest_diff = gdata->rdata->ray[i].y - dest;
+		if (gdata->rdata->ray[i].y < dest)
+			dest_diff = dest - gdata->rdata->ray[i].y;
+		aux_px = gdata->rdata->ray[i].x * gdata->w_prop;
+		aux_py = gdata->rdata->ray[i].y * gdata->h_prop;
+		double	y_step = gdata->pdata->vel * sin(gdata->rdata->ray[i].angle);
+		x_step = gdata->pdata->vel * cos(gdata->rdata->ray[i].angle);
+		while (x < dest_diff * gdata->h_prop)
+		{
+			aux_px += x_step;
+			aux_py += y_step;
+			x++;
+		}
+		gdata->rdata->ray[i].x_dest = aux_px;
+		gdata->rdata->ray[i].y_dest = aux_py;
+		i++;
+	}
+}
+		
+
 void	update_player(t_gdata *gdata, int key)
 {
 	player_move(gdata, key);
@@ -188,5 +221,6 @@ void	update_player(t_gdata *gdata, int key)
 		wall_hit_y = wall_hit_y_hor;
 		gdata->rdata->h_dist = hor_dist * gdata->w_prop;
 	}
+	get_ray_dest(gdata, wall_hit_y);
 	draw_all(gdata, wall_hit_x, wall_hit_y);
 }

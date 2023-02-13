@@ -88,6 +88,8 @@ typedef struct ray
 {
 	float	x;
 	float	y;
+	double	x_dest;
+	double	y_dest;
 	double	angle;
 	double	angle_inc;
 }	t_ray;
