@@ -6,7 +6,7 @@
 /*   By: goliano- <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/13 16:16:19 by goliano-          #+#    #+#             */
-/*   Updated: 2023/02/09 18:18:09 by goliano-         ###   ########.fr       */
+/*   Updated: 2023/02/14 17:08:16 by goliano-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,12 +44,12 @@ static void	player_move(t_gdata *gdata, int key)
 	type = key_type(key);
 	new_px = gdata->pdata->x;
 	new_py = gdata->pdata->y;
-	if (type == 1 || type == 3)
+	if (type == 1 || type == 2)
 	{
 		new_px = gdata->pdata->x + (gdata->pdata->move * cos(gdata->pdata->angle) * gdata->pdata->vel);
 		new_py = gdata->pdata->y + (gdata->pdata->move * sin(gdata->pdata->angle) * gdata->pdata->vel);
 	}
-	else if (type == 4 || type == 2)
+	else if (type == 4 || type == 3)
 	{
 		//CHECK WHY
 		new_px = gdata->pdata->x + (gdata->pdata->move * cos(gdata->pdata->angle + (M_PI / 2)) * gdata->pdata->vel);
@@ -214,13 +214,17 @@ void	update_player(t_gdata *gdata, int key)
 	if (ver_hit)
 		ver_dist = get_distance(gdata->pdata->x, gdata->pdata->y, wall_hit_x_vert, wall_hit_y_vert);
 	gdata->rdata->h_dist = ver_dist * gdata->h_prop;
+	printf("V_DIST: %d\n", gdata->rdata->h_dist / gdata->h_prop);
+//	gdata->rdata->h_dist = ver_dist;
 	//COMPARAMOS LAS DISTANCIAS
 	if (hor_dist < ver_dist)
 	{
 		wall_hit_x = wall_hit_x_hor;
 		wall_hit_y = wall_hit_y_hor;
 		gdata->rdata->h_dist = hor_dist * gdata->w_prop;
+		printf("H_DIST: %d\n", gdata->rdata->h_dist / gdata->w_prop);
+//		gdata->rdata->h_dist = hor_dist;
 	}
 	get_ray_dest(gdata, wall_hit_y);
-	draw_all(gdata, wall_hit_x, wall_hit_y);
+	draw_all(gdata/*, wall_hit_x, wall_hit_y*/);
 }

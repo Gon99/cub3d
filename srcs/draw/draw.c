@@ -6,7 +6,7 @@
 /*   By: goliano- <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/04 11:58:30 by goliano-          #+#    #+#             */
-/*   Updated: 2023/02/09 15:17:27 by goliano-         ###   ########.fr       */
+/*   Updated: 2023/02/14 17:08:14 by goliano-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,7 +61,7 @@ void	draw_first_part_map(t_gdata *gdata)
 	}
 }*/
 
-static void	draw_col_line(int x_dest, int y_dest, t_gdata *gdata)
+/*static void	draw_col_line(int x_dest, int y_dest, t_gdata *gdata)
 {
 	float	aux_px;
 	float	aux_py;
@@ -91,9 +91,9 @@ static void	draw_col_line(int x_dest, int y_dest, t_gdata *gdata)
 //			aux_py++;
 		c++;
 	}
-}
+}*/
 
-void	render_wall(t_gdata *gdata)
+/*void	render_wall(t_gdata *gdata)
 {
 	int	tile_heigth = 200;
 	double	plane_dist = (MAP_WIDTH / 2) / tan(HALF_FOV);
@@ -120,31 +120,31 @@ void	render_wall(t_gdata *gdata)
 		}
 		x++;
 	}
-}
+}*/
 
-/*void	render_wall(t_gdata *gdata)
+void	render_wall(t_gdata *gdata)
 {
-	int	tile_heigth = 200;
+	int	tile_heigth = 100;
 	double	plane_dist = (MAP_WIDTH / 2) / tan(HALF_FOV);
-	printf("PLANE: %f\n", plane_dist);
+	if (plane_dist < 0)
+		plane_dist *= -1;
 	double	wall_heigth = tile_heigth / gdata->rdata->h_dist * plane_dist;
-	printf("H_DIST: %d\n", gdata->rdata->h_dist);
+	printf("DIST: %d\n", gdata->rdata->h_dist);
 	//CALCULAMOS DONDE EMPIEZA Y ACABA LA LÍNEA
 	float y0 = MAP_HEIGHT / 2 - (int)wall_heigth / 2;
-	float y1 = y0 + tile_heigth;
-	printf("WALL_HEIGTH: %f\n", wall_heigth);
-
-	float aux = y0;
+	float y1 = y0 + tile_heigth + wall_heigth;
 	int x = 0;
-	printf("Y0: %f\n", y0);
-	printf("Y1: %f\n", y1);
-	printf("N_RAYS: %d\n", gdata->rdata->n_rays);
-	while (x < gdata->rdata->n_rays)
+	printf("PX: %f\n", gdata->pdata->x);
+	printf("PY: %f\n", gdata->pdata->y);
+	printf("WALL_HEIGTH: %f\n", wall_heigth);
+	printf("y0: %f\n", y0);
+	printf("y1: %f\n", y1);
+	printf("----------------\n");
+	while (x < MAP_WIDTH)
 	{
-		int p = 0;
-		printf("XDEST: %f\n", gdata->rdata->ray[x].x_dest);
-		printf("YDEST: %f\n", gdata->rdata->ray[x].y_dest);
-		aux = y0;
+//		printf("XDEST: %f\n", gdata->rdata->ray[x].x_dest);
+//		printf("YDEST: %f\n", gdata->rdata->ray[x].y_dest);
+		float aux = y0;
 		while (aux < y1)
 		{
 			my_mlx_pixel_put(gdata->mdata, x, aux, parse_color("0, 0, 0"));
@@ -153,41 +153,41 @@ void	render_wall(t_gdata *gdata)
 		x++;
 	}
 }
-*/
-void	draw_rays(t_gdata *gdata, int y_dest)
-{
-	int	i = 0;
-	
-	while (i < gdata->rdata->n_rays)
-	{
-		double y_len = gdata->rdata->ray[i].y - y_dest;
-		if (gdata->rdata->ray[i].y < y_dest)
-			y_len = y_dest - gdata->rdata->ray[i].y;
-//		printf("Y_LEN: i: %f %d\n", y_len, i);
-		int x = 0;
-		double aux_px = gdata->rdata->ray[i].x * gdata->w_prop;
-		double aux_py = gdata->rdata->ray[i].y * gdata->h_prop;
-		double	x_step = gdata->pdata->vel * cos(gdata->rdata->ray[i].angle);
-		double	y_step = gdata->pdata->vel * sin(gdata->rdata->ray[i].angle);
-		while (x < y_len * gdata->h_prop)
-		{
-			my_mlx_pixel_put(gdata->mdata, aux_px, aux_py, parse_color("0, 0, 0"));
-			aux_px += x_step;
-			aux_py += y_step;
-			x++;
-		}
-		i++;
-	}
-}
 
-void	draw_all(t_gdata *gdata, int x_dest, int y_dest)
+//void	draw_rays(t_gdata *gdata, int y_dest)
+//{
+//	int	i = 0;
+//	
+//	while (i < gdata->rdata->n_rays)
+//	{
+//		double y_len = gdata->rdata->ray[i].y - y_dest;
+//		if (gdata->rdata->ray[i].y < y_dest)
+//			y_len = y_dest - gdata->rdata->ray[i].y;
+////		printf("Y_LEN: i: %f %d\n", y_len, i);
+//		int x = 0;
+//		double aux_px = gdata->rdata->ray[i].x * gdata->w_prop;
+//		double aux_py = gdata->rdata->ray[i].y * gdata->h_prop;
+//		double	x_step = gdata->pdata->vel * cos(gdata->rdata->ray[i].angle);
+//		double	y_step = gdata->pdata->vel * sin(gdata->rdata->ray[i].angle);
+//		while (x < y_len * gdata->h_prop)
+//		{
+//			my_mlx_pixel_put(gdata->mdata, aux_px, aux_py, parse_color("0, 0, 0"));
+//			aux_px += x_step;
+//			aux_py += y_step;
+//			x++;
+//		}
+//		i++;
+//	}
+//}
+
+void	draw_all(t_gdata *gdata/*, int x_dest, int y_dest*/)
 {
 	gdata->mdata->win_img = mlx_new_image(gdata->mdata->ptr, MAP_WIDTH, MAP_HEIGHT);
 	gdata->mdata->win_addr = mlx_get_data_addr(gdata->mdata->win_img, &gdata->mdata->bpp_win, &gdata->mdata->ll_win, &gdata->mdata->end_win);
 	draw_first_part_map(gdata);
-	draw_col_line(x_dest, y_dest, gdata); // PINTA LA LINEA DE COLISIÓN HASTA QUE ENCUENTRA UNA PARED
+//	draw_col_line(x_dest, y_dest, gdata); // PINTA LA LINEA DE COLISIÓN HASTA QUE ENCUENTRA UNA PARED
 //	draw_dir_line(gdata); // PINTA LA LINEA PEQUEÑA
-	draw_rays(gdata, y_dest);
+//	draw_rays(gdata, y_dest);
 	render_wall(gdata);
 	my_mlx_pixel_put(gdata->mdata, gdata->pdata->x * gdata->w_prop, gdata->pdata->y * gdata->h_prop, parse_color("0, 0, 0"));
 	mlx_put_image_to_window(gdata->mdata->ptr, gdata->mdata->win, gdata->mdata->win_img, 0, 0);
