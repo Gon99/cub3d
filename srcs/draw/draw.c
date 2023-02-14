@@ -25,9 +25,9 @@ void	draw_first_part_map(t_gdata *gdata)
 	{
 		y = 0;
 		while (++y < middle)
-			my_mlx_pixel_put(gdata->mdata, x, y, parse_color(gdata->f));
+			my_mlx_pixel_put(gdata->mdata, x, y, get_color(gdata->f));
 		while (++y < MAP_HEIGHT)
-			my_mlx_pixel_put(gdata->mdata, x, y, parse_color(gdata->c));
+			my_mlx_pixel_put(gdata->mdata, x, y, get_color(gdata->c));
 	}
 }
 
@@ -48,7 +48,7 @@ void	draw_first_part_map(t_gdata *gdata)
 	float y_step = y_line / hip;
 	while (c < hip)
 	{
-		my_mlx_pixel_put(gdata->mdata, aux_px, aux_py, parse_color("0, 0, 0"));
+		my_mlx_pixel_put(gdata->mdata, aux_px, aux_py, get_color("0, 0, 0"));
 		if (aux_px < x_line)
 			aux_px += x_step;
 		if (aux_py < y_line)
@@ -82,7 +82,7 @@ static void	draw_col_line(int x_dest, int y_dest, t_gdata *gdata)
 	float inc_y = gdata->pdata->vel * sin(gdata->pdata->angle);
 	while (c < y_len * gdata->h_prop || c < x_len * gdata->w_prop)
 	{
-		my_mlx_pixel_put(gdata->mdata, aux_px, aux_py, parse_color("0, 0, 0"));
+		my_mlx_pixel_put(gdata->mdata, aux_px, aux_py, get_color("0, 0, 0"));
 		aux_px += inc_x;
 		aux_py += inc_y;
 //		if (aux_py > mul)
@@ -115,7 +115,7 @@ void	render_wall(t_gdata *gdata)
 		aux = y0;
 		while (aux < y1)
 		{
-			my_mlx_pixel_put(gdata->mdata, x, aux, parse_color("0, 0, 0"));
+			my_mlx_pixel_put(gdata->mdata, x, aux, get_color("0, 0, 0"));
 			aux++;
 		}
 		x++;
@@ -147,7 +147,7 @@ void	render_wall(t_gdata *gdata)
 		aux = y0;
 		while (aux < y1)
 		{
-			my_mlx_pixel_put(gdata->mdata, x, aux, parse_color("0, 0, 0"));
+			my_mlx_pixel_put(gdata->mdata, x, aux, get_color("0, 0, 0"));
 			aux++;
 		}
 		x++;
@@ -171,7 +171,7 @@ void	draw_rays(t_gdata *gdata, int y_dest)
 		double	y_step = gdata->pdata->vel * sin(gdata->rdata->ray[i].angle);
 		while (x < y_len * gdata->h_prop)
 		{
-			my_mlx_pixel_put(gdata->mdata, aux_px, aux_py, parse_color("0, 0, 0"));
+			my_mlx_pixel_put(gdata->mdata, aux_px, aux_py, get_color("0, 0, 0"));
 			aux_px += x_step;
 			aux_py += y_step;
 			x++;
@@ -189,6 +189,6 @@ void	draw_all(t_gdata *gdata, int x_dest, int y_dest)
 //	draw_dir_line(gdata); // PINTA LA LINEA PEQUEÑA
 	draw_rays(gdata, y_dest);
 	render_wall(gdata);
-	my_mlx_pixel_put(gdata->mdata, gdata->pdata->x * gdata->w_prop, gdata->pdata->y * gdata->h_prop, parse_color("0, 0, 0"));
+	my_mlx_pixel_put(gdata->mdata, gdata->pdata->x * gdata->w_prop, gdata->pdata->y * gdata->h_prop, get_color("0, 0, 0"));
 	mlx_put_image_to_window(gdata->mdata->ptr, gdata->mdata->win, gdata->mdata->win_img, 0, 0);
 }

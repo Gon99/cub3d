@@ -6,7 +6,7 @@
 /*   By: ajimenez <ajimenez@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/16 14:12:07 by ajimenez          #+#    #+#             */
-/*   Updated: 2023/02/14 11:12:55 by ajimenez         ###   ########.fr       */
+/*   Updated: 2023/02/14 12:57:10 by ajimenez         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,6 +50,7 @@ void	flood_fill(t_gdata *gdata, int x, int y);
 int		is_player_letter(char c);
 char	*rm_nl(char *line);
 int		extension_check(char *map);
+int 	check_color(char *str);
 
 /*
  *	utils/init.c
@@ -68,7 +69,7 @@ void	turn_left(t_gdata *gdata);
  * srcs/game
  */
 
-int		parse_color(char *str);
+int		get_color(char *str);
 int		key_hook(int keycode, t_mdata *mlx);
 void	ft_game(t_mdata *mdata, t_gdata *gdata, t_tdata *tdata);
 

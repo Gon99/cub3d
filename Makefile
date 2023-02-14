@@ -6,7 +6,7 @@
 #    By: ajimenez <ajimenez@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/02/04 15:43:39 by ajimenez          #+#    #+#              #
-#    Updated: 2023/02/09 18:14:39 by goliano-         ###   ########.fr        #
+#    Updated: 2023/02/14 12:44:26 by ajimenez         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -41,11 +41,12 @@ INIT_PATH	 = srcs/init/
 PARSER_PATH  = srcs/parser/
 ANGLE_PATH	 = srcs/angle/
 
-GAME_FL		 = game.c init_textures.c key_hook.c moves.c parse_color.c \
+GAME_FL		 = game.c init_textures.c key_hook.c moves.c get_color.c \
 			   start.c
 DRAW_FL		 = draw.c
 INIT_FL		 = init_gdata.c init_pdata.c init_rdata.c init_mlx.c
-PARSER_FL	 = utils_file.c iter_spaces_idx.c is_line.c flood_fill.c fill_map.c check.c
+PARSER_FL	 = utils_file.c iter_spaces_idx.c is_line.c flood_fill.c fill_map.c check.c \
+			   parse_color.c
 ANGLE_FL	 = angle.c
 MATH_FL		 = math.c
 

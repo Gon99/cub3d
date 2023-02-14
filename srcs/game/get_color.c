@@ -1,26 +1,24 @@
+
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_putmatrix.c                                     :+:      :+:    :+:   */
+/*   color.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ajimenez <ajimenez@student.42madrid>       +#+  +:+       +#+        */
+/*   By: goliano- <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/10/08 18:46:56 by ajimenez          #+#    #+#             */
-/*   Updated: 2023/02/14 15:00:54 by ajimenez         ###   ########.fr       */
+/*   Created: 2023/01/18 09:59:32 by goliano-          #+#    #+#             */
+/*   Updated: 2023/01/18 09:59:57 by goliano-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
+#include "../../includes/cub3d.h"
 
-void	ft_putmatrix(char **s)
+int	get_color(char *str)
 {
-	size_t	aux;
+	char	**sp;
+	int	color;
 
-	aux = 0;
-	while (s[aux])
-	{
-		ft_putstr_fd(s[aux], 1);
-		ft_putchar_fd('\n', 1);
-		aux++;
-	}
+	sp = ft_split(str, ',');
+	color = (ft_atoi(sp[0]) << 16 | ft_atoi(sp[1]) << 8 | ft_atoi(sp[2]));
+	return (color);
 }

@@ -6,7 +6,7 @@
 /*   By: ajimenez <ajimenez@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/11 19:16:11 by ajimenez          #+#    #+#             */
-/*   Updated: 2023/01/23 15:18:51 by goliano-         ###   ########.fr       */
+/*   Updated: 2023/02/14 15:13:43 by ajimenez         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -106,6 +106,11 @@ int	fill_map(char *map, t_gdata *gdata)
 		return (0);
 	if (!map_data_check(gdata))
 		return (0);
+	printf("\ncheck %i\n", check_color(gdata->f));
+	if (!check_color(gdata->c) || !check_color(gdata->f))
+	{
+		return (0);
+	}
 	gdata->width = ft_matrix_data(gdata->map).width;
 	gdata->height = ft_matrix_data(gdata->map).height;
 	return (1);

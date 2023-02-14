@@ -13,12 +13,13 @@
 
 #include "../../includes/cub3d.h"
 
-int	parse_color(char *str)
+int	get_color(char *str)
 {
 	char	**sp;
 	int	color;
 
 	sp = ft_split(str, ',');
+		exit(0);
 	color = (ft_atoi(sp[0]) << 16 | ft_atoi(sp[1]) << 8 | ft_atoi(sp[2]));
 	return (color);
 }
