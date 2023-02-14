@@ -6,7 +6,7 @@
 /*   By: ajimenez <ajimenez@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/14 12:45:03 by ajimenez          #+#    #+#             */
-/*   Updated: 2023/02/14 15:42:49 by ajimenez         ###   ########.fr       */
+/*   Updated: 2023/02/14 16:04:54 by ajimenez         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,6 +61,7 @@ int check_color(char *str)
 		ret = false;
 	}
 //	if (ft_iter_matrix_bool(sp, ft_isdigit))
+//	TODO -> DIGIT
 	if (!check_digit(str))
 	{
 		printf("digit\n");
