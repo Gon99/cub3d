@@ -6,7 +6,7 @@
 /*   By: ajimenez <ajimenez@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/16 14:12:07 by ajimenez          #+#    #+#             */
-/*   Updated: 2023/02/09 18:18:11 by goliano-         ###   ########.fr       */
+/*   Updated: 2023/02/14 11:12:55 by ajimenez         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,7 @@
 # include <stdlib.h>
 # include <fcntl.h>
 # include <math.h>
+# include <stdbool.h>
 # include "mlx_linux/mlx.h"
 # include "libft/libft.h"
 # include "structs_macros_cub3d.h"
