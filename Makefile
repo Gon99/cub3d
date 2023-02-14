@@ -6,7 +6,7 @@
 #    By: ajimenez <ajimenez@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/02/04 15:43:39 by ajimenez          #+#    #+#              #
-#    Updated: 2023/02/04 15:43:41 by ajimenez         ###   ########.fr        #
+#    Updated: 2023/02/09 18:14:39 by goliano-         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -34,23 +34,28 @@ ifeq ($(OS), Linux)
 	LIBMLX   = ./includes/mlx_linux/libmlx.a
 endif
 
-
+MATH_PATH	 = srcs/math/
 GAME_PATH	 = srcs/game/
 DRAW_PATH	 = srcs/draw/
 INIT_PATH	 = srcs/init/
 PARSER_PATH  = srcs/parser/
+ANGLE_PATH	 = srcs/angle/
 
-GAME_FL		 = game.c init_mlx.c init_textures.c key_hook.c moves.c parse_color.c \
+GAME_FL		 = game.c init_textures.c key_hook.c moves.c parse_color.c \
 			   start.c
 DRAW_FL		 = draw.c
-INIT_FL		 = init_gdata.c init_pdata.c
+INIT_FL		 = init_gdata.c init_pdata.c init_rdata.c init_mlx.c
 PARSER_FL	 = utils_file.c iter_spaces_idx.c is_line.c flood_fill.c fill_map.c check.c
+ANGLE_FL	 = angle.c
+MATH_FL		 = math.c
 
 SRCS         = 	srcs/main.c \
 				$(addprefix $(GAME_PATH), $(GAME_FL)) \
 				$(addprefix $(INIT_PATH), $(INIT_FL)) \
 				$(addprefix $(PARSER_PATH), $(PARSER_FL)) \
-				$(addprefix $(DRAW_PATH), $(DRAW_FL))
+				$(addprefix $(DRAW_PATH), $(DRAW_FL)) \
+				$(addprefix $(ANGLE_PATH), $(ANGLE_FL)) \
+				$(addprefix $(MATH_PATH), $(MATH_FL))
 
 OBJS	= $(SRCS:.c=.o)
 COMP	= $(CC) $(CFLAGS) $(SRCS) $(LIBFT) $(LIBMLX) $(MLXFLGS) -o $(NAME)

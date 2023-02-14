@@ -6,7 +6,7 @@
 /*   By: ajimenez <ajimenez@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/16 14:08:17 by ajimenez          #+#    #+#             */
-/*   Updated: 2023/02/04 17:05:49 by ajimenez         ###   ########.fr       */
+/*   Updated: 2023/02/14 10:30:15 by ajimenez         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,6 +34,8 @@
 # define MAP_WIDTH  640
 
 # define TILE_SIZE 1
+# define FOV 60
+# define HALF_FOV FOV / 2
 
 
 
@@ -75,6 +77,7 @@ typedef struct	p_data
 	double	angle;
 	float	vel;
 	float	vel_spin;
+
 	//initial direction vector
 	double	dir_x;
 	double	dir_y;
@@ -106,6 +109,28 @@ typedef struct	m_data
 	int		end_map;
 }	t_mdata;
 
+typedef struct ray
+{
+	float	x;
+	float	y;
+	double	x_dest;
+	double	y_dest;
+	double	angle;
+	double	angle_inc;
+}	t_ray;
+
+/*
+ * RAY DATA
+ */
+typedef struct r_data
+{
+	int	n_rays;
+	double	angle_inc;
+	double	angle_init;
+	double	angle_ray;
+	int	h_dist;
+	t_ray	*ray;
+}	t_rdata;
 
 /*
  * GLOBAL DATA
@@ -129,6 +154,7 @@ typedef struct s_data
 	int	w_prop;
 	t_pdata	*pdata;
 	t_mdata *mdata;
+	t_rdata *rdata;
 }	t_gdata;
 
 /*

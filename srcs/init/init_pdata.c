@@ -21,7 +21,7 @@ double	init_angle(char pv)
 		angle = 3 * M_PI / 2;
 	else if (pv == 'S')
 		angle = M_PI / 2;
-	else if (pv == 'W')
+	else if (pv == 'E')
 		angle = M_PI;
 	return (angle);
 }

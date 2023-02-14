@@ -6,7 +6,7 @@
 /*   By: ajimenez <ajimenez@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/16 14:12:07 by ajimenez          #+#    #+#             */
-/*   Updated: 2023/02/04 12:40:22 by goliano-         ###   ########.fr       */
+/*   Updated: 2023/02/09 18:18:11 by goliano-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,10 +27,11 @@
  * SRCS/INIT/
  */
 
-void	init_gdata(t_gdata *gdata, t_pdata *pdata, t_mdata *mdata);
+void	init_gdata(t_gdata *gdata, t_pdata *pdata, t_mdata *mdata, t_rdata *rdata);
 void	init_pdata(t_gdata *gdata);
 void	init_textures(t_tdata *tdata, t_gdata *gdata, t_mdata *mdata);
 void	init_mlx(t_gdata *gdata);
+void	init_rdata(t_gdata *gdata);
 
 /*
  * SRCS/PARSER/
@@ -53,11 +54,6 @@ int		extension_check(char *map);
  *	utils/init.c
  */
 void	init_player_data(char **map, t_pdata *pdata);
-
-/*
- * utils/strings.c
- */
-
 
 /*
  * srcs/moves.c
@@ -87,12 +83,24 @@ int	key_type(int key);
 
 void	update_player(t_gdata *gdata, int key);
 void	my_mlx_pixel_put(t_mdata *mdata, int x, int y, int color);
-int		player_colision(int x, int y, t_gdata *gdata);
+//int		player_colision(int x, int y, t_gdata *gdata);
 
 /*
  * srcs/draw/draw.c
  */
 void	draw_all(t_gdata *gdata, int x_dest, int y_dest);
 void	draw_first_part_map(t_gdata *gdata);
+
+/*
+ * srcs/angle/angle.c
+ */
+double	to_radians(double angle);
+double	normalize_angle(double angle);
+void	set_angle(double angle, int i, t_gdata *gdata);
+
+/*
+ * srcs/math/math.c
+ */
+int	get_distance(int px, int py, int cx, int cy);
 
 #endif
