@@ -6,7 +6,7 @@
 /*   By: goliano- <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/04 11:58:30 by goliano-          #+#    #+#             */
-/*   Updated: 2023/02/14 17:08:14 by goliano-         ###   ########.fr       */
+/*   Updated: 2023/02/16 16:45:09 by goliano-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -186,7 +186,7 @@ void	render_wall(t_gdata *gdata)
 void	draw_all(t_gdata *gdata/*, int x_dest, int y_dest*/)
 {
 //	mlx_destroy_image(gdata->mdata->ptr, gdata->mdata->win);
-	mlx_clear_window(gdata->mdata->ptr, gdata->mdata->win_img);
+//	mlx_clear_window(gdata->mdata->ptr, gdata->mdata->win_img);
 	gdata->mdata->win_img = mlx_new_image(gdata->mdata->ptr, MAP_WIDTH, MAP_HEIGHT);
 	gdata->mdata->win_addr = mlx_get_data_addr(gdata->mdata->win_img, &gdata->mdata->bpp_win, &gdata->mdata->ll_win, &gdata->mdata->end_win);
 	draw_first_part_map(gdata);

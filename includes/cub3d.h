@@ -6,7 +6,7 @@
 /*   By: ajimenez <ajimenez@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/16 14:12:07 by ajimenez          #+#    #+#             */
-/*   Updated: 2023/02/14 17:03:14 by goliano-         ###   ########.fr       */
+/*   Updated: 2023/02/16 18:59:14 by goliano-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -103,5 +103,28 @@ void	set_angle(double angle, int i, t_gdata *gdata);
  * srcs/math/math.c
  */
 int	get_distance(int px, int py, int cx, int cy);
+
+/*
+ * srcs/game/player_dir.c
+ */
+int	is_down(double angle);
+int	is_left(double angle);
+
+/*
+ * srcs/game/steps.c
+ */
+double	get_x_step(double y_step, double angle);
+double	get_y_step(double angle);
+
+/*
+ * srcs/game/ray_colision.c
+ */
+int		wall_hit_x_hor(t_gdata *gdata);
+int		wall_hit_y_hor(t_gdata *gdata);
+
+/*
+ * srcs/game/start.c
+ */
+int		player_colision(int y, int x, t_gdata *gdata);
 
 #endif

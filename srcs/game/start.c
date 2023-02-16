@@ -6,7 +6,7 @@
 /*   By: goliano- <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/13 16:16:19 by goliano-          #+#    #+#             */
-/*   Updated: 2023/02/14 17:08:16 by goliano-         ###   ########.fr       */
+/*   Updated: 2023/02/16 20:56:54 by goliano-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ void	my_mlx_pixel_put(t_mdata *mdata, int x, int y, int color)
 	*(unsigned int *)dst = color;
 }
 
-static int	player_colision(int y, int x, t_gdata *gdata)
+int	player_colision(int y, int x, t_gdata *gdata)
 {
 	int	col;
 
@@ -100,12 +100,9 @@ void	get_ray_dest(t_gdata *gdata, int dest)
 		i++;
 	}
 }
-		
 
-void	update_player(t_gdata *gdata, int key)
+void	init_rays_group(t_gdata *gdata)
 {
-	player_move(gdata, key);
-	//INICIALIZAR EL HAZ DE RAYOS
 	int i = 0;
 	while (i < gdata->rdata->n_rays)
 	{
@@ -114,83 +111,76 @@ void	update_player(t_gdata *gdata, int key)
 		set_angle(gdata->pdata->angle, i, gdata);
 		i++;
 	}
-	//RAY DIRECTION 0 -> -- M_PI <- -- 3 * M_PI / 2 (ARR) -- M_PI / 2 (AB)
-	int	down = 0;
-	int	left = 0;
-	if (gdata->pdata->angle < M_PI)
-		down = 1;
-	if (gdata->pdata->angle < 3 * M_PI / 2 && gdata->pdata->angle > M_PI / 2)
-		left = 1;
-	//HORIZONTAL HIT
-	float	x_intercept = 0;
-	float	y_intercept = gdata->pdata->y;
-	int	hor_hit = 0;
-	//SI APUNTA HACIA ABAJO, INCREMENTAMOS UN TILE
-	if (down)
-		y_intercept += TILE_SIZE;
-	float	adyacent = (y_intercept - gdata->pdata->y) / tan(gdata->pdata->angle);
-	x_intercept = gdata->pdata->x + adyacent;
-	//CALCULAMOS LA DISTANCIA DE CADA PASO
-	float y_step = 1;
-	float x_step = y_step / tan(gdata->pdata->angle);
-	//SI VAMOS HACIA ARRIBA INVERTIMOS STEP Y
-	if (!down)
-		y_step = -y_step;
-	//COMPROBAMOS QUE EL PASO X ES COHERENTE
-	if ((left && x_step > 0) || (!left && x_step < 0))
-		x_step = -x_step;
-	float	next_x_hor = x_intercept;
-	float	next_y_hor = y_intercept;
+}
+
+void	update_player(t_gdata *gdata, int key)
+{
+	double	x_step;
+	double	y_step;
+
+	player_move(gdata, key);
+	y_step = get_y_step(gdata->pdata->angle);
+	x_step = get_x_step(y_step, gdata->pdata->angle);
+	init_rays_group(gdata);
+//	float	x_intercept = 0;
+//	float	y_intercept = gdata->pdata->y;
+//	int	hor_hit = 0;
+//	if (is_down(gdata->pdata->angle))
+//		y_intercept += TILE_SIZE;
+//	float	adyacent = (y_intercept - gdata->pdata->y) / tan(gdata->pdata->angle);
+//	x_intercept = gdata->pdata->x + adyacent;
+//	float	next_x_hor = x_intercept;
+//	float	next_y_hor = y_intercept;
 	//SI APUNTA HACIA ARRIBA RESTO UN PIXEL PARA FORZAR LA COLISIÓN CON LA CASILLA
-	if (!down)
-		next_y_hor--;
+//	if (!is_down(gdata->pdata->angle))
+//		next_y_hor--;
 	//DONDE EL RAYO HACE COLISION
 	int wall_hit_x = 0;
 	int wall_hit_y = 0;
 
-	int wall_hit_x_hor = 0;
-	int wall_hit_y_hor = 0;
+	int wall_hit_x_horr = wall_hit_x_hor(gdata);
+	int wall_hit_y_horr = wall_hit_y_hor(gdata);
 	//BUCLE PARA BUSCAR PUNTO DE COLISIÓN
-	while (!hor_hit)
-	{
-		//OBTENEMOS LA CASILLA (REDONDEANDO POR ABAJO)
-		if (player_colision(next_y_hor, next_x_hor, gdata))
-		{
-			hor_hit = 1;
-			wall_hit_x_hor = next_x_hor;
-			wall_hit_y_hor = next_y_hor;
-		}
-		else
-		{
-			next_x_hor += x_step;
-			next_y_hor += y_step;
-		}
-	}
+	//while (!hor_hit)
+	//{
+	//	//OBTENEMOS LA CASILLA (REDONDEANDO POR ABAJO)
+	//	if (player_colision(next_y_hor, next_x_hor, gdata))
+	//	{
+	//		hor_hit = 1;
+	//		wall_hit_x_hor = next_x_hor;
+	//		wall_hit_y_hor = next_y_hor;
+	//	}
+	//	else
+	//	{
+	//		next_x_hor += x_step;
+	//		next_y_hor += y_step;
+	//	}
+	//}
 	//COLISIÓN VERTICAL
 	int ver_hit = 0;
 
 	//BUSCAMOS LA PRIMERA INTERSECCIÓN
-	x_intercept = gdata->pdata->x;
-	if (!left)
+	float x_intercept = gdata->pdata->x;
+	if (!is_left(gdata->pdata->angle))
 		x_intercept += TILE_SIZE;
 	//SE LE SUMA EL CATETO OPUESTO
 	float op = (x_intercept - gdata->pdata->x) * tan(gdata->pdata->angle);
-	y_intercept = gdata->pdata->y + op;
+	float y_intercept = gdata->pdata->y + op;
 
 	//CALCULAMOS LA DISTANCIA DE CADA PASO
 	x_step = TILE_SIZE;
 
 	//SI VA A LA IZQUIERDA, INVERTIMOS
-	if (left)
+	if (is_left(gdata->pdata->angle))
 		x_step *= -1;
 	y_step = tan(gdata->pdata->angle) * TILE_SIZE;
 	//CONTROLAMOS EL INCREMENTO DE Y, NO SEA QUE ESTE INVERTIDO
-	if ((y_step > 0 && !down) || (y_step < 0 && down))
+	if ((y_step > 0 && !is_down(gdata->pdata->angle)) || (y_step < 0 && is_down(gdata->pdata->angle)))
 		y_step *= -1;
 
 	float next_x_vert = x_intercept;
 	float next_y_vert = y_intercept;
-	if (left)
+	if (is_left(gdata->pdata->angle))
 		next_y_vert--;
 	int wall_hit_x_vert = 0;
 	int wall_hit_y_vert = 0;
@@ -214,8 +204,8 @@ void	update_player(t_gdata *gdata, int key)
 	wall_hit_y = wall_hit_y_vert;
 	int hor_dist = 99999999;
 	int ver_dist = 99999999;
-	if (hor_hit)
-		hor_dist = get_distance(gdata->pdata->x, gdata->pdata->y, wall_hit_x_hor, wall_hit_y_hor);
+	if (gdata->rdata->h_hit)
+		hor_dist = get_distance(gdata->pdata->x, gdata->pdata->y, wall_hit_x_horr, wall_hit_y_horr);
 	if (ver_hit)
 		ver_dist = get_distance(gdata->pdata->x, gdata->pdata->y, wall_hit_x_vert, wall_hit_y_vert);
 	gdata->rdata->h_dist = ver_dist * gdata->h_prop;
@@ -224,8 +214,8 @@ void	update_player(t_gdata *gdata, int key)
 	//COMPARAMOS LAS DISTANCIAS
 	if (hor_dist < ver_dist)
 	{
-		wall_hit_x = wall_hit_x_hor;
-		wall_hit_y = wall_hit_y_hor;
+		wall_hit_x = wall_hit_x_horr;
+		wall_hit_y = wall_hit_y_horr;
 		gdata->rdata->h_dist = hor_dist * gdata->w_prop;
 //		printf("H_DIST: %d\n", gdata->rdata->h_dist / gdata->w_prop);
 //		gdata->rdata->h_dist = hor_dist;
