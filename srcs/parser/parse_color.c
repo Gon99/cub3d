@@ -6,7 +6,7 @@
 /*   By: ajimenez <ajimenez@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/14 12:45:03 by ajimenez          #+#    #+#             */
-/*   Updated: 2023/02/14 16:04:54 by ajimenez         ###   ########.fr       */
+/*   Updated: 2023/02/16 10:53:02 by ajimenez         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,14 +36,10 @@ static int check_digit(char *s)
 	aux = 0;
 	while (s[aux])
 	{
-		printf("%c", s[aux]);
-		if (!ft_isdigit(s[aux]) && s[aux] != ',')
-		{
+		if (!ft_isdigit(s[aux]) && s[aux] != ',' && s[aux] != '\n')
 				return (false);
-		}
 		aux++;
 	}
-	printf("\n");
 	return (true);
 }
 
@@ -61,7 +57,6 @@ int check_color(char *str)
 		ret = false;
 	}
 //	if (ft_iter_matrix_bool(sp, ft_isdigit))
-//	TODO -> DIGIT
 	if (!check_digit(str))
 	{
 		printf("digit\n");
