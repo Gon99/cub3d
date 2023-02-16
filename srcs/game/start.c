@@ -32,6 +32,9 @@ static int	player_colision(int y, int x, t_gdata *gdata)
 		return (1);
 	if (gdata->map[y][x] == '1')
 		col = 1;
+	printf("PX: %f\n", gdata->pdata->x);
+	printf("PY: %f\n", gdata->pdata->y);
+	printf("COL: %d\n", col);
 	return (col);
 }
 
@@ -57,6 +60,8 @@ static void	player_move(t_gdata *gdata, int key)
 	}
 	if (!player_colision(new_py, new_px, gdata))
 	{
+		printf("SETX: %f\n", new_px);
+		printf("SETY: %f\n", new_py);
 		gdata->pdata->x = new_px;
 		gdata->pdata->y = new_py;
 	}
@@ -214,7 +219,7 @@ void	update_player(t_gdata *gdata, int key)
 	if (ver_hit)
 		ver_dist = get_distance(gdata->pdata->x, gdata->pdata->y, wall_hit_x_vert, wall_hit_y_vert);
 	gdata->rdata->h_dist = ver_dist * gdata->h_prop;
-	printf("V_DIST: %d\n", gdata->rdata->h_dist / gdata->h_prop);
+//	printf("V_DIST: %d\n", gdata->rdata->h_dist / gdata->h_prop);
 //	gdata->rdata->h_dist = ver_dist;
 	//COMPARAMOS LAS DISTANCIAS
 	if (hor_dist < ver_dist)
@@ -222,9 +227,113 @@ void	update_player(t_gdata *gdata, int key)
 		wall_hit_x = wall_hit_x_hor;
 		wall_hit_y = wall_hit_y_hor;
 		gdata->rdata->h_dist = hor_dist * gdata->w_prop;
-		printf("H_DIST: %d\n", gdata->rdata->h_dist / gdata->w_prop);
+//		printf("H_DIST: %d\n", gdata->rdata->h_dist / gdata->w_prop);
 //		gdata->rdata->h_dist = hor_dist;
 	}
 	get_ray_dest(gdata, wall_hit_y);
+	printf("WALL_HIT_X: %d\n", wall_hit_x);
 	draw_all(gdata/*, wall_hit_x, wall_hit_y*/);
 }
+
+/*void	player_move2(t_gdata *gdata, int keycode)
+{
+	int	type = key_type(keycode);
+	
+	if (type == 1)
+	{
+		if (gdata->map[(int)(gdata->pdata->y)][(int)(gdata->pdata->x + gdata->pdata->dir_x * gdata->pdata->vel)] == 0)
+			gdata->pdata->x += gdata->pdata->dir_x * gdata->pdata->vel;
+		if (gdata->map[(int)(gdata->pdata->y + gdata->pdata->dir_y * gdata->pdata->vel)][(int)(gdata->pdata->x)] == 0)
+			gdata->pdata->y += gdata->pdata->dir_y * gdata->pdata->vel;
+	}
+	if (type == 3)
+	{
+		if (gdata->map[(int)(gdata->pdata->y)][(int)(gdata->pdata->x - gdata->pdata->dir_x * gdata->pdata->vel)] == 0)
+			gdata->pdata->x -= gdata->pdata->dir_x * gdata->pdata->vel;
+		if (gdata->map[(int)(gdata->pdata->y - gdata->pdata->dir_y  * gdata->pdata->vel)][(int)(gdata->pdata->x)] == 0)
+			gdata->pdata->y -= gdata->pdata->dir_y * gdata->pdata->vel;
+	}
+}
+
+void	start(t_gdata *gdata, int keycode)
+{
+	player_move2(gdata, keycode);
+	int x = 0;
+	while (x < MAP_WIDTH)
+	{
+		double	cam_x = 2 * x / (double)MAP_WIDTH - 1; //x-coord in camera space
+		double	ray_dir_x = gdata->pdata->dir_x + gdata->pdata->plane_x * cam_x;
+		double	ray_dir_y = gdata->pdata->dir_y + gdata->pdata->plane_y * cam_x;
+		//Which box of the map we are in
+		int map_x = (int)gdata->pdata->x;
+		int map_y = (int)gdata->pdata->y;
+		//length of ray from current position to next x or y-side
+		double side_dist_x;
+		double side_dist_y;
+		//length of ray from one x or y-side to next x or y-side
+		double delta_dist_x = (ray_dir_x == 0) ? 1e30 : abs(1 / ray_dir_x);
+		double delta_dist_y = (ray_dir_y == 0) ? 1e30 : abs(1 / ray_dir_y);
+		double perp_wall_dist;
+		//direction to step in x or y-direction (either +1 or -1)
+		int step_x;
+		int step_y;
+		//wall hit
+		int hit = 0;
+		//NS or EW wall hit
+		int side;
+		if (ray_dir_x < 0)
+		{
+			step_x = -1;
+			side_dist_x = (gdata->pdata->x - map_x) * delta_dist_x;
+		}
+		else
+		{
+			step_x = 1;
+			side_dist_x = (map_x + 1 - gdata->pdata->x) * delta_dist_x;
+		}
+		if (ray_dir_y < 0)
+		{
+			step_y = -1;
+			side_dist_y = (gdata->pdata->y - map_y) * delta_dist_y;
+		}
+		else
+		{
+			step_y = 1;
+			side_dist_y = (map_y + 1 - gdata->pdata->y) * delta_dist_y;
+		}
+		//DDA
+		while (hit == 0)
+		{
+			if (side_dist_x < side_dist_y)
+			{
+				side_dist_x += delta_dist_x;
+				map_x += step_x;
+				side = 0;
+			}
+			else
+			{
+				side_dist_y += delta_dist_y;
+				map_y += step_y;
+				side = 1;
+			}
+			if (gdata->map[map_y][map_x] > 0)
+				hit = 1;
+		}
+		if (side == 0)
+			perp_wall_dist = side_dist_x - delta_dist_x;
+		else
+			perp_wall_dist = side_dist_y - delta_dist_y;
+		int line_height = (int)(MAP_HEIGHT / perp_wall_dist);
+		int draw_start = -line_height / 2 + MAP_HEIGHT / 2;
+		if (draw_start < 0)
+			draw_start = 0;
+		int draw_end = line_height / 2 + MAP_HEIGHT / 2;
+		if (draw_end >= MAP_HEIGHT)
+			draw_end = MAP_HEIGHT - 1;
+
+		x++;
+	}
+	gdata->mdata->win_img = mlx_new_image(gdata->mdata->ptr, MAP_WIDTH, MAP_HEIGHT);
+	gdata->mdata->win_addr = mlx_get_data_addr(gdata->mdata->win_img, &gdata->mdata->bpp_win, &gdata->mdata->ll_win, &gdata->mdata->end_win);
+	draw_first_part_map(gdata);
+}*/

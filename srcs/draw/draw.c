@@ -128,18 +128,21 @@ void	render_wall(t_gdata *gdata)
 	double	plane_dist = (MAP_WIDTH / 2) / tan(HALF_FOV);
 	if (plane_dist < 0)
 		plane_dist *= -1;
+	//INIT H_DIST BIEN
+	if (gdata->rdata->h_dist < 0)
+		return ;
 	double	wall_heigth = tile_heigth / gdata->rdata->h_dist * plane_dist;
-	printf("DIST: %d\n", gdata->rdata->h_dist);
+//	printf("DIST: %d\n", gdata->rdata->h_dist);
 	//CALCULAMOS DONDE EMPIEZA Y ACABA LA LÍNEA
 	float y0 = MAP_HEIGHT / 2 - (int)wall_heigth / 2;
 	float y1 = y0 + tile_heigth + wall_heigth;
 	int x = 0;
-	printf("PX: %f\n", gdata->pdata->x);
-	printf("PY: %f\n", gdata->pdata->y);
-	printf("WALL_HEIGTH: %f\n", wall_heigth);
-	printf("y0: %f\n", y0);
-	printf("y1: %f\n", y1);
-	printf("----------------\n");
+//	printf("PX: %f\n", gdata->pdata->x);
+//	printf("PY: %f\n", gdata->pdata->y);
+//	printf("WALL_HEIGTH: %f\n", wall_heigth);
+//	printf("y0: %f\n", y0);
+//	printf("y1: %f\n", y1);
+//	printf("----------------\n");
 	while (x < MAP_WIDTH)
 	{
 //		printf("XDEST: %f\n", gdata->rdata->ray[x].x_dest);
@@ -182,6 +185,8 @@ void	render_wall(t_gdata *gdata)
 
 void	draw_all(t_gdata *gdata/*, int x_dest, int y_dest*/)
 {
+//	mlx_destroy_image(gdata->mdata->ptr, gdata->mdata->win);
+	mlx_clear_window(gdata->mdata->ptr, gdata->mdata->win_img);
 	gdata->mdata->win_img = mlx_new_image(gdata->mdata->ptr, MAP_WIDTH, MAP_HEIGHT);
 	gdata->mdata->win_addr = mlx_get_data_addr(gdata->mdata->win_img, &gdata->mdata->bpp_win, &gdata->mdata->ll_win, &gdata->mdata->end_win);
 	draw_first_part_map(gdata);

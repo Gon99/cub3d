@@ -76,6 +76,7 @@ void	ft_game(t_mdata *mdata, t_gdata *gdata, t_tdata *tdata);
  */
 void	hooks_call(t_gdata *gdata, t_mdata *mdata);
 int	key_type(int key);
+void	start(t_gdata *gdata, int keycode);
 
 /*
  * START
