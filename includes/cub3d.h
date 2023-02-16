@@ -6,7 +6,7 @@
 /*   By: ajimenez <ajimenez@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/16 14:12:07 by ajimenez          #+#    #+#             */
-/*   Updated: 2023/02/14 12:57:10 by ajimenez         ###   ########.fr       */
+/*   Updated: 2023/02/16 10:54:50 by ajimenez         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,7 +90,7 @@ void	my_mlx_pixel_put(t_mdata *mdata, int x, int y, int color);
 /*
  * srcs/draw/draw.c
  */
-void	draw_all(t_gdata *gdata, int x_dest, int y_dest);
+void	draw_all(t_gdata *gdata/*, int x_dest, int y_dest*/);
 void	draw_first_part_map(t_gdata *gdata);
 
 /*

@@ -6,12 +6,12 @@
 #    By: ajimenez <ajimenez@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/02/04 15:43:39 by ajimenez          #+#    #+#              #
-#    Updated: 2023/02/14 12:44:26 by ajimenez         ###   ########.fr        #
+#    Updated: 2023/02/16 10:57:33 by ajimenez         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 CC		     = gcc
-CFLAGS	     = -Wall -Wextra -Werror -g
+#CFLAGS	     = -Wall -Wextra -Werror -g
 SAN		     = -fsanitize=address
 LIB 	     = ar -rcs
 RM		     = /bin/rm -rf
