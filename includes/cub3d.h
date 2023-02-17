@@ -119,8 +119,9 @@ double	get_y_step(double angle);
 /*
  * srcs/game/ray_colision.c
  */
-int		wall_hit_x_hor(t_gdata *gdata);
-int		wall_hit_y_hor(t_gdata *gdata);
+int		wall_hit_hor(t_gdata *gdata, int type);
+int		wall_hit_vert(t_gdata *gdata, int type);
+void		wall_hit(t_gdata *gdata);
 
 /*
  * srcs/game/start.c

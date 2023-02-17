@@ -106,6 +106,8 @@ typedef struct r_data
 	int	h_dist;
 	int	h_hit;
 	int	v_hit;
+	int	wall_x;
+	int	wall_y;
 	t_ray	*ray;
 }	t_rdata;
 

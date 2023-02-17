@@ -128,9 +128,6 @@ void	render_wall(t_gdata *gdata)
 	double	plane_dist = (MAP_WIDTH / 2) / tan(HALF_FOV);
 	if (plane_dist < 0)
 		plane_dist *= -1;
-	//INIT H_DIST BIEN
-	if (gdata->rdata->h_dist < 0)
-		return ;
 	double	wall_heigth = tile_heigth / gdata->rdata->h_dist * plane_dist;
 //	printf("DIST: %d\n", gdata->rdata->h_dist);
 	//CALCULAMOS DONDE EMPIEZA Y ACABA LA LÍNEA
