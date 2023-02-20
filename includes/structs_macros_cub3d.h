@@ -104,6 +104,7 @@ typedef struct r_data
 	double	angle_init;
 	double	angle_ray;
 	int	h_dist;
+	int	h_type;
 	int	h_hit;
 	int	v_hit;
 	int	wall_x;

@@ -32,9 +32,6 @@ int	player_colision(int y, int x, t_gdata *gdata)
 		return (1);
 	if (gdata->map[y][x] == '1')
 		col = 1;
-	printf("PX: %f\n", gdata->pdata->x);
-	printf("PY: %f\n", gdata->pdata->y);
-	printf("COL: %d\n", col);
 	return (col);
 }
 
@@ -47,12 +44,14 @@ static void	player_move(t_gdata *gdata, int key)
 	type = key_type(key);
 	new_px = gdata->pdata->x;
 	new_py = gdata->pdata->y;
-	if (type == 1 || type == 2)
+	//LINUX 1 / 3
+	if (type == 1 || type == 3)
 	{
 		new_px = gdata->pdata->x + (gdata->pdata->move * cos(gdata->pdata->angle) * gdata->pdata->vel);
 		new_py = gdata->pdata->y + (gdata->pdata->move * sin(gdata->pdata->angle) * gdata->pdata->vel);
 	}
-	else if (type == 4 || type == 3)
+	//LINUX 4 / 2
+	else if (type == 4 || type == 2)
 	{
 		//CHECK WHY
 		new_px = gdata->pdata->x + (gdata->pdata->move * cos(gdata->pdata->angle + (M_PI / 2)) * gdata->pdata->vel);
@@ -60,8 +59,6 @@ static void	player_move(t_gdata *gdata, int key)
 	}
 	if (!player_colision(new_py, new_px, gdata))
 	{
-		printf("SETX: %f\n", new_px);
-		printf("SETY: %f\n", new_py);
 		gdata->pdata->x = new_px;
 		gdata->pdata->y = new_py;
 	}
@@ -69,41 +66,49 @@ static void	player_move(t_gdata *gdata, int key)
 	gdata->pdata->angle = normalize_angle(gdata->pdata->angle);//TODO-> check angle
 }
 
-void	get_ray_dest(t_gdata *gdata, int dest)
-{
-	int	i;
-	int	x;
-	double	x_step;
-	double	aux_px;
-	double	aux_py;
-	double	dest_diff;
-
-	i = 0;
-	while (i < gdata->rdata->n_rays)
-	{
-		x = 0;
-		dest_diff = gdata->rdata->ray[i].y - dest;
-		if (gdata->rdata->ray[i].y < dest)
-			dest_diff = dest - gdata->rdata->ray[i].y;
-		aux_px = gdata->rdata->ray[i].x * gdata->w_prop;
-		aux_py = gdata->rdata->ray[i].y * gdata->h_prop;
-		double	y_step = gdata->pdata->vel * sin(gdata->rdata->ray[i].angle);
-		x_step = gdata->pdata->vel * cos(gdata->rdata->ray[i].angle);
-		while (x < dest_diff * gdata->h_prop)
-		{
-			aux_px += x_step;
-			aux_py += y_step;
-			x++;
-		}
-		gdata->rdata->ray[i].x_dest = aux_px;
-		gdata->rdata->ray[i].y_dest = aux_py;
-		i++;
-	}
-}
+//void	get_ray_dest(t_gdata *gdata)
+//{
+//	int x = 0;
+//	while (x < gdata->rdata->n_rays)
+//	{
+//		
+//		x++;
+//	}
+//	int	i;
+//	int	x;
+//	double	x_step;
+//	double	aux_px;
+//	double	aux_py;
+//	double	dest_diff;
+//
+//	i = 0;
+//	while (i < gdata->rdata->n_rays)
+//	{
+//		x = 0;
+//		dest_diff = gdata->rdata->ray[i].y - dest;
+//		if (gdata->rdata->ray[i].y < dest)
+//			dest_diff = dest - gdata->rdata->ray[i].y;
+//		aux_px = gdata->rdata->ray[i].x;
+//		aux_py = gdata->rdata->ray[i].y;
+//		double	y_step = gdata->pdata->vel * sin(gdata->rdata->ray[i].angle);
+//		x_step = gdata->pdata->vel * cos(gdata->rdata->ray[i].angle);
+//		while (x < dest_diff)
+//		{
+//			aux_px += x_step;
+//			aux_py += y_step;
+//			x++;
+//		}
+//		gdata->rdata->ray[i].x_dest = aux_px;
+//		gdata->rdata->ray[i].y_dest = aux_py;
+//		i++;
+//	}
+//}
 
 void	init_rays_group(t_gdata *gdata)
 {
-	int i = 0;
+	int i;
+
+	i = 0;
 	while (i < gdata->rdata->n_rays)
 	{
 		gdata->rdata->ray[i].x = gdata->pdata->x;
@@ -117,7 +122,7 @@ void	update_player(t_gdata *gdata, int key)
 {
 	player_move(gdata, key);
 	wall_hit(gdata);
-	get_ray_dest(gdata, gdata->rdata->wall_y);
+//	get_ray_dest(gdata);
 	draw_all(gdata/*, wall_hit_x, wall_hit_y*/);
 }
 

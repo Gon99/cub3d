@@ -104,6 +104,8 @@ static	void get_col_dist(t_gdata *gdata, double x_vert, double y_vert)
 	if (gdata->rdata->v_hit)
 		ver_dist = get_distance(gdata->pdata->x, gdata->pdata->y, \
 			x_vert, y_vert);
+	printf("HOR_DIST: %d\n", hor_dist);
+	printf("VER_DIST: %d\n", ver_dist);
 	gdata->rdata->h_dist = ver_dist * gdata->h_prop;
 	if (hor_dist < ver_dist)
 	{

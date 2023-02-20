@@ -124,15 +124,34 @@ void	draw_first_part_map(t_gdata *gdata)
 
 void	render_wall(t_gdata *gdata)
 {
+//	double	plane_dist;
+//	int	x;
+//
+//	plane_dist = (MAP_WIDTH / 2) / tan(gdata->pdata->angle / 2);
+//	x = 0;
+//	printf("WALL_X: %d\n", gdata->rdata->wall_x);
+//	printf("WALL_Y: %d\n", gdata->rdata->wall_y);
+//	while (x < MAP_WIDTH)
+//	{
+//		double	ray_angle = gdata->pdata->angle + atan((x - MAP_WIDTH / 2) / plane_dist);
+//		double	dist = (gdata->rdata->wall_y - gdata->pdata->x) / cos(ray_angle);
+//		double	wall_height = 100 * plane_dist / dist;
+////		printf("ANGLE: %f\n", ray_angle);
+////		printf("DIST: %f\n", dist);
+////		printf("WALL_HEIGHT: %f\n", wall_height);
+//		my_mlx_pixel_put(gdata->mdata, x, 100 - wall_height / 2, parse_color("0, 0, 0"));
+//		my_mlx_pixel_put(gdata->mdata, x, 100 + wall_height / 2, parse_color("0, 0, 0"));
+//		x++;
+//	}
 	int	tile_heigth = 100;
 	double	plane_dist = (MAP_WIDTH / 2) / tan(HALF_FOV);
 	if (plane_dist < 0)
 		plane_dist *= -1;
-	double	wall_heigth = tile_heigth / gdata->rdata->h_dist * plane_dist;
+//	printf("HDIST: %d\n", gdata->rdata->h_dist);
+//	printf("HDISTV: %d\n", gdata->rdata->h_dist / gdata->h_prop);
+//	printf("HDISTH: %d\n", gdata->rdata->h_dist / gdata->w_prop);
 //	printf("DIST: %d\n", gdata->rdata->h_dist);
 	//CALCULAMOS DONDE EMPIEZA Y ACABA LA LÍNEA
-	float y0 = MAP_HEIGHT / 2 - (int)wall_heigth / 2;
-	float y1 = y0 + tile_heigth + wall_heigth;
 	int x = 0;
 //	printf("PX: %f\n", gdata->pdata->x);
 //	printf("PY: %f\n", gdata->pdata->y);
@@ -142,6 +161,9 @@ void	render_wall(t_gdata *gdata)
 //	printf("----------------\n");
 	while (x < MAP_WIDTH)
 	{
+		double	wall_heigth = tile_heigth / gdata->rdata->h_dist * plane_dist;
+		float y0 = MAP_HEIGHT / 2 - (int)wall_heigth / 2;
+		float y1 = y0 + tile_heigth + wall_heigth;
 //		printf("XDEST: %f\n", gdata->rdata->ray[x].x_dest);
 //		printf("YDEST: %f\n", gdata->rdata->ray[x].y_dest);
 		float aux = y0;
