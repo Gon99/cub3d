@@ -6,7 +6,7 @@
 /*   By: ajimenez <ajimenez@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/11 19:24:09 by ajimenez          #+#    #+#             */
-/*   Updated: 2023/02/14 12:01:14 by ajimenez         ###   ########.fr       */
+/*   Updated: 2023/02/21 10:48:02 by ajimenez         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,7 +54,7 @@ int	repeated_chars_check(char **map)
 		while (map[i][z])
 		{
 			if (map[i][z] == 'S' || map[i][z] == 'N' \
-					|| map[i][z] == 'E' || map[i][z] == 'W')
+					|| map[i][z] == 'E' || map[i][z] == 'W' || map[i][z] == '\n')
 				c++;
 			z++;
 		}

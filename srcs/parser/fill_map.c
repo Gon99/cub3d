@@ -6,7 +6,7 @@
 /*   By: ajimenez <ajimenez@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/11 19:16:11 by ajimenez          #+#    #+#             */
-/*   Updated: 2023/02/16 11:07:55 by ajimenez         ###   ########.fr       */
+/*   Updated: 2023/02/21 13:04:32 by ajimenez         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,7 @@ static int	open_file(char *file)
 	if (fd < 0)
 	{
 		perror(file);
+		exit (0);
 		return (0);
 	}
 	return (fd);
@@ -89,7 +90,7 @@ static int	copy_file(char *map, t_gdata *gdata)
 		return (0);
 	gdata->file_len = file_length(fd);
 	gdata->file = calloc(sizeof(char *), gdata->file_len + 1);
-	//fd = open_file(map);
+	fd = open_file(map);
 	line = get_next_line(fd);
 	while (line)
 	{
