@@ -6,7 +6,7 @@
 /*   By: goliano- <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/13 16:16:19 by goliano-          #+#    #+#             */
-/*   Updated: 2023/02/16 20:56:54 by goliano-         ###   ########.fr       */
+/*   Updated: 2023/02/21 15:57:51 by goliano-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,20 +45,24 @@ static void	player_move(t_gdata *gdata, int key)
 	new_px = gdata->pdata->x;
 	new_py = gdata->pdata->y;
 	//LINUX 1 / 3
-	if (type == 1 || type == 3)
+	if (type == 1 || type == 2)
 	{
 		new_px = gdata->pdata->x + (gdata->pdata->move * cos(gdata->pdata->angle) * gdata->pdata->vel);
 		new_py = gdata->pdata->y + (gdata->pdata->move * sin(gdata->pdata->angle) * gdata->pdata->vel);
 	}
 	//LINUX 4 / 2
-	else if (type == 4 || type == 2)
+	else if (type == 3 || type == 4)
 	{
 		//CHECK WHY
 		new_px = gdata->pdata->x + (gdata->pdata->move * cos(gdata->pdata->angle + (M_PI / 2)) * gdata->pdata->vel);
 		new_py = gdata->pdata->y + (gdata->pdata->move * sin(gdata->pdata->angle + (M_PI / 2)) * gdata->pdata->vel);
 	}
+	printf("PX: %f\n", gdata->pdata->x);
+	printf("PY: %f\n", gdata->pdata->y);
 	if (!player_colision(new_py, new_px, gdata))
 	{
+		printf("NEW_PX: %f\n", new_px);
+		printf("NEW_PY: %f\n", new_py);
 		gdata->pdata->x = new_px;
 		gdata->pdata->y = new_py;
 	}
@@ -118,10 +122,51 @@ void	init_rays_group(t_gdata *gdata)
 	}
 }
 
+void	get_ray_dist(t_gdata *gdata, double x_vert, double y_vert, double x_hor, double y_hor, int x)
+{
+	int	hor_dist;
+	int	ver_dist;
+
+	hor_dist = 99999999;
+	ver_dist = 99999999;
+	if (gdata->rdata->ray[x].h_hit)
+		hor_dist = get_distance(gdata->rdata->ray[x].x, gdata->rdata->ray[x].y, x_hor, y_hor);
+	if (gdata->rdata->ray[x].v_hit)
+		ver_dist = get_distance(gdata->rdata->ray[x].x, gdata->rdata->ray[x].y, x_vert, y_vert);
+	gdata->rdata->ray[x].dist = ver_dist * gdata->h_prop;
+	if (hor_dist < ver_dist)
+	{
+		gdata->rdata->ray[x].dist = hor_dist * gdata->w_prop;
+	}
+}
+
+void	calc_rays_dist(t_gdata *gdata)
+{
+	int		x;
+	double	x_vert;
+	double	y_vert;
+	double	x_hor;
+	double	y_hor;
+
+	x = 0;
+	while (x < gdata->rdata->n_rays)
+	{
+//		printf("ANGLE: %f\n", gdata->rdata->ray[x].angle);
+		x_vert = wall_hit_vert(gdata, gdata->rdata->ray[x].angle, x, 0);
+		y_vert = wall_hit_vert(gdata, gdata->rdata->ray[x].angle, x, 1);
+		x_hor = wall_hit_hor(gdata, gdata->rdata->ray[x].angle, x, 0);
+		y_hor = wall_hit_hor(gdata, gdata->rdata->ray[x].angle, x, 1);
+		get_ray_dist(gdata, x_vert, y_vert, x_hor, y_hor, x);
+		x++;
+	}
+}
+
 void	update_player(t_gdata *gdata, int key)
 {
 	player_move(gdata, key);
-	wall_hit(gdata);
+	init_rays_group(gdata);
+	calc_rays_dist(gdata);
+//	wall_hit(gdata);
 //	get_ray_dest(gdata);
 	draw_all(gdata/*, wall_hit_x, wall_hit_y*/);
 }

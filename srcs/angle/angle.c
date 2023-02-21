@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   angle.c                                            :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: goliano- <marvin@42.fr>                    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2023/02/21 12:51:22 by goliano-          #+#    #+#             */
+/*   Updated: 2023/02/21 16:13:01 by goliano-         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../../includes/cub3d.h"
 
 double	to_radians(double angle)
@@ -22,4 +34,6 @@ void	set_angle(double angle, int i, t_gdata *gdata)
 //	NO HACE FALTA SE HACE EN PLAYR_MOVE PONERLO EN UNO DE LOS DOS LADOS
 //	gdata->pdata->angle = angle;
 	gdata->rdata->ray[i].angle = normalize_angle(angle + gdata->rdata->ray[i].angle_inc);
+//	printf("ANGLE: %f\n", gdata->rdata->ray[i].angle);
+//	printf("ANGLE_INC: %f\n", gdata->rdata->ray[i].angle_inc);
 }

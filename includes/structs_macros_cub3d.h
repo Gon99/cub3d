@@ -6,7 +6,7 @@
 /*   By: ajimenez <ajimenez@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/16 14:08:17 by ajimenez          #+#    #+#             */
-/*   Updated: 2023/02/21 10:03:10 by ajimenez         ###   ########.fr       */
+/*   Updated: 2023/02/21 16:27:00 by goliano-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,7 @@
 # define MAP_WIDTH 640
 
 # define TILE_SIZE 1
-# define FOV 60
+# define FOV 60.00
 # define HALF_FOV FOV / 2
 
 /*
@@ -92,6 +92,9 @@ typedef struct ray
 	double	y_dest;
 	double	angle;
 	double	angle_inc;
+	int		h_hit;
+	int		v_hit;
+	int		dist;
 }	t_ray;
 
 /*
@@ -105,7 +108,7 @@ typedef struct r_data
 	double	angle_ray;
 	int	h_dist;
 	int	h_type;
-	int	h_hit;
+//	int	h_hit;
 	int	v_hit;
 	int	wall_x;
 	int	wall_y;

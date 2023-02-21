@@ -6,7 +6,7 @@
 /*   By: ajimenez <ajimenez@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/11 19:30:32 by ajimenez          #+#    #+#             */
-/*   Updated: 2023/02/04 11:16:44 by goliano-         ###   ########.fr       */
+/*   Updated: 2023/02/21 14:55:38 by goliano-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,7 +52,8 @@ void	init_pdata(t_gdata *gdata)
 	gdata->pdata->move = 0;
 	gdata->pdata->spin = 0;
 	gdata->pdata->vel = 1;
-	gdata->pdata->vel_spin = 1 * (M_PI / 180);
+//	gdata->pdata->vel_spin = 1 * (M_PI / 180);
+	gdata->pdata->vel_spin = to_radians(1);
 	gdata->pdata->angle = init_angle(gdata->pdata->p);
 	
 	//initial direction of vector

@@ -6,7 +6,7 @@
 /*   By: ajimenez <ajimenez@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/16 14:12:07 by ajimenez          #+#    #+#             */
-/*   Updated: 2023/02/16 18:59:14 by goliano-         ###   ########.fr       */
+/*   Updated: 2023/02/21 16:01:32 by goliano-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -119,8 +119,8 @@ double	get_y_step(double angle);
 /*
  * srcs/game/ray_colision.c
  */
-int		wall_hit_hor(t_gdata *gdata, int type);
-int		wall_hit_vert(t_gdata *gdata, int type);
+int		wall_hit_hor(t_gdata *gdata, double angle, int x, int type);
+int		wall_hit_vert(t_gdata *gdata, double angle, int x, int type);
 void		wall_hit(t_gdata *gdata);
 
 /*

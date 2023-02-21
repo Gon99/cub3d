@@ -6,7 +6,7 @@
 /*   By: goliano- <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/04 11:58:30 by goliano-          #+#    #+#             */
-/*   Updated: 2023/02/16 16:45:09 by goliano-         ###   ########.fr       */
+/*   Updated: 2023/02/21 16:26:59 by goliano-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -159,11 +159,14 @@ void	render_wall(t_gdata *gdata)
 //	printf("y0: %f\n", y0);
 //	printf("y1: %f\n", y1);
 //	printf("----------------\n");
-	while (x < MAP_WIDTH)
+	while (x < gdata->rdata->n_rays)
 	{
-		double	wall_heigth = tile_heigth / gdata->rdata->h_dist * plane_dist;
+		double	wall_heigth = tile_heigth / gdata->rdata->ray[x].dist * plane_dist;
+//		printf("DIST: %d\n", gdata->rdata->ray[x].dist);
 		float y0 = MAP_HEIGHT / 2 - (int)wall_heigth / 2;
+		//float y1 = y0 + tile_heigth;
 		float y1 = y0 + tile_heigth + wall_heigth;
+//		printf("Y0: %f\n", y0);
 //		printf("XDEST: %f\n", gdata->rdata->ray[x].x_dest);
 //		printf("YDEST: %f\n", gdata->rdata->ray[x].y_dest);
 		float aux = y0;
