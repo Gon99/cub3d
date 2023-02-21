@@ -6,7 +6,7 @@
 /*   By: ajimenez <ajimenez@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/16 14:08:17 by ajimenez          #+#    #+#             */
-/*   Updated: 2023/02/16 20:45:53 by goliano-         ###   ########.fr       */
+/*   Updated: 2023/02/21 10:03:10 by ajimenez         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,8 +30,8 @@
 # define LEFT_Y		0
 # define LEFT_X		-1
 
-# define MAP_HEIGHT	640
-# define MAP_WIDTH 480
+# define MAP_HEIGHT	480
+# define MAP_WIDTH 640
 
 # define TILE_SIZE 1
 # define FOV 60
