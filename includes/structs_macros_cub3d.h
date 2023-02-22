@@ -50,8 +50,8 @@ typedef struct	p_data
 	int	move;
 	int	spin;
 	double	angle;
-	float	vel;
-	float	vel_spin;
+	double	vel;
+	double	vel_spin;
 
 	//initial direction vector
 	double	dir_x;

@@ -12,7 +12,7 @@
 
 #include "../../includes/cub3d.h"
 
-int	wall_hit_hor(t_gdata *gdata, double angle, int x, int type)
+double	wall_hit_hor(t_gdata *gdata, double angle, int x, int type)
 {
 	int		col;
 	double	y_intercept;
@@ -26,11 +26,13 @@ int	wall_hit_hor(t_gdata *gdata, double angle, int x, int type)
 		y_intercept += TILE_SIZE;
 	x_intercept = (y_intercept - gdata->pdata->y) / tan(angle)\
 				  + gdata->pdata->x;
+	if (!is_down(angle))
+		y_intercept--;
 	y_step = get_y_step(angle);
 	x_step = get_x_step(y_step, angle);
 	while (!col)
 	{
-		if (player_colision(y_intercept, x_intercept, gdata))
+		if (player_colision((int)y_intercept, (int)x_intercept, gdata))
 		{
 			col = 1;
 			gdata->rdata->ray[x].h_hit = 1;
@@ -46,7 +48,7 @@ int	wall_hit_hor(t_gdata *gdata, double angle, int x, int type)
 	return (x_intercept);
 }
 
-int	wall_hit_vert(t_gdata *gdata, double angle, int x, int type)
+double	wall_hit_vert(t_gdata *gdata, double angle, int x, int type)
 {
 	double	x_intercept;
 	double	y_intercept;
@@ -58,20 +60,20 @@ int	wall_hit_vert(t_gdata *gdata, double angle, int x, int type)
 	x_intercept = gdata->pdata->x;
 	if (!is_left(angle))
 		x_intercept += TILE_SIZE;
-	y_intercept = gdata->pdata->y + (x_intercept - gdata->pdata->x) \
-		* tan(angle);
+	y_intercept = (x_intercept - gdata->pdata->x) \
+		* tan(angle) + gdata->pdata->y;
 	x_step = TILE_SIZE;
 	if (is_left(angle))
 		x_step *= -1;
-	y_step = tan(angle) * TILE_SIZE;
+	y_step = tan(angle);
 	if ((y_step > 0 && !is_down(angle)) \
 		|| (y_step < 0 && is_down(angle)))
 		y_step *= -1;
 	if (is_left(angle))
-		y_intercept--;
-	while (!col && (x_intercept >= 0 && y_intercept >= 0 && x_intercept < gdata->width && y_intercept < gdata->height))
+		x_intercept--;
+	while (!col && (x_intercept >= 0 && y_intercept >= 0 && x_intercept < MAP_WIDTH && y_intercept < MAP_HEIGHT))
 	{
-		if (player_colision(y_intercept, x_intercept, gdata))
+		if (player_colision((int)y_intercept, (int)x_intercept, gdata))
 		{
 			col = 1;
 			gdata->rdata->ray[x].v_hit = 1;
@@ -99,11 +101,9 @@ int	wall_hit_vert(t_gdata *gdata, double angle, int x, int type)
 //	hor_dist = 999999999;
 //	ver_dist = 999999999;
 //	if (gdata->rdata->h_hit)
-//		hor_dist = get_distance(gdata->pdata->x, gdata->pdata->y, \
-//			x_hor, y_hor);
+//		hor_dist = get_distance(gdata->pdata->x, gdata->pdata->y, x_hor, y_hor);
 //	if (gdata->rdata->v_hit)
-//		ver_dist = get_distance(gdata->pdata->x, gdata->pdata->y, \
-//			x_vert, y_vert);
+//		ver_dist = get_distance(gdata->pdata->x, gdata->pdata->y, x_vert, y_vert);
 //	gdata->rdata->h_dist = ver_dist * gdata->h_prop;
 //	if (hor_dist < ver_dist)
 //	{

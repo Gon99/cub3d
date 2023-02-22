@@ -18,7 +18,7 @@ double	get_x_step(double y_step, double angle)
 
 	step = y_step / tan(angle);
 	if ((is_left(angle) && step > 0) || (!is_left(angle) && step < 0))
-		step = -step;
+		step *= -1;
 	return (step);
 }
 
@@ -26,8 +26,8 @@ double	get_y_step(double angle)
 {
 	double	step;
 
-	step = 1;
+	step = TILE_SIZE;
 	if (!is_down(angle))
-		step = -step;
+		step *= -1;
 	return (step);
 }

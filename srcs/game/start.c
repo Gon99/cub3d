@@ -45,24 +45,20 @@ static void	player_move(t_gdata *gdata, int key)
 	new_px = gdata->pdata->x;
 	new_py = gdata->pdata->y;
 	//LINUX 1 / 3
-	if (type == 1 || type == 2)
+	if (type == 1 || type == 3)
 	{
 		new_px = gdata->pdata->x + (gdata->pdata->move * cos(gdata->pdata->angle) * gdata->pdata->vel);
 		new_py = gdata->pdata->y + (gdata->pdata->move * sin(gdata->pdata->angle) * gdata->pdata->vel);
 	}
 	//LINUX 4 / 2
-	else if (type == 3 || type == 4)
+	else if (type == 2 || type == 4)
 	{
 		//CHECK WHY
 		new_px = gdata->pdata->x + (gdata->pdata->move * cos(gdata->pdata->angle + (M_PI / 2)) * gdata->pdata->vel);
 		new_py = gdata->pdata->y + (gdata->pdata->move * sin(gdata->pdata->angle + (M_PI / 2)) * gdata->pdata->vel);
 	}
-	printf("PX: %f\n", gdata->pdata->x);
-	printf("PY: %f\n", gdata->pdata->y);
 	if (!player_colision(new_py, new_px, gdata))
 	{
-		printf("NEW_PX: %f\n", new_px);
-		printf("NEW_PY: %f\n", new_py);
 		gdata->pdata->x = new_px;
 		gdata->pdata->y = new_py;
 	}
@@ -130,9 +126,9 @@ void	get_ray_dist(t_gdata *gdata, double x_vert, double y_vert, double x_hor, do
 	hor_dist = 99999999;
 	ver_dist = 99999999;
 	if (gdata->rdata->ray[x].h_hit)
-		hor_dist = get_distance(gdata->rdata->ray[x].x, gdata->rdata->ray[x].y, x_hor, y_hor);
+		hor_dist = get_distance(gdata->pdata->x, gdata->pdata->y, x_hor, y_hor);
 	if (gdata->rdata->ray[x].v_hit)
-		ver_dist = get_distance(gdata->rdata->ray[x].x, gdata->rdata->ray[x].y, x_vert, y_vert);
+		ver_dist = get_distance(gdata->pdata->x, gdata->pdata->y, x_vert, y_vert);
 	gdata->rdata->ray[x].dist = ver_dist * gdata->h_prop;
 	if (hor_dist < ver_dist)
 	{
