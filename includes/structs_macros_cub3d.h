@@ -33,7 +33,7 @@
 # define MAP_HEIGHT	480
 # define MAP_WIDTH 640
 
-# define TILE_SIZE 1
+# define TILE_SIZE 1.0
 # define FOV 60.00
 # define HALF_FOV FOV / 2
 
@@ -54,15 +54,15 @@ typedef struct	p_data
 	double	vel_spin;
 
 	//initial direction vector
-	double	dir_x;
-	double	dir_y;
-	//the 2d raycaster version of camera plane
-	double	plane_x;
-	double	plane_y;
-	//time of current frame
-	double	time;
-	//time of previous frame
-	double	old_time;
+//	double	dir_x;
+//	double	dir_y;
+//	//the 2d raycaster version of camera plane
+//	double	plane_x;
+//	double	plane_y;
+//	//time of current frame
+//	double	time;
+//	//time of previous frame
+//	double	old_time;
 }	t_pdata;
 
 /*
@@ -86,15 +86,15 @@ typedef struct	m_data
 
 typedef struct ray
 {
-	float	x;
-	float	y;
+	double	x;
+	double	y;
 	double	x_dest;
 	double	y_dest;
 	double	angle;
 	double	angle_inc;
 	int		h_hit;
 	int		v_hit;
-	int		dist;
+	double	dist;
 }	t_ray;
 
 /*
@@ -133,8 +133,8 @@ typedef struct s_data
 	int		error;
 	int		height;
 	int		width;
-	int	h_prop;
-	int	w_prop;
+	double	h_prop;
+	double	w_prop;
 	t_pdata	*pdata;
 	t_mdata *mdata;
 	t_rdata *rdata;

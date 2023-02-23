@@ -30,6 +30,7 @@ void	init_rdata(t_gdata *gdata)
 		gdata->rdata->ray[i].v_hit = 0;
 		gdata->rdata->ray[i].h_hit = 0;
 		gdata->rdata->ray[i].angle_inc = gdata->rdata->angle_ray;
+//		printf("ANGLE_INC: %f\n", gdata->rdata->ray[i].angle_inc);
 		gdata->rdata->angle_ray += gdata->rdata->angle_inc;
 		i++;
 	}

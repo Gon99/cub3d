@@ -132,7 +132,7 @@ void	render_wall(t_gdata *gdata)
 	while (x < gdata->rdata->n_rays)
 	{
 		double	wall_heigth = (tile_heigth / gdata->rdata->ray[x].dist) * plane_dist;
-//		printf("DIST: %d\n", gdata->rdata->ray[x].dist);
+//		printf("DIST: %f\n", gdata->rdata->ray[x].dist);
 		int	 y0 = (int)MAP_HEIGHT / 2 - (int)wall_heigth / 2;
 		int	 y1 = y0 + wall_heigth;
 		int	 aux = y0;

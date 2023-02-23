@@ -71,7 +71,7 @@ double	wall_hit_vert(t_gdata *gdata, double angle, int x, int type)
 		y_step *= -1;
 	if (is_left(angle))
 		x_intercept--;
-	while (!col && (x_intercept >= 0 && y_intercept >= 0 && x_intercept < MAP_WIDTH && y_intercept < MAP_HEIGHT))
+	while (!col && (x_intercept >= 0 && y_intercept >= 0 && x_intercept < gdata->width && y_intercept < gdata->height))
 	{
 		if (player_colision((int)y_intercept, (int)x_intercept, gdata))
 		{

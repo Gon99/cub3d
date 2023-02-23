@@ -53,17 +53,17 @@ void	init_pdata(t_gdata *gdata)
 	gdata->pdata->spin = 0;
 	gdata->pdata->vel = 1;
 //	gdata->pdata->vel_spin = 1 * (M_PI / 180);
-	gdata->pdata->vel_spin = to_radians(1);
+	gdata->pdata->vel_spin = to_radians(3);
 	gdata->pdata->angle = init_angle(gdata->pdata->p);
 	
-	//initial direction of vector
-	gdata->pdata->dir_x = -1;
-	gdata->pdata->dir_y = 0;
-	//the 2d raycaster version of camera plane
-	gdata->pdata->plane_x = 0;
-	gdata->pdata->plane_y = 0.66;
-	//time of current frame
-	gdata->pdata->time = 0;
-	//time of previous frame
-	gdata->pdata->old_time = 0;
+//	//initial direction of vector
+//	gdata->pdata->dir_x = -1;
+//	gdata->pdata->dir_y = 0;
+//	//the 2d raycaster version of camera plane
+//	gdata->pdata->plane_x = 0;
+//	gdata->pdata->plane_y = 0.66;
+//	//time of current frame
+//	gdata->pdata->time = 0;
+//	//time of previous frame
+//	gdata->pdata->old_time = 0;
 }

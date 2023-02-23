@@ -12,7 +12,7 @@
 
 #include "../../includes/cub3d.h"
 
-int	get_distance(int px, int py, int cx, int cy)
+double	get_distance(double px, double py, double cx, double cy)
 {
 	return (sqrt((cx - px) * (cx - px) + (cy - py) * (cy - py)));
 }
