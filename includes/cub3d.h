@@ -6,7 +6,7 @@
 /*   By: ajimenez <ajimenez@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/16 14:12:07 by ajimenez          #+#    #+#             */
-/*   Updated: 2023/02/27 15:37:44 by goliano-         ###   ########.fr       */
+/*   Updated: 2023/02/27 17:35:27 by goliano-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -115,14 +115,16 @@ int	is_left(double angle);
 /*
  * srcs/game/steps.c
  */
-double	get_x_step(double y_step, double angle);
-double	get_y_step(double angle);
+float	get_x_step_hor(float y_step, float angle);
+float	get_y_step_hor(float angle);
+float	get_x_step_ver(float angle);
+float	get_y_step_ver(float angle);
 
 /*
  * srcs/game/ray_colision.c
  */
-double	wall_hit_hor(t_gdata *gdata, double angle, int x, int type);
-double	wall_hit_vert(t_gdata *gdata, double angle, int x, int type);
+void	wall_hit_hor(t_gdata *gdata, float angle, int x);
+void	wall_hit_ver(t_gdata *gdata, float angle, int x);
 void		wall_hit(t_gdata *gdata);
 
 /*

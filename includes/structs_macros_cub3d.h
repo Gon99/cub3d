@@ -6,7 +6,7 @@
 /*   By: ajimenez <ajimenez@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/16 14:08:17 by ajimenez          #+#    #+#             */
-/*   Updated: 2023/02/21 16:27:00 by goliano-         ###   ########.fr       */
+/*   Updated: 2023/02/27 17:28:05 by goliano-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -108,6 +108,10 @@ typedef struct r_data
 	double	angle_ray;
 	int	h_dist;
 	int	h_type;
+	float	x_inter_h;
+	float	y_inter_h;
+	float	x_inter_v;
+	float	y_inter_v;
 //	int	h_hit;
 	int	v_hit;
 	int	wall_x;

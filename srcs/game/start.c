@@ -6,7 +6,7 @@
 /*   By: goliano- <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/13 16:16:19 by goliano-          #+#    #+#             */
-/*   Updated: 2023/02/27 15:38:39 by goliano-         ###   ########.fr       */
+/*   Updated: 2023/02/27 17:35:24 by goliano-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -109,7 +109,7 @@ void	init_rays_group(t_gdata *gdata)
 	}
 }
 
-void	get_ray_dist(t_gdata *gdata, double x_vert, double y_vert, double x_hor, double y_hor, int x)
+void	get_ray_dist(t_gdata *gdata, int x)
 {
 	double	hor_dist;
 	double	ver_dist;
@@ -117,9 +117,9 @@ void	get_ray_dist(t_gdata *gdata, double x_vert, double y_vert, double x_hor, do
 	hor_dist = 99999999;
 	ver_dist = 99999999;
 	if (gdata->rdata->ray[x].h_hit)
-		hor_dist = get_distance(gdata->pdata->x, gdata->pdata->y, x_hor, y_hor);
+		hor_dist = get_distance(gdata->pdata->x, gdata->pdata->y, gdata->rdata->x_inter_h, gdata->rdata->y_inter_h);
 	if (gdata->rdata->ray[x].v_hit)
-		ver_dist = get_distance(gdata->pdata->x, gdata->pdata->y, x_vert, y_vert);
+		ver_dist = get_distance(gdata->pdata->x, gdata->pdata->y, gdata->rdata->x_inter_v, gdata->rdata->y_inter_v);
 //	printf("HOR_DIST: %f\n", hor_dist);
 //	printf("VER_DIST: %f\n", ver_dist);
 	gdata->rdata->ray[x].dist = ver_dist * gdata->h_prop;
@@ -132,20 +132,14 @@ void	get_ray_dist(t_gdata *gdata, double x_vert, double y_vert, double x_hor, do
 void	calc_rays_dist(t_gdata *gdata)
 {
 	int		x;
-	double	x_vert;
-	double	y_vert;
-	double	x_hor;
-	double	y_hor;
 
 	x = 0;
 	while (x < gdata->rdata->n_rays)
 	{
 //		printf("ANGLE: %f\n", gdata->rdata->ray[x].angle);
-		x_vert = wall_hit_vert(gdata, gdata->rdata->ray[x].angle, x, 0);
-		y_vert = wall_hit_vert(gdata, gdata->rdata->ray[x].angle, x, 1);
-		x_hor = wall_hit_hor(gdata, gdata->rdata->ray[x].angle, x, 0);
-		y_hor = wall_hit_hor(gdata, gdata->rdata->ray[x].angle, x, 1);
-		get_ray_dist(gdata, x_vert, y_vert, x_hor, y_hor, x);
+		wall_hit_hor(gdata, gdata->rdata->ray[x].angle, x);
+		wall_hit_ver(gdata, gdata->rdata->ray[x].angle, x);
+		get_ray_dist(gdata, x);
 		x++;
 	}
 }
