@@ -6,7 +6,7 @@
 /*   By: ajimenez <ajimenez@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/16 14:12:07 by ajimenez          #+#    #+#             */
-/*   Updated: 2023/02/21 16:01:32 by goliano-         ###   ########.fr       */
+/*   Updated: 2023/02/27 15:37:44 by goliano-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,7 +83,9 @@ void	start(t_gdata *gdata, int keycode);
  */
 
 void	update_player(t_gdata *gdata, int key);
-void	my_mlx_pixel_put(t_mdata *mdata, int x, int y, int color);
+void	calc_rays_dist(t_gdata *gdata);
+void	init_rays_group(t_gdata *gdata);
+//void	my_mlx_pixel_put(t_mdata *mdata, int x, int y, int color);
 //int		player_colision(int x, int y, t_gdata *gdata);
 
 /*

@@ -6,7 +6,7 @@
 /*   By: ajimenez <ajimenez@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/16 14:16:48 by ajimenez          #+#    #+#             */
-/*   Updated: 2023/02/14 14:11:53 by goliano-         ###   ########.fr       */
+/*   Updated: 2023/02/27 15:35:13 by goliano-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,6 +77,14 @@ static int	key_hooks_down(int keycode, t_gdata *gdata)
 	return (0);
 }
 
+static int	draw_n(t_gdata *gdata)
+{
+	init_rays_group(gdata);
+	calc_rays_dist(gdata);
+	draw_all(gdata);
+	return (0);
+}
+
 /*static int	hook_handler(int keycode, t_mdata *mdata)
 {
 	if (keycode == 53)
@@ -92,6 +100,7 @@ void	hooks_call(t_gdata *gdata, t_mdata *mdata)
 	mlx_hook(mdata->win, 2, 1L << 0, key_hooks_down, gdata);
 	mlx_hook(mdata->win, 3, 1L << 1, key_hooks_up, gdata);
 	mlx_hook(mdata->win, 17, 1L << 1, close_mlx, mdata);
+	mlx_loop_hook(mdata->ptr, draw_n ,gdata);
 //	mlx_key_hook(win, key_hooks, gdata);
 //	mlx_hook(win, 2, 1L<<0, hook_handler, mdata);
 }

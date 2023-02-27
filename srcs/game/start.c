@@ -6,20 +6,11 @@
 /*   By: goliano- <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/13 16:16:19 by goliano-          #+#    #+#             */
-/*   Updated: 2023/02/21 15:57:51 by goliano-         ###   ########.fr       */
+/*   Updated: 2023/02/27 15:38:39 by goliano-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/cub3d.h"
-
-void	my_mlx_pixel_put(t_mdata *mdata, int x, int y, int color)
-{
-	char	*dst;
-
-	//Align bytes, line_length differs from the window with
-	dst = mdata->win_addr + (y * mdata->ll_win + x * (mdata->bpp_win / 8));
-	*(unsigned int *)dst = color;
-}
 
 int	player_colision(int y, int x, t_gdata *gdata)
 {
@@ -45,13 +36,13 @@ static void	player_move(t_gdata *gdata, int key)
 	new_px = gdata->pdata->x;
 	new_py = gdata->pdata->y;
 	//LINUX 1 / 3
-	if (type == 1 || type == 3)
+	if (type == 1 || type == 2)
 	{
 		new_px = gdata->pdata->x + (gdata->pdata->move * cos(gdata->pdata->angle) * gdata->pdata->vel);
 		new_py = gdata->pdata->y + (gdata->pdata->move * sin(gdata->pdata->angle) * gdata->pdata->vel);
 	}
 	//LINUX 4 / 2
-	else if (type == 2 || type == 4)
+	else if (type == 3 || type == 4)
 	{
 		//CHECK WHY
 		new_px = gdata->pdata->x + (gdata->pdata->move * cos(gdata->pdata->angle + (M_PI / 2)) * gdata->pdata->vel);
@@ -162,11 +153,11 @@ void	calc_rays_dist(t_gdata *gdata)
 void	update_player(t_gdata *gdata, int key)
 {
 	player_move(gdata, key);
-	init_rays_group(gdata);
-	calc_rays_dist(gdata);
-//	wall_hit(gdata);
-//	get_ray_dest(gdata);
-	draw_all(gdata/*, wall_hit_x, wall_hit_y*/);
+//	init_rays_group(gdata);
+//	calc_rays_dist(gdata);
+////	wall_hit(gdata);
+////	get_ray_dest(gdata);
+//	draw_all(gdata/*, wall_hit_x, wall_hit_y*/);
 }
 
 /*void	player_move2(t_gdata *gdata, int keycode)
