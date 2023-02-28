@@ -43,26 +43,26 @@
 typedef struct	p_data
 {
 	//player position
-	double	x;
-	double	y;
+	float	x;
+	float	y;
 	char	p;
 	
 	int	move;
 	int	spin;
-	double	angle;
-	double	vel;
-	double	vel_spin;
+	float	angle;
+	float	vel;
+	float	vel_spin;
 
 	//initial direction vector
-//	double	dir_x;
-//	double	dir_y;
+//	float	dir_x;
+//	float	dir_y;
 //	//the 2d raycaster version of camera plane
-//	double	plane_x;
-//	double	plane_y;
+//	float	plane_x;
+//	float	plane_y;
 //	//time of current frame
-//	double	time;
+//	float	time;
 //	//time of previous frame
-//	double	old_time;
+//	float	old_time;
 }	t_pdata;
 
 /*
@@ -86,15 +86,15 @@ typedef struct	m_data
 
 typedef struct ray
 {
-	double	x;
-	double	y;
-	double	x_dest;
-	double	y_dest;
-	double	angle;
-	double	angle_inc;
+	float	x;
+	float	y;
+	float	x_dest;
+	float	y_dest;
+	float	angle;
+	float	angle_inc;
 	int		h_hit;
 	int		v_hit;
-	double	dist;
+	float	dist;
 }	t_ray;
 
 /*
@@ -103,9 +103,9 @@ typedef struct ray
 typedef struct r_data
 {
 	int	n_rays;
-	double	angle_inc;
-	double	angle_init;
-	double	angle_ray;
+	float	angle_inc;
+	float	angle_init;
+	float	angle_ray;
 	int	h_dist;
 	int	h_type;
 	float	x_inter_h;
@@ -137,8 +137,8 @@ typedef struct s_data
 	int		error;
 	int		height;
 	int		width;
-	double	h_prop;
-	double	w_prop;
+	float	h_prop;
+	float	w_prop;
 	t_pdata	*pdata;
 	t_mdata *mdata;
 	t_rdata *rdata;

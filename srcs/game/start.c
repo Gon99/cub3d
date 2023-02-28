@@ -28,21 +28,21 @@ int	player_colision(int y, int x, t_gdata *gdata)
 
 static void	player_move(t_gdata *gdata, int key)
 {
-	double	new_px;
-	double	new_py;
+	float	new_px;
+	float	new_py;
 	int		type;
 
 	type = key_type(key);
 	new_px = gdata->pdata->x;
 	new_py = gdata->pdata->y;
 	//LINUX 1 / 3
-	if (type == 1 || type == 2)
+	if (type == 1 || type == 3)
 	{
 		new_px = gdata->pdata->x + (gdata->pdata->move * cos(gdata->pdata->angle) * gdata->pdata->vel);
 		new_py = gdata->pdata->y + (gdata->pdata->move * sin(gdata->pdata->angle) * gdata->pdata->vel);
 	}
 	//LINUX 4 / 2
-	else if (type == 3 || type == 4)
+	else if (type == 2 || type == 4)
 	{
 		//CHECK WHY
 		new_px = gdata->pdata->x + (gdata->pdata->move * cos(gdata->pdata->angle + (M_PI / 2)) * gdata->pdata->vel);
@@ -50,6 +50,8 @@ static void	player_move(t_gdata *gdata, int key)
 	}
 	if (!player_colision(new_py, new_px, gdata))
 	{
+		printf("NEX_PX: %f\n", new_px);
+		printf("NEX_PY: %f\n", new_py);
 		gdata->pdata->x = new_px;
 		gdata->pdata->y = new_py;
 	}
@@ -111,8 +113,8 @@ void	init_rays_group(t_gdata *gdata)
 
 void	get_ray_dist(t_gdata *gdata, int x)
 {
-	double	hor_dist;
-	double	ver_dist;
+	float	hor_dist;
+	float	ver_dist;
 
 	hor_dist = 99999999;
 	ver_dist = 99999999;
@@ -122,7 +124,7 @@ void	get_ray_dist(t_gdata *gdata, int x)
 		ver_dist = get_distance(gdata->pdata->x, gdata->pdata->y, gdata->rdata->x_inter_v, gdata->rdata->y_inter_v);
 //	printf("HOR_DIST: %f\n", hor_dist);
 //	printf("VER_DIST: %f\n", ver_dist);
-	gdata->rdata->ray[x].dist = ver_dist * gdata->h_prop;
+	gdata->rdata->ray[x].dist = ver_dist* gdata->h_prop;
 	if (hor_dist < ver_dist)
 		gdata->rdata->ray[x].dist = hor_dist * gdata->w_prop;
 	gdata->rdata->ray[x].h_hit = 0;

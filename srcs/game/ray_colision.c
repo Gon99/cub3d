@@ -27,7 +27,7 @@ static void	hor_colision(t_gdata *gdata, float angle, int x)
 	y_inter = gdata->rdata->y_inter_h;
 	while (!col)
 	{
-		if (player_colision((int)y_inter, (int)x_inter, gdata))
+		if (player_colision(floor(y_inter / TILE_SIZE), floor(x_inter / TILE_SIZE), gdata))
 		{
 			col = 1;
 			gdata->rdata->ray[x].h_hit = 1;
@@ -44,12 +44,10 @@ static void	hor_colision(t_gdata *gdata, float angle, int x)
 
 void	wall_hit_hor(t_gdata *gdata, float angle, int x)
 {
-	int		col;
 	float	y_inter;
 	float	x_inter;
 
-	col = 0;
-	y_inter = gdata->pdata->y;
+	y_inter = floor(gdata->pdata->y / TILE_SIZE) * TILE_SIZE;
 	if (is_down(angle))
 		y_inter += TILE_SIZE;
 	x_inter = (y_inter - gdata->pdata->y) / tan(angle)\
@@ -74,9 +72,9 @@ static	void	ver_colision(t_gdata *gdata, float angle, int x)
 	y_inter = gdata->rdata->y_inter_v;
 	x_step = get_x_step_ver(angle);
 	y_step = get_y_step_ver(angle);
-	while (!col && (x_inter >= 0 && y_inter >= 0 && x_inter < gdata->width && y_inter < gdata->height))
+	while (!col /*&& (x_inter >= 0 && y_inter >= 0 && x_inter < gdata->width && y_inter < gdata->height)*/)
 	{
-		if (player_colision((int)y_inter, (int)x_inter, gdata))
+		if (player_colision(floor(y_inter / TILE_SIZE), floor(x_inter / TILE_SIZE), gdata))
 		{
 			col = 1;
 			gdata->rdata->ray[x].v_hit = 1;
@@ -93,12 +91,10 @@ static	void	ver_colision(t_gdata *gdata, float angle, int x)
 
 void	wall_hit_ver(t_gdata *gdata, float angle, int x)
 {
-	int		col;
 	float	x_inter;
 	float	y_inter;
 
-	col = 0;
-	x_inter = gdata->pdata->x;
+	x_inter = floor(gdata->pdata->x / TILE_SIZE) * TILE_SIZE;
 	if (!is_left(angle))
 		x_inter += TILE_SIZE;
 	y_inter = (x_inter - gdata->pdata->x) \

@@ -167,8 +167,8 @@ void	render_wall(t_gdata *gdata)
 	int	x;
 	int	y0;
 	int	y1;
-	double	plane_dist;
-	double	wall_height;
+	float	plane_dist;
+	float	wall_height;
 
 //	double	rad = to_radians(HALF_FOV);
 //	printf("TN: %f\n", tan(rad));
@@ -184,8 +184,8 @@ void	render_wall(t_gdata *gdata)
 	while (x < gdata->rdata->n_rays)
 	{
 		wall_height = (10 / gdata->rdata->ray[x].dist) * plane_dist;
-		//printf("DIST: %f\n", gdata->rdata->ray[x].dist);
-		//printf("WALL: %f\n", wall_height);
+	//	printf("DIST: %f\n", gdata->rdata->ray[x].dist);
+	//	printf("WALL: %f\n", wall_height);
 		y0 = (int)MAP_HEIGHT / 2 - (int)wall_height / 2;
 		y1 = y0 + wall_height;
 		draw_ceiling(gdata, x, y0);

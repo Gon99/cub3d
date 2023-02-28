@@ -50,8 +50,8 @@ static int	key_hooks_up(int keycode, t_gdata *gdata)
 		gdata->pdata->move = 0;
 	else if (type == 5 || type == 6)
 		gdata->pdata->spin = 0;
-	if (type > 0 && type < 7)
-		update_player(gdata, keycode);
+//	if (type > 0 && type < 7)
+//		update_player(gdata, keycode);
 //	start(gdata, keycode);
 //	update_player(gdata, keycode);
 	return (0);

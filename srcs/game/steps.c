@@ -47,7 +47,7 @@ float	get_y_step_ver(float angle)
 {
 	float	step;
 
-	step = tan(angle);
+	step = TILE_SIZE * tan(angle);
 	if ((step > 0 && !is_down(angle)) \
 		|| (step < 0 && is_down(angle)))
 			step *= -1;

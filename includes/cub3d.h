@@ -104,7 +104,7 @@ void	set_angle(double angle, int i, t_gdata *gdata);
 /*
  * srcs/math/math.c
  */
-double	get_distance(double px, double py, double cx, double cy);
+float	get_distance(float px, float py, float cx, float cy);
 
 /*
  * srcs/game/player_dir.c

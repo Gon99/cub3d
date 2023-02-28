@@ -51,7 +51,7 @@ void	init_pdata(t_gdata *gdata)
 	}
 	gdata->pdata->move = 0;
 	gdata->pdata->spin = 0;
-	gdata->pdata->vel = 1;
+	gdata->pdata->vel = 0.1;
 //	gdata->pdata->vel_spin = 1 * (M_PI / 180);
 	gdata->pdata->vel_spin = to_radians(3);
 	gdata->pdata->angle = init_angle(gdata->pdata->p);
