@@ -6,7 +6,7 @@
 /*   By: ajimenez <ajimenez@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/16 14:12:07 by ajimenez          #+#    #+#             */
-/*   Updated: 2023/02/27 17:35:27 by goliano-         ###   ########.fr       */
+/*   Updated: 2023/03/01 16:27:51 by goliano-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,17 +82,20 @@ void	start(t_gdata *gdata, int keycode);
  * START
  */
 
-void	update_player(t_gdata *gdata, int key);
+void	update_player(t_pdata *pdata, t_gdata *gdata, int key);
 void	calc_rays_dist(t_gdata *gdata);
-void	init_rays_group(t_gdata *gdata);
+void	init_rays_group(t_gdata *gdata, t_ray *ray);
 //void	my_mlx_pixel_put(t_mdata *mdata, int x, int y, int color);
 //int		player_colision(int x, int y, t_gdata *gdata);
 
 /*
  * srcs/draw/draw.c
  */
-void	draw_all(t_gdata *gdata/*, int x_dest, int y_dest*/);
-void	draw_first_part_map(t_gdata *gdata);
+//void	draw_all(t_gdata *gdata/*, int x_dest, int y_dest*/);
+//void	draw_first_part_map(t_gdata *gdata);
+void	draw_ceiling(t_gdata *gdata/*, int x, int y0*/);
+void	draw_floor(t_gdata *gdata/*, int x, int y1*/);
+void	draw_wall(t_gdata *gdata, int y0, int y1, int x);
 
 /*
  * srcs/angle/angle.c
@@ -109,13 +112,13 @@ float	get_distance(float px, float py, float cx, float cy);
 /*
  * srcs/game/player_dir.c
  */
-int	is_down(double angle);
-int	is_left(double angle);
+int	is_down(float angle);
+int	is_left(float angle);
 
 /*
  * srcs/game/steps.c
  */
-float	get_x_step_hor(float y_step, float angle);
+float	get_x_step_hor(float angle);
 float	get_y_step_hor(float angle);
 float	get_x_step_ver(float angle);
 float	get_y_step_ver(float angle);

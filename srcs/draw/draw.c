@@ -6,7 +6,7 @@
 /*   By: goliano- <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/04 11:58:30 by goliano-          #+#    #+#             */
-/*   Updated: 2023/02/27 15:38:38 by goliano-         ###   ########.fr       */
+/*   Updated: 2023/03/01 18:48:52 by goliano-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,31 +20,49 @@ inline static void	my_mlx_pixel_put(t_mdata *mdata, int x, int y, int color)
 	*(unsigned int *)(mdata->win_addr + (y * mdata->ll_win + x * (mdata->bpp_win / 8))) = color;
 }
 
-inline static void	draw_ceiling(t_gdata *gdata, int x, int y0)
+void	draw_ceiling(t_gdata *gdata/*, int x, int y0*/)
 {
-	int	y;
+//	int	y;
+//
+//	y = 0;
+//	while (y < y0)
+//	{
+//		my_mlx_pixel_put(gdata->mdata, x, y, parse_color(gdata->c));
+//		y++;
+//	}
+	int 	i;
+	int		limit;
 
-	y = 0;
-	while (y < y0)
+	i = 0;
+	limit = MAP_WIDTH * MAP_HEIGHT / 2;
+	while (i < limit)
 	{
-		my_mlx_pixel_put(gdata->mdata, x, y, parse_color(gdata->c));
-		y++;
+		((unsigned int*)gdata->mdata->win_addr)[i] = 0x0000FF;
+		i++;
 	}
 }
 
-inline static void	draw_floor(t_gdata *gdata, int x, int y1)
+void	draw_floor(t_gdata *gdata/*, int x, int y1*/)
 {
-	while (y1 < MAP_HEIGHT)
+	int	start;
+	int	limit;
+
+	start = MAP_WIDTH * MAP_HEIGHT / 2;
+	limit = MAP_WIDTH * MAP_HEIGHT;
+	while (start < limit)
 	{
-		my_mlx_pixel_put(gdata->mdata, x, y1, parse_color(gdata->f));
-		y1++;
+		((unsigned int*)gdata->mdata->win_addr)[start] = 0x0000FF;
+		start++;
 	}
+//	while (y1 < MAP_HEIGHT)
+//	{
+//		my_mlx_pixel_put(gdata->mdata, x, y1, parse_color(gdata->f));
+//		y1++;
+//	}
 }
 
-inline static void	draw_wall(t_gdata *gdata, int y0, int y1, int x)
+void	draw_wall(t_gdata *gdata, int y0, int y1, int x)
 {
-//	printf("y0: %d\n", y0);
-//	printf("y1: %d\n", y1);
 	while (y0 < y1)
 	{
 		my_mlx_pixel_put(gdata->mdata, x, y0, parse_color("0, 0, 0"));
@@ -162,38 +180,36 @@ inline static void	draw_wall(t_gdata *gdata, int y0, int y1, int x)
 	}
 }*/
 
-void	render_wall(t_gdata *gdata)
-{
-	int	x;
-	int	y0;
-	int	y1;
-	float	plane_dist;
-	float	wall_height;
-
-//	double	rad = to_radians(HALF_FOV);
-//	printf("TN: %f\n", tan(rad));
-//	plane_dist = (MAP_WIDTH / 2) / tan(HALF_FOV);
-	plane_dist = (MAP_WIDTH / 2) / tan(to_radians(HALF_FOV));
-//	printf("PLANE: %f\n", plane_dist);
-//	printf("HF: %f\n", HALF_FOV);
-//	printf("T: %f\n", tan(HALF_FOV));
-//	printf("PLANE: %f\n", plane_dist);
-//	if (plane_dist < 0)
-//		plane_dist *= -1;
-	x = 0;
-	while (x < gdata->rdata->n_rays)
-	{
-		wall_height = (10 / gdata->rdata->ray[x].dist) * plane_dist;
-	//	printf("DIST: %f\n", gdata->rdata->ray[x].dist);
-	//	printf("WALL: %f\n", wall_height);
-		y0 = (int)MAP_HEIGHT / 2 - (int)wall_height / 2;
-		y1 = y0 + wall_height;
-		draw_ceiling(gdata, x, y0);
-		draw_wall(gdata, y0, y1, x);
-		draw_floor(gdata, x, y1);
-		x++;
-	}
-}
+//void	render_wall(t_gdata *gdata)
+//{
+//	int	x;
+//	int	y0;
+//	int	y1;
+//	float	plane_dist;
+//	float	wall_height;
+//
+////	double	rad = to_radians(HALF_FOV);
+////	printf("TN: %f\n", tan(rad));
+////	plane_dist = (MAP_WIDTH / 2) / tan(HALF_FOV);
+//	plane_dist = (MAP_WIDTH / 2) / tan(to_radians(HALF_FOV));
+////	printf("PLANE: %f\n", plane_dist);
+////	printf("HF: %f\n", HALF_FOV);
+////	printf("T: %f\n", tan(HALF_FOV));
+////	printf("PLANE: %f\n", plane_dist);
+////	if (plane_dist < 0)
+////		plane_dist *= -1;
+//	x = 0;
+//	while (x < gdata->rdata->n_rays)
+//	{
+//		wall_height = (10 / gdata->rdata->ray[x].dist) * plane_dist;
+//		y0 = (int)MAP_HEIGHT / 2 - (int)wall_height / 2;
+//		y1 = y0 + wall_height;
+//		draw_ceiling(gdata, x, y0);
+//		draw_wall(gdata, y0, y1, x);
+//		draw_floor(gdata, x, y1);
+//		x++;
+//	}
+//}
 //void	draw_rays(t_gdata *gdata, int y_dest)
 //{
 //	int	i = 0;
@@ -220,17 +236,16 @@ void	render_wall(t_gdata *gdata)
 //	}
 //}
 
-void	draw_all(t_gdata *gdata/*, int x_dest, int y_dest*/)
-{
-//	mlx_destroy_image(gdata->mdata->ptr, gdata->mdata->win_img);
-////	mlx_clear_window(gdata->mdata->ptr, gdata->mdata->win);
-//	gdata->mdata->win_img = mlx_new_image(gdata->mdata->ptr, MAP_WIDTH, MAP_HEIGHT);
-//	gdata->mdata->win_addr = mlx_get_data_addr(gdata->mdata->win_img, &gdata->mdata->bpp_win, &gdata->mdata->ll_win, &gdata->mdata->end_win);
-//	draw_first_part_map(gdata);
-//	draw_col_line(x_dest, y_dest, gdata); // PINTA LA LINEA DE COLISIÓN HASTA QUE ENCUENTRA UNA PARED
-//	draw_dir_line(gdata); // PINTA LA LINEA PEQUEÑA
-//	draw_rays(gdata, y_dest);
-	render_wall(gdata);
-//	my_mlx_pixel_put(gdata->mdata, gdata->pdata->x * gdata->w_prop, gdata->pdata->y * gdata->h_prop, parse_color("0, 0, 0"));
-	mlx_put_image_to_window(gdata->mdata->ptr, gdata->mdata->win, gdata->mdata->win_img, 0, 0);
-}
+//void	draw_all(t_gdata *gdata/*, int x_dest, int y_dest*/)
+//{
+////	mlx_destroy_image(gdata->mdata->ptr, gdata->mdata->win_img);
+//////	mlx_clear_window(gdata->mdata->ptr, gdata->mdata->win);
+////	gdata->mdata->win_img = mlx_new_image(gdata->mdata->ptr, MAP_WIDTH, MAP_HEIGHT);
+////	gdata->mdata->win_addr = mlx_get_data_addr(gdata->mdata->win_img, &gdata->mdata->bpp_win, &gdata->mdata->ll_win, &gdata->mdata->end_win);
+////	draw_first_part_map(gdata);
+////	draw_col_line(x_dest, y_dest, gdata); // PINTA LA LINEA DE COLISIÓN HASTA QUE ENCUENTRA UNA PARED
+////	draw_dir_line(gdata); // PINTA LA LINEA PEQUEÑA
+////	draw_rays(gdata, y_dest);
+//	render_wall(gdata);
+////	my_mlx_pixel_put(gdata->mdata, gdata->pdata->x * gdata->w_prop, gdata->pdata->y * gdata->h_prop, parse_color("0, 0, 0"));
+//}

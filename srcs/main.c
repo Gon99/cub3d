@@ -6,7 +6,7 @@
 /*   By: goliano- <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/31 15:55:14 by goliano-          #+#    #+#             */
-/*   Updated: 2023/02/16 18:11:47 by goliano-         ###   ########.fr       */
+/*   Updated: 2023/03/01 10:56:01 by goliano-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ int	main(int argc, char **argv)
 		return (write(1, "Error data\n", 11));
 	init_pdata(&gdata);
 	init_rdata(&gdata);
-	flood_fill(&gdata, pdata.y / gdata.h_prop, pdata.x / gdata.w_prop);
+	flood_fill(&gdata, pdata.y, pdata.x);
 	if (gdata.error)
 		return (write(1, "Error\n", 6));
 	ft_game(&mdata, &gdata, &tdata);

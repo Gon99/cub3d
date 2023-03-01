@@ -6,7 +6,7 @@
 /*   By: goliano- <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/13 16:16:19 by goliano-          #+#    #+#             */
-/*   Updated: 2023/02/27 17:35:24 by goliano-         ###   ########.fr       */
+/*   Updated: 2023/03/01 16:55:51 by goliano-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,48 +15,50 @@
 int	player_colision(int y, int x, t_gdata *gdata)
 {
 	int	col;
+	int	l;
 
 	col = 0;
-	if (y < 0 || y > gdata->height)
+	if (y < 0 || y >= gdata->height)
 		return (1);
 	if (x < 0 || x > gdata->width)
+		return (1);
+	l = ft_strlen(gdata->map[y]);
+	if (l < x)
 		return (1);
 	if (gdata->map[y][x] == '1')
 		col = 1;
 	return (col);
 }
 
-static void	player_move(t_gdata *gdata, int key)
+static void	player_move(t_pdata *pdata, t_gdata *gdata, int key)
 {
 	float	new_px;
 	float	new_py;
 	int		type;
 
 	type = key_type(key);
-	new_px = gdata->pdata->x;
-	new_py = gdata->pdata->y;
+	new_px = pdata->x;
+	new_py = pdata->y;
 	//LINUX 1 / 3
-	if (type == 1 || type == 3)
+	if (type == 1 || type == 2)
 	{
-		new_px = gdata->pdata->x + (gdata->pdata->move * cos(gdata->pdata->angle) * gdata->pdata->vel);
-		new_py = gdata->pdata->y + (gdata->pdata->move * sin(gdata->pdata->angle) * gdata->pdata->vel);
+		new_px = pdata->x + (pdata->move * cos(pdata->angle) * pdata->vel);
+		new_py = pdata->y + (pdata->move * sin(pdata->angle) * pdata->vel);
 	}
 	//LINUX 4 / 2
-	else if (type == 2 || type == 4)
+	else if (type == 3 || type == 4)
 	{
 		//CHECK WHY
-		new_px = gdata->pdata->x + (gdata->pdata->move * cos(gdata->pdata->angle + (M_PI / 2)) * gdata->pdata->vel);
-		new_py = gdata->pdata->y + (gdata->pdata->move * sin(gdata->pdata->angle + (M_PI / 2)) * gdata->pdata->vel);
+		new_px = pdata->x + (pdata->move * cos(pdata->angle + (M_PI / 2)) * pdata->vel);
+		new_py = pdata->y + (pdata->move * sin(pdata->angle + (M_PI / 2)) * pdata->vel);
 	}
 	if (!player_colision(new_py, new_px, gdata))
 	{
-		printf("NEX_PX: %f\n", new_px);
-		printf("NEX_PY: %f\n", new_py);
-		gdata->pdata->x = new_px;
-		gdata->pdata->y = new_py;
+		pdata->x = new_px;
+		pdata->y = new_py;
 	}
-	gdata->pdata->angle += gdata->pdata->spin * gdata->pdata->vel_spin;
-	gdata->pdata->angle = normalize_angle(gdata->pdata->angle);//TODO-> check angle
+	pdata->angle += pdata->spin * pdata->vel_spin;
+	pdata->angle = normalize_angle(pdata->angle);//TODO-> check angle
 }
 
 //void	get_ray_dest(t_gdata *gdata)
@@ -96,21 +98,7 @@ static void	player_move(t_gdata *gdata, int key)
 //		i++;
 //	}
 //}
-
-void	init_rays_group(t_gdata *gdata)
-{
-	int i;
-
-	i = 0;
-	while (i < gdata->rdata->n_rays)
-	{
-		gdata->rdata->ray[i].x = gdata->pdata->x;
-		gdata->rdata->ray[i].y = gdata->pdata->y;
-		set_angle(gdata->pdata->angle, i, gdata);
-		i++;
-	}
-}
-
+//
 void	get_ray_dist(t_gdata *gdata, int x)
 {
 	float	hor_dist;
@@ -119,9 +107,9 @@ void	get_ray_dist(t_gdata *gdata, int x)
 	hor_dist = 99999999;
 	ver_dist = 99999999;
 	if (gdata->rdata->ray[x].h_hit)
-		hor_dist = get_distance(gdata->pdata->x, gdata->pdata->y, gdata->rdata->x_inter_h, gdata->rdata->y_inter_h);
+		hor_dist = get_distance(gdata->rdata->ray[x].x, gdata->rdata->ray[x].y, gdata->rdata->x_inter_h, gdata->rdata->y_inter_h);
 	if (gdata->rdata->ray[x].v_hit)
-		ver_dist = get_distance(gdata->pdata->x, gdata->pdata->y, gdata->rdata->x_inter_v, gdata->rdata->y_inter_v);
+		ver_dist = get_distance(gdata->rdata->ray[x].x, gdata->rdata->ray[x].y, gdata->rdata->x_inter_v, gdata->rdata->y_inter_v);
 //	printf("HOR_DIST: %f\n", hor_dist);
 //	printf("VER_DIST: %f\n", ver_dist);
 	gdata->rdata->ray[x].dist = ver_dist* gdata->h_prop;
@@ -131,24 +119,50 @@ void	get_ray_dist(t_gdata *gdata, int x)
 	gdata->rdata->ray[x].v_hit = 0;
 }
 
-void	calc_rays_dist(t_gdata *gdata)
+void	init_rays_group(t_gdata *gdata, t_ray *ray)
 {
-	int		x;
+	int i;
+	int y0;
+	int	y1;
+	float	plane_dist;
+	float	wall_height;
 
-	x = 0;
-	while (x < gdata->rdata->n_rays)
+	i = 0;
+	draw_ceiling(gdata/*, i, y0*/);
+	draw_floor(gdata);
+	plane_dist = (MAP_WIDTH / 2) / tan(to_radians(HALF_FOV));
+	while (i < gdata->rdata->n_rays)
 	{
-//		printf("ANGLE: %f\n", gdata->rdata->ray[x].angle);
-		wall_hit_hor(gdata, gdata->rdata->ray[x].angle, x);
-		wall_hit_ver(gdata, gdata->rdata->ray[x].angle, x);
-		get_ray_dist(gdata, x);
-		x++;
+		ray[i].x = gdata->pdata->x;
+		ray[i].y = gdata->pdata->y;
+		set_angle(gdata->pdata->angle, i, gdata);
+		wall_hit_hor(gdata, ray[i].angle, i);
+		wall_hit_ver(gdata, ray[i].angle, i);
+		get_ray_dist(gdata, i);
+		wall_height = (10 / ray[i].dist) * plane_dist;
+		y0 = (int)MAP_HEIGHT / 2 - (int)wall_height / 2;
+		y1 = y0 + wall_height;
+		draw_wall(gdata, y0, y1, i);
+		i++;
 	}
+	mlx_put_image_to_window(gdata->mdata->ptr, gdata->mdata->win, gdata->mdata->win_img, 0, 0);
 }
 
-void	update_player(t_gdata *gdata, int key)
+//void	calc_rays_dist(t_gdata *gdata)
+//{
+//	int		x;
+//
+//	x = 0;
+//	while (x < gdata->rdata->n_rays)
+//	{
+////		printf("ANGLE: %f\n", gdata->rdata->ray[x].angle);
+//		x++;
+//	}
+//}
+
+void	update_player(t_pdata *pdata, t_gdata *gdata, int key)
 {
-	player_move(gdata, key);
+	player_move(pdata, gdata, key);
 //	init_rays_group(gdata);
 //	calc_rays_dist(gdata);
 ////	wall_hit(gdata);
@@ -170,8 +184,6 @@ void	update_player(t_gdata *gdata, int key)
 	if (type == 3)
 	{
 		if (gdata->map[(int)(gdata->pdata->y)][(int)(gdata->pdata->x - gdata->pdata->dir_x * gdata->pdata->vel)] == 0)
-			gdata->pdata->x -= gdata->pdata->dir_x * gdata->pdata->vel;
-		if (gdata->map[(int)(gdata->pdata->y - gdata->pdata->dir_y  * gdata->pdata->vel)][(int)(gdata->pdata->x)] == 0)
 			gdata->pdata->y -= gdata->pdata->dir_y * gdata->pdata->vel;
 	}
 }

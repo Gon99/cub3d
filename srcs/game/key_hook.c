@@ -6,7 +6,7 @@
 /*   By: ajimenez <ajimenez@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/16 14:16:48 by ajimenez          #+#    #+#             */
-/*   Updated: 2023/02/27 15:35:13 by goliano-         ###   ########.fr       */
+/*   Updated: 2023/03/01 15:55:57 by goliano-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,15 +73,15 @@ static int	key_hooks_down(int keycode, t_gdata *gdata)
 		turn_left(gdata);
 //	start(gdata, keycode);
 	if (type > 0 && type < 7)
-		update_player(gdata, keycode);
+		update_player(gdata->pdata, gdata, keycode);
 	return (0);
 }
 
 static int	draw_n(t_gdata *gdata)
 {
-	init_rays_group(gdata);
-	calc_rays_dist(gdata);
-	draw_all(gdata);
+	init_rays_group(gdata, gdata->rdata->ray);
+//	calc_rays_dist(gdata);
+//	draw_all(gdata);
 	return (0);
 }
 
