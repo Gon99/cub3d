@@ -40,13 +40,13 @@ static void	player_move(t_pdata *pdata, t_gdata *gdata, int key)
 	new_px = pdata->x;
 	new_py = pdata->y;
 	//LINUX 1 / 3
-	if (type == 1 || type == 2)
+	if (type == 1 || type == 3)
 	{
 		new_px = pdata->x + (pdata->move * cos(pdata->angle) * pdata->vel);
 		new_py = pdata->y + (pdata->move * sin(pdata->angle) * pdata->vel);
 	}
 	//LINUX 4 / 2
-	else if (type == 3 || type == 4)
+	else if (type == 2 || type == 4)
 	{
 		//CHECK WHY
 		new_px = pdata->x + (pdata->move * cos(pdata->angle + (M_PI / 2)) * pdata->vel);

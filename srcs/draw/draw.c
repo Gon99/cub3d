@@ -37,7 +37,7 @@ void	draw_ceiling(t_gdata *gdata/*, int x, int y0*/)
 	limit = MAP_WIDTH * MAP_HEIGHT / 2;
 	while (i < limit)
 	{
-		((unsigned int*)gdata->mdata->win_addr)[i] = 0x0000FF;
+		((unsigned int*)gdata->mdata->win_addr)[i] = 0xFF0000;
 		i++;
 	}
 }
@@ -51,7 +51,7 @@ void	draw_floor(t_gdata *gdata/*, int x, int y1*/)
 	limit = MAP_WIDTH * MAP_HEIGHT;
 	while (start < limit)
 	{
-		((unsigned int*)gdata->mdata->win_addr)[start] = 0x0000FF;
+		((unsigned int*)gdata->mdata->win_addr)[start] = 0xFFA500;
 		start++;
 	}
 //	while (y1 < MAP_HEIGHT)
