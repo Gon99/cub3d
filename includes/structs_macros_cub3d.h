@@ -54,15 +54,15 @@ typedef struct	p_data
 	float	vel_spin;
 
 	//initial direction vector
-//	float	dir_x;
-//	float	dir_y;
-//	//the 2d raycaster version of camera plane
-//	float	plane_x;
-//	float	plane_y;
-//	//time of current frame
-//	float	time;
-//	//time of previous frame
-//	float	old_time;
+	float	dir_x;
+	float	dir_y;
+	//the 2d raycaster version of camera plane
+	float	plane_x;
+	float	plane_y;
+	//time of current frame
+	float	time;
+	//time of previous frame
+	float	old_time;
 }	t_pdata;
 
 /*

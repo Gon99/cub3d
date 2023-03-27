@@ -119,31 +119,155 @@ void	get_ray_dist(t_gdata *gdata, int x)
 	gdata->rdata->ray[x].v_hit = 0;
 }
 
-void	init_rays_group(t_gdata *gdata, t_ray *ray)
-{
-	int i;
-	int y0;
-	int	y1;
-	float	plane_dist;
-	float	wall_height;
+//void	init_rays_group0(t_gdata *gdata, t_ray *ray)
+//{
+//	int i;
+//	int y0;
+//	int	y1;
+//	float	plane_dist;
+//	float	wall_height;
+//
+//	i = 0;
+//	draw_ceiling(gdata/*, i, y0*/);
+//	draw_floor(gdata);
+//	plane_dist = (MAP_WIDTH / 2) / tan(to_radians(HALF_FOV));
+//	while (i < gdata->rdata->n_rays)
+//	{
+//		ray[i].x = gdata->pdata->x;
+//		ray[i].y = gdata->pdata->y;
+//		set_angle(gdata->pdata->angle, i, gdata);
+//		wall_hit_hor(gdata, ray[i].angle, i);
+//		wall_hit_ver(gdata, ray[i].angle, i);
+//		get_ray_dist(gdata, i);
+//		wall_height = (10 / ray[i].dist) * plane_dist;
+//		y0 = (int)MAP_HEIGHT / 2 - (int)wall_height / 2;
+//		y1 = y0 + wall_height;
+//		draw_wall(gdata, y0, y1, i);
+//		i++;
+//	}
+//	mlx_put_image_to_window(gdata->mdata->ptr, gdata->mdata->win, gdata->mdata->win_img, 0, 0);
+//}
 
-	i = 0;
-	draw_ceiling(gdata/*, i, y0*/);
+void	init_rays_group(t_gdata *gdata)
+{
+	int	x;
+	float	camera_x;
+	float	ray_dir_x;
+	float	ray_dir_y;
+
+	int	map_x;
+	int	map_y;
+	float	side_dist_x;
+	float	side_dist_y;
+	float	delta_dist_x;
+	float	delta_dist_y;
+	float	perp_wall_dist;
+	int	step_x;
+	int	step_y;
+	int	hit;
+	int	side;
+
+	int	line_height;
+	int	draw_start;
+	int	draw_end;
+
+	x = 0;
 	draw_floor(gdata);
-	plane_dist = (MAP_WIDTH / 2) / tan(to_radians(HALF_FOV));
-	while (i < gdata->rdata->n_rays)
+	draw_ceiling(gdata);
+	while (x < MAP_WIDTH)
 	{
-		ray[i].x = gdata->pdata->x;
-		ray[i].y = gdata->pdata->y;
-		set_angle(gdata->pdata->angle, i, gdata);
-		wall_hit_hor(gdata, ray[i].angle, i);
-		wall_hit_ver(gdata, ray[i].angle, i);
-		get_ray_dist(gdata, i);
-		wall_height = (10 / ray[i].dist) * plane_dist;
-		y0 = (int)MAP_HEIGHT / 2 - (int)wall_height / 2;
-		y1 = y0 + wall_height;
-		draw_wall(gdata, y0, y1, i);
-		i++;
+		camera_x = 2 * gdata->pdata->x / (float)MAP_WIDTH - 1;
+//		printf("CAM_X: %f\n", camera_x);
+		ray_dir_x = gdata->pdata->dir_x + gdata->pdata->plane_x * camera_x;
+		ray_dir_y = gdata->pdata->dir_y + gdata->pdata->plane_y * camera_x;
+//		printf("RAY_X: %f\n", ray_dir_x);
+//		printf("RAY_Y: %f\n", ray_dir_y);
+		map_x = (int)gdata->pdata->x;
+		map_y = (int)gdata->pdata->y;
+		if (ray_dir_x == 0)
+			delta_dist_x = 1e30;
+		else
+//			delta_dist_x = abs(1 / ray_dir_x);
+			delta_dist_x = 1 / ray_dir_x;
+		if (ray_dir_y == 0)
+			delta_dist_y = 1e30;
+		else
+//			delta_dist_y = abs(1 / ray_dir_y);
+			delta_dist_y = 1 / ray_dir_y;
+		if (delta_dist_x < 0)
+			delta_dist_x *= -1;
+		if (delta_dist_y < 0)
+			delta_dist_y *= -1;
+//		printf("DELTA_X: %f\n", delta_dist_x);
+//		printf("DELTA_Y: %f\n", delta_dist_y);
+		hit = 0;
+		if (ray_dir_x < 0)
+		{
+			step_x = -1;
+			side_dist_x = (gdata->pdata->x - map_x) * delta_dist_x;
+		}
+		else
+		{
+			step_x = 1;
+			side_dist_x = (map_x + 1.0 - gdata->pdata->x) * delta_dist_x;
+		}
+		if (ray_dir_y < 0)
+		{
+			step_y = -1;
+			side_dist_y = (gdata->pdata->y - map_y) * delta_dist_y;
+		}
+		else
+		{
+			step_y = 1;
+			side_dist_y = (map_y + 1.0 - gdata->pdata->y) * delta_dist_y;
+		}
+//		printf("SIDE_X: %f\n", side_dist_x);
+//		printf("SIDE_Y: %f\n", side_dist_y);
+		while (hit == 0)
+		{
+			if (side_dist_x < side_dist_y)
+			{
+				side_dist_x += delta_dist_x;
+				map_x += step_x;
+				side = 0;
+			}
+			else
+			{
+				side_dist_y += delta_dist_y;
+				map_y += step_y;
+				side = 1;
+			}
+			if (gdata->map[map_y][map_x] > 0)
+			{
+			//	printf("COL: %d - %d\n", map_y, map_x);
+				hit = 1;
+			}
+		}
+//		printf("SIDE_X: %f\n", side_dist_x);
+//		printf("SIDE_Y: %f\n", side_dist_y);
+//		printf("DELTA_X: %f\n", delta_dist_x);
+//		printf("DELTA_Y: %f\n", delta_dist_y);
+//		printf("SIDE: %d\n", side);
+		if (side == 0)
+			perp_wall_dist = (side_dist_x - delta_dist_x);
+		else
+			perp_wall_dist = (side_dist_y - delta_dist_y);
+
+		//printf("PERP: %f\n", perp_wall_dist);
+//		printf("SIDE: %d\n", side);
+		line_height = (int)(MAP_HEIGHT / perp_wall_dist);
+	//	printf("LINE: %d\n", line_height);
+		draw_start = -line_height / 2 + MAP_HEIGHT / 2;
+		if (draw_start < 0)
+			draw_start = 0;
+		draw_end = line_height / 2 + MAP_HEIGHT / 2;
+	//	printf("END0: %d\n", draw_end);
+		if (draw_end >= MAP_HEIGHT)
+			draw_end = MAP_HEIGHT - 1;
+	//	printf("ST: %d\n", draw_start);
+	//	printf("END: %d\n", draw_end);
+		draw_wall(gdata, draw_start, draw_end, x);
+		x++;
 	}
 	mlx_put_image_to_window(gdata->mdata->ptr, gdata->mdata->win, gdata->mdata->win_img, 0, 0);
 }

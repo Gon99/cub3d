@@ -79,7 +79,7 @@ static int	key_hooks_down(int keycode, t_gdata *gdata)
 
 static int	draw_n(t_gdata *gdata)
 {
-	init_rays_group(gdata, gdata->rdata->ray);
+	init_rays_group(gdata);
 //	calc_rays_dist(gdata);
 //	draw_all(gdata);
 	return (0);
