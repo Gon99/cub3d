@@ -36,33 +36,33 @@
 # define TILE_SIZE 1.0
 # define FOV 60.00
 # define HALF_FOV FOV / 2
+# define SPEED 0.03
 
 /*
  * PLAYER_DATA
  */
 typedef struct	p_data
 {
-	//player position
 	float	x;
 	float	y;
 	char	p;
-	
-	int	move;
-	int	spin;
-	float	angle;
-	float	vel;
-	float	vel_spin;
-
-	//initial direction vector
 	float	dir_x;
 	float	dir_y;
-	//the 2d raycaster version of camera plane
 	float	plane_x;
 	float	plane_y;
-	//time of current frame
-	float	time;
-	//time of previous frame
-	float	old_time;
+	float	camera_x;
+	float	ray_dir_x;
+	float	ray_dir_y;
+	float	map_x;
+	float	map_y;
+	float	delta_dist_x;
+	float	delta_dist_y;
+	float	side_dist_x;
+	float	side_dist_y;
+	float	step_x;
+	float	step_y;
+	int	side;
+	float	vel_spin;
 }	t_pdata;
 
 /*

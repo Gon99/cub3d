@@ -28,22 +28,22 @@ static int	open_file(char *file)
 static void	copy_map(t_gdata *gdata, int r)
 {
 	int	x;
-	int	i;
+	int	aux;
 
 	x = r;
-	i = 0;
 	while (is_map_line(gdata->file[r]))
 	{
 		gdata->map_len++;
 		r++;
 	}
-	gdata->map = calloc(sizeof(char *), r + 1);
+	aux = gdata->map_len - 1;
+	gdata->map = calloc(sizeof(char *), aux + 1);
 	if (!gdata->map)
 		return ;
 	while (is_map_line(gdata->file[x]))
 	{
-		gdata->map[i] = rm_nl(gdata->file[x]);
-		i++;
+		gdata->map[aux] = rm_nl(gdata->file[x]);
+		aux--;
 		x++;
 	}
 }

@@ -58,8 +58,8 @@ void	init_player_data(char **map, t_pdata *pdata);
 /*
  * srcs/moves.c
  */
-void	move_ahead(t_gdata *gdata);
-void	move_back(t_gdata *gdata);
+void	move_ws(t_gdata *gdata, int type);
+void	move_ad(t_gdata *gdata, int type);
 void	turn_right(t_gdata *gdata);
 void	turn_left(t_gdata *gdata);
 
@@ -84,7 +84,7 @@ void	start(t_gdata *gdata, int keycode);
 
 void	update_player(t_pdata *pdata, t_gdata *gdata, int key);
 void	calc_rays_dist(t_gdata *gdata);
-void	init_rays_group(t_gdata *gdata);
+void	raycasting(t_gdata *gdata);
 //void	my_mlx_pixel_put(t_mdata *mdata, int x, int y, int color);
 //int		player_colision(int x, int y, t_gdata *gdata);
 
@@ -93,9 +93,9 @@ void	init_rays_group(t_gdata *gdata);
  */
 //void	draw_all(t_gdata *gdata/*, int x_dest, int y_dest*/);
 //void	draw_first_part_map(t_gdata *gdata);
-void	draw_ceiling(t_gdata *gdata/*, int x, int y0*/);
-void	draw_floor(t_gdata *gdata/*, int x, int y1*/);
-void	draw_wall(t_gdata *gdata, int y0, int y1, int x);
+void	draw_ceiling(t_mdata *mdata);
+void	draw_floor(t_mdata *mdata);
+void	draw_wall(t_mdata *mdata, float perp, int x);
 
 /*
  * srcs/angle/angle.c

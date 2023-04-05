@@ -1,4 +1,3 @@
-
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
@@ -13,85 +12,78 @@
 
 #include "../../includes/cub3d.h"
 
-void	move_ahead(t_gdata *gdata)
+void	move_ws(t_gdata *gdata, int t)
 {
-	gdata->pdata->move = 1;
-/*	double	frame_time;
-	double	move_speed;
+	t_pdata *pdata;
 
-	printf("UPP\n");
-	printf("TIME: %f\n", gdata->pdata->time);
-	printf("OLD_TIME: %f\n", gdata->pdata->old_time);
-	frame_time = (gdata->pdata->time - gdata->pdata->old_time) / 1000.0;
-	move_speed = frame_time * 5.0;
-	printf("MOVE: %f\n", move_speed);
-	printf("CALC: %d\n", (int)(gdata->pdata->x + gdata->pdata->dir_x * move_speed));
-	if (gdata->map[(int)(gdata->pdata->x + gdata->pdata->dir_x * move_speed)][(int)gdata->pdata->y])
+	pdata = gdata->pdata;
+	if (t == 1)
 	{
-		printf("ACT\n");
-		gdata->pdata->x += gdata->pdata->dir_x * move_speed;
+		if (gdata->map[(int)pdata->y][(int)(pdata->x + pdata->dir_x * SPEED)] != '1')
+			pdata->x += pdata->dir_x * SPEED;
+		if (gdata->map[(int)(pdata->y + pdata->dir_y * SPEED)][(int)pdata->x] != '1')
+			pdata->y += pdata->dir_y * SPEED;
 	}
-	if (gdata->map[(int)gdata->pdata->x][(int)(gdata->pdata->y + gdata->pdata->dir_y * move_speed)])
+	if (t == 3)
 	{
-		printf("ACT2\n");
-		gdata->pdata->y += gdata->pdata->dir_y * move_speed;
+		if (gdata->map[(int)pdata->y][(int)(pdata->x - pdata->dir_x * SPEED)] != '1')
+			pdata->x -= pdata->dir_x * SPEED;
+		if (gdata->map[(int)(pdata->y - pdata->dir_y * SPEED)][(int)pdata->x] != '1')
+			pdata->y -= pdata->dir_y * SPEED;
 	}
-	printf("----------------------\n");
-	printf("XUP: %f\n", gdata->pdata->x);
-	printf("YUP: %f\n", gdata->pdata->y);
-	printf("----------------------\n");
-	*/
 }
 
-void	move_back(t_gdata *gdata)
+void	move_ad(t_gdata *gdata, int t)
 {
-	gdata->pdata->move = -1;
-	/*double	frame_time;
-	double	move_speed;
+	t_pdata *pdata;
 
-	frame_time = (gdata->pdata->time - gdata->pdata->old_time) / 1000.0;
-	move_speed = frame_time * 5.0;
-	if (!gdata->map[(int)(gdata->pdata->x - gdata->pdata->dir_x * move_speed)][(int)gdata->pdata->y])
-		gdata->pdata->x -= gdata->pdata->dir_x * move_speed;
-	if (!gdata->map[(int)gdata->pdata->x][(int)(gdata->pdata->y - gdata->pdata->dir_y * move_speed)])
-		gdata->pdata->y -= gdata->pdata->dir_y * move_speed;
-		*/
+	pdata = gdata->pdata;
+	if (t == 2)
+	{
+		if (gdata->map[(int)pdata->y][(int)(pdata->x - pdata->plane_x * SPEED)] != '1')
+			pdata->x -= pdata->plane_x * SPEED;
+		if (gdata->map[(int)(pdata->y - pdata->plane_y * SPEED)][(int)pdata->x] != '1')
+			pdata->y -= pdata->plane_y * SPEED;
+	}
+	if (t == 4)
+	{
+		if (gdata->map[(int)pdata->y][(int)(pdata->x + pdata->plane_x * SPEED)] != '1')
+			pdata->x += pdata->plane_x * SPEED;
+		if (gdata->map[(int)(pdata->y + pdata->plane_y * SPEED)][(int)pdata->x] != '1')
+			pdata->y += pdata->plane_y * SPEED;
+	}
 }
 
 void	turn_right(t_gdata *gdata)
 {
-	gdata->pdata->spin = 1;
-/*	double	old_dir_x;
-	double	old_plane_x;
-	double	frame_time;
-	double	rot_speed;
+	float	aux;
+	float	aux2;
+	float	vspin;
+	t_pdata	*pdata;
 
-	frame_time = (gdata->pdata->time - gdata->pdata->old_time) / 1000.0;
-	rot_speed = frame_time * 3.0;
-	old_dir_x = gdata->pdata->dir_x;
-	gdata->pdata->dir_x = gdata->pdata->dir_x * cos(-rot_speed) - gdata->pdata->dir_y * sin(-rot_speed);
-	gdata->pdata->dir_y = old_dir_x * sin(-rot_speed) + gdata->pdata->dir_y * cos(-rot_speed);
-	old_plane_x = gdata->pdata->plane_x;
-	gdata->pdata->plane_x = gdata->pdata->plane_x * cos(-rot_speed) - gdata->pdata->plane_y * sin(-rot_speed);
-	gdata->pdata->plane_y = old_plane_x * sin(-rot_speed) + gdata->pdata->plane_y * cos(rot_speed);
-	*/
+	pdata = gdata->pdata;
+	aux = pdata->dir_x;
+	vspin = pdata->vel_spin;
+	pdata->dir_x = pdata->dir_x * cos(-vspin) - pdata->dir_y * sin(-vspin);
+	pdata->dir_y = aux * sin(-vspin) + pdata->dir_y * cos(-vspin);
+	aux2 = pdata->plane_x;
+	pdata->plane_x = pdata->plane_x * cos(vspin) - pdata->plane_y * sin(-vspin);
+	pdata->plane_y = aux2 * sin(-vspin) + pdata->plane_y * cos(-vspin);
 }
 
 void	turn_left(t_gdata *gdata)
 {
-	gdata->pdata->spin = -1;
-/*	double	old_dir_x;
-	double	old_plane_x;
-	double	frame_time;
-	double	rot_speed;
+	float	aux;
+	float	aux2;
+	float	vspin;
+	t_pdata *pdata;
 
-	frame_time = (gdata->pdata->time - gdata->pdata->old_time) / 1000.0;
-	rot_speed = frame_time * 3.0;
-	old_dir_x = gdata->pdata->dir_x;
-	gdata->pdata->dir_x = gdata->pdata->dir_x * cos(rot_speed) - gdata->pdata->dir_y * sin(rot_speed);
-	gdata->pdata->dir_y = old_dir_x * sin(rot_speed) + gdata->pdata->dir_y * cos(rot_speed);
-	old_plane_x = gdata->pdata->plane_x;
-	gdata->pdata->plane_x = gdata->pdata->plane_x * cos(rot_speed) - gdata->pdata->plane_y * sin(rot_speed);
-	gdata->pdata->plane_y = old_plane_x * sin(rot_speed) + gdata->pdata->plane_y * cos(rot_speed);
-	*/
+	pdata = gdata->pdata;
+	aux = pdata->dir_x;
+	vspin = pdata->vel_spin;
+	pdata->dir_x = pdata->dir_x * cos(vspin) - pdata->dir_y * sin(vspin);
+	pdata->dir_y = aux * sin(vspin) + pdata->dir_y * cos(vspin);
+	aux2 = pdata->plane_x;
+	pdata->plane_x = pdata->plane_x * cos(vspin) - pdata->plane_y * sin(vspin);
+	pdata->plane_y = aux2 * sin(vspin) + pdata->plane_y * cos(vspin);
 }

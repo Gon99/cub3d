@@ -41,21 +41,21 @@ int	key_type(int key)
 	return (type);
 }
 
-static int	key_hooks_up(int keycode, t_gdata *gdata)
-{
-	int	type;
-
-	type = key_type(keycode);
-	if (type >= 1 && type <= 4)
-		gdata->pdata->move = 0;
-	else if (type == 5 || type == 6)
-		gdata->pdata->spin = 0;
-//	if (type > 0 && type < 7)
-//		update_player(gdata, keycode);
-//	start(gdata, keycode);
-//	update_player(gdata, keycode);
-	return (0);
-}
+//static int	key_hooks_up(int keycode, t_gdata *gdata)
+//{
+//	int	type;
+//
+//	type = key_type(keycode);
+//	if (type >= 1 && type <= 4)
+////		gdata->pdata->move = 0;
+//	else if (type == 5 || type == 6)
+//		gdata->pdata->spin = 0;
+////	if (type > 0 && type < 7)
+////		update_player(gdata, keycode);
+////	start(gdata, keycode);
+////	update_player(gdata, keycode);
+//	return (0);
+//}
 
 
 static int	key_hooks_down(int keycode, t_gdata *gdata)
@@ -63,23 +63,23 @@ static int	key_hooks_down(int keycode, t_gdata *gdata)
 	int	type;
 
 	type = key_type(keycode);
-	if (type == 1 || type == 4)
-		move_ahead(gdata);
-	else if (type == 2 || type == 3)
-		move_back(gdata);
+	if (type == 1 || type == 3)
+		move_ws(gdata, type);
+	else if (type == 2 || type == 4)
+		move_ad(gdata, type);
 	else if (type == 5)
 		turn_right(gdata);
 	else if (type == 6)
 		turn_left(gdata);
 //	start(gdata, keycode);
-	if (type > 0 && type < 7)
-		update_player(gdata->pdata, gdata, keycode);
+//	if (type > 0 && type < 7)
+//		update_player(gdata->pdata, gdata, keycode);
 	return (0);
 }
 
 static int	draw_n(t_gdata *gdata)
 {
-	init_rays_group(gdata);
+	raycasting(gdata);
 //	calc_rays_dist(gdata);
 //	draw_all(gdata);
 	return (0);
@@ -98,7 +98,7 @@ static int	draw_n(t_gdata *gdata)
 void	hooks_call(t_gdata *gdata, t_mdata *mdata)
 {
 	mlx_hook(mdata->win, 2, 1L << 0, key_hooks_down, gdata);
-	mlx_hook(mdata->win, 3, 1L << 1, key_hooks_up, gdata);
+//	mlx_hook(mdata->win, 3, 1L << 1, key_hooks_up, gdata);
 	mlx_hook(mdata->win, 17, 1L << 1, close_mlx, mdata);
 	mlx_loop_hook(mdata->ptr, draw_n ,gdata);
 //	mlx_key_hook(win, key_hooks, gdata);

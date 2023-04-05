@@ -41,29 +41,48 @@ void	init_pdata(t_gdata *gdata)
 		{
 			if (is_player_letter(gdata->map[x][z]))
 			{
-				gdata->pdata->x = z;
-				gdata->pdata->y = x;
+				gdata->pdata->x = z + 0.5;
+				gdata->pdata->y = x + 0.5;
 				gdata->pdata->p = gdata->map[x][z];
 			}
 			z++;
 		}
+		//printf("MAP: %s\n", gdata->map[max]);
 		x++;
 	}
-	gdata->pdata->move = 0;
-	gdata->pdata->spin = 0;
-	gdata->pdata->vel = 0.1;
+//	printf("X: %f\n", gdata->pdata->x);
+//	printf("Y: %f\n", gdata->pdata->y);
+//	gdata->pdata->move = 0;
+//	gdata->pdata->spin = 0;
+//	gdata->pdata->vel = 0.1;
 //	gdata->pdata->vel_spin = 1 * (M_PI / 180);
-	gdata->pdata->vel_spin = to_radians(3);
-	gdata->pdata->angle = init_angle(gdata->pdata->p);
+//	gdata->pdata->vel_spin = to_radians(3);
+//	gdata->pdata->angle = init_angle(gdata->pdata->p);
 	
+	gdata->pdata->dir_x = 0.0;
+	gdata->pdata->dir_y = 0.0;
+	gdata->pdata->plane_x = 0.0;
+	gdata->pdata->plane_y = 0.0; 
+
 	//initial direction of vector
-	gdata->pdata->dir_x = -1;
-	gdata->pdata->dir_y = 0;
-	//the 2d raycaster version of camera plane
-	gdata->pdata->plane_x = 0;
-	gdata->pdata->plane_y = 0.66;
-	//time of current frame
-	gdata->pdata->time = 0;
-	//time of previous frame
-	gdata->pdata->old_time = 0;
+	if (gdata->pdata->p == 'N')
+	{
+		gdata->pdata->dir_y = 1;
+		gdata->pdata->plane_x = 0.66;
+	}
+	else if (gdata->pdata->p == 'S')
+	{
+		gdata->pdata->dir_y = -1.0;
+		gdata->pdata->plane_x = -0.66;
+	}
+	else if (gdata->pdata->p == 'E')
+	{
+		gdata->pdata->dir_x = 1.0;
+		gdata->pdata->plane_y = -0.66;
+	}
+	else
+	{
+		gdata->pdata->dir_x = -1.0;
+		gdata->pdata->dir_y = 0.66;
+	}
 }
