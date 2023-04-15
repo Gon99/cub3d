@@ -67,7 +67,7 @@ void	turn_right(t_gdata *gdata)
 	pdata->dir_x = pdata->dir_x * cos(-vspin) - pdata->dir_y * sin(-vspin);
 	pdata->dir_y = aux * sin(-vspin) + pdata->dir_y * cos(-vspin);
 	aux2 = pdata->plane_x;
-	pdata->plane_x = pdata->plane_x * cos(vspin) - pdata->plane_y * sin(-vspin);
+	pdata->plane_x = aux2 * cos(vspin) - pdata->plane_y * sin(-vspin);
 	pdata->plane_y = aux2 * sin(-vspin) + pdata->plane_y * cos(-vspin);
 }
 
@@ -84,6 +84,6 @@ void	turn_left(t_gdata *gdata)
 	pdata->dir_x = pdata->dir_x * cos(vspin) - pdata->dir_y * sin(vspin);
 	pdata->dir_y = aux * sin(vspin) + pdata->dir_y * cos(vspin);
 	aux2 = pdata->plane_x;
-	pdata->plane_x = pdata->plane_x * cos(vspin) - pdata->plane_y * sin(vspin);
+	pdata->plane_x = aux2 * cos(vspin) - pdata->plane_y * sin(vspin);
 	pdata->plane_y = aux2 * sin(vspin) + pdata->plane_y * cos(vspin);
 }

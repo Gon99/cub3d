@@ -98,7 +98,7 @@ static int	draw_n(t_gdata *gdata)
 void	hooks_call(t_gdata *gdata, t_mdata *mdata)
 {
 	mlx_hook(mdata->win, 2, 1L << 0, key_hooks_down, gdata);
-//	mlx_hook(mdata->win, 3, 1L << 1, key_hooks_up, gdata);
+//	mlx_hook(mdata->win, 3, 1L << 1, key_hooks_down, gdata);
 	mlx_hook(mdata->win, 17, 1L << 1, close_mlx, mdata);
 	mlx_loop_hook(mdata->ptr, draw_n ,gdata);
 //	mlx_key_hook(win, key_hooks, gdata);

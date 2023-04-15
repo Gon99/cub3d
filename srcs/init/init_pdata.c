@@ -63,7 +63,7 @@ void	init_pdata(t_gdata *gdata)
 	gdata->pdata->dir_y = 0.0;
 	gdata->pdata->plane_x = 0.0;
 	gdata->pdata->plane_y = 0.0; 
-
+	gdata->pdata->vel_spin = 0.01;
 	//initial direction of vector
 	if (gdata->pdata->p == 'N')
 	{
