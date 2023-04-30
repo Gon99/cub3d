@@ -125,7 +125,7 @@ void	raycasting(t_gdata *gdata)
 		get_ray_dir(pdata);
 		do_dda(gdata);
 		perp = get_perp_wall_dist(pdata);
-		draw_wall(mdata, perp, x);
+		draw_wall(mdata, pdata, perp, x);
 	}
 	mlx_put_image_to_window(mdata->ptr, mdata->win, mdata->win_img, 0, 0);
 }
