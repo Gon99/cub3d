@@ -66,7 +66,8 @@ void	draw_wall(t_mdata *mdata, t_pdata *pdata, float perp, int x)
 	int	start;
 	int	end;
 	int	half;
-	int	hit_x;
+	int	tex_x;
+	int	tex_y;
 	float	step;
 	float	tex_idx;
 
@@ -78,11 +79,13 @@ void	draw_wall(t_mdata *mdata, t_pdata *pdata, float perp, int x)
 		start = 0;
 	if (end > MAP_HEIGHT - 1)
 		end = MAP_HEIGHT - 1;
-	hit_x = get_wall_hit_x(pdata, perp);
+	tex_x = get_wall_hit_x(pdata, perp);
 	step = (float)TEX_HEIGHT / ((int)(MAP_HEIGHT / perp));
-	text_idx = ((start - half + ((int)(MAP_HEIGHT / perp)) / 2)) * step;
+	tex_idx = ((start - half + ((int)(MAP_HEIGHT / perp)) / 2)) * step;
 	while (start < end)
 	{
+		tex_y = (int)tex_idx & (TEX_HEIGHT - 1);
+		tex_idx += step;
 		my_mlx_pixel_put(mdata, x, start, parse_color("0, 0, 0"));
 		start++;
 	}

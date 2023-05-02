@@ -32,6 +32,8 @@
 
 # define MAP_HEIGHT	480
 # define MAP_WIDTH 640
+# define TEX_HEIGHT 64
+# define TEX_WIDTH 64
 
 # define TILE_SIZE 1.0
 # define FOV 60.00
@@ -120,6 +122,24 @@ typedef struct r_data
 }	t_rdata;
 
 /*
+ * TEXTURE DATA
+ */
+typedef struct	t_data
+{
+	int	**tex_arr;
+	void	*no_text;
+	void	*so_text;
+	void	*we_text;
+	void	*ea_text;
+	char	*img_addr;
+	int	bpp;
+	int	ll;
+	int	end;
+	int	height;
+	int	width;
+}	t_tdata;
+
+/*
  * GLOBAL DATA
  */
 typedef struct s_data
@@ -142,17 +162,7 @@ typedef struct s_data
 	t_pdata	*pdata;
 	t_mdata *mdata;
 	t_rdata *rdata;
+	t_tdata *tdata;
 }	t_gdata;
-
-/*
- * TEXTURE DATA
- */
-typedef struct	t_data
-{
-	void	*no_text;
-	void	*so_text;
-	void	*we_text;
-	void	*ea_text;
-}	t_tdata;
 
 #endif
