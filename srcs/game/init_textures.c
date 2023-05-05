@@ -33,56 +33,59 @@ static void	init_tex_arr(t_tdata *tdata)
 			return ;
 		}
 		tex_arr[i] = tex;
+		i++;
 	}
 	tdata->tex_arr = tex_arr;
 }
 
-static void	load_tex(t_tdata *tdata, t_mdata *mdata, void *tex, int tex_num)
+static void	load_tex(t_tdata *tdata, t_mdata *mdata, int tex_num)
 {
-	int	i;
-	int	j;
+	int	x;
+	int	y;
 
-	tdata->img_addr = mlx_get_data_addr(tex, &tdata->bpp, &tdata->ll, &tdata->end);
-	if (!tdata->img_addr)
+	mdata->win_addr = (int *)mlx_get_data_addr(mdata->win_img, \
+		&mdata->bpp_win, &mdata->ll_win, &mdata->end_win);
+	if (!mdata->win_addr)
 	{
-		mlx_destroy_image(mdata->ptr, tex);
+		mlx_destroy_image(mdata->ptr, mdata->win_img);
 		exit(0);
 	}
-	i = 0;
-	while (i < tdata->height)
+	x = 0;
+	while (x < tdata->height)
 	{
-		j = 0;
-		while (j < tdata->width)
+		y = 0;
+		while (y < tdata->width)
 		{
-			tdata->tex_arr[tex_num][TEX_WIDTH * i + j] = tdata->img_addr[tdata->width * i + j];
-			j++;
+			tdata->tex_arr[tex_num][TEX_WIDTH * x + y] = \
+				mdata->win_addr[tdata->width * x + y];
+			y++;
 		}
+		x++;
 	}
+	mlx_destroy_image(mdata->ptr, mdata->win_img);
 }
 
-static void	*tex_chequer(t_tdata *tdata, t_mdata *mdata, char *tex)
+static void	tex_chequer(t_tdata *tdata, t_mdata *mdata, char *tex)
 {
-	void	*ret;
 
-	ret = mlx_xpm_file_to_image(mdata->ptr, \
+	mdata->win_img = mlx_xpm_file_to_image(mdata->ptr, \
 		rm_nl(tex), &tdata->width, &tdata->height);
-	if (!ret)
+	if (!mdata->win_img)
 	{
 		write(1, "Invalid texture\n", 16);
 		exit(0);
 	}
-	return (ret);
 }
 
 void	init_textures(t_tdata *tdata, t_gdata *gdata, t_mdata *mdata)
 {
 	init_tex_arr(tdata);
-	tdata->no_text = tex_chequer(tdata, mdata, gdata->no);
-	load_tex(tdata, mdata, tdata->no_text, 0);
-	tdata->so_text = tex_chequer(tdata, mdata, gdata->so);
-	load_tex(tdata, mdata, tdata->so_text, 1);
-	tdata->ea_text = tex_chequer(tdata, mdata, gdata->ea);
-	load_tex(tdata, mdata, tdata->ea_text, 2);
-	tdata->we_text = tex_chequer(tdata, mdata, gdata->we);
-	load_tex(tdata, mdata, tdata->we_text, 3);
+	tex_chequer(tdata, mdata, gdata->no);
+	load_tex(tdata, mdata, 0);
+	tex_chequer(tdata, mdata, gdata->so);
+	load_tex(tdata, mdata, 1);
+	tex_chequer(tdata, mdata, gdata->ea);
+	load_tex(tdata, mdata, 2);
+	tex_chequer(tdata, mdata, gdata->we);
+	load_tex(tdata, mdata, 3);
 }

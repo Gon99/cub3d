@@ -95,7 +95,7 @@ void	raycasting(t_gdata *gdata);
 //void	draw_first_part_map(t_gdata *gdata);
 void	draw_ceiling(t_mdata *mdata);
 void	draw_floor(t_mdata *mdata);
-void	draw_wall(t_mdata *mdata, t_pdata *pdata, float perp, int x);
+void	draw_wall(t_gdata *gdata, float perp, int x);
 
 /*
  * srcs/angle/angle.c

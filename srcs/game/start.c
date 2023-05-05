@@ -107,25 +107,53 @@ static float	get_perp_wall_dist(t_pdata *pdata)
 	return (perp);
 }
 
+//void	draw_floor_ceiling(t_tdata *tdata)
+//{
+//	int	x;
+//	int	floor;
+//	int	ceil;
+//	int	half;
+//
+//	half = MAP_HEIGHT / 2;
+//	x = 0;
+//	floor = half;
+//	ceil = 0;
+//	while (x < MAP_WIDTH)
+//	{
+//		while (ceil < half)
+//		{
+//			((unsigned int*)tdata->img_addr)[MAP_WIDTH * x * floor] = 0xFFA500;
+//			((unsigned int*)tdata->img_addr)[MAP_WIDTH * x * ceil] = 0xFF0000;
+//			floor++;
+//			ceil++;
+//		}
+//		x++;
+//		floor = half;
+//		ceil = 0;
+//	}
+//}
+
 void	raycasting(t_gdata *gdata)
 {
 	int	x;
 	float	perp;
 	t_pdata	*pdata;
 	t_mdata *mdata;
+//	t_tdata *tdata;
 
 	x = 0;
-	draw_floor(gdata->mdata);
-	draw_ceiling(gdata->mdata);
 	pdata = gdata->pdata;
 	mdata = gdata->mdata;
+//	tdata = gdata->tdata;
+	draw_floor(mdata);
+//	draw_ceiling(mdata);
 	while (++x < MAP_WIDTH)
 	{
 		init_raycast(pdata, x);
 		get_ray_dir(pdata);
 		do_dda(gdata);
 		perp = get_perp_wall_dist(pdata);
-		draw_wall(mdata, pdata, perp, x);
+		draw_wall(gdata, perp, x);
 	}
 	mlx_put_image_to_window(mdata->ptr, mdata->win, mdata->win_img, 0, 0);
 }

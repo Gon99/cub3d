@@ -75,15 +75,10 @@ typedef struct	m_data
 	void	*ptr;
 	void	*win;
 	void	*win_img;
-	void	*map_img;
-	char	*win_addr;
-	char	*map_addr;
+	int	*win_addr;
 	int		bpp_win;
-	int		bpp_map;
 	int		ll_win;
-	int		ll_map;
 	int		end_win;
-	int		end_map;
 }	t_mdata;
 
 typedef struct ray
@@ -127,14 +122,6 @@ typedef struct r_data
 typedef struct	t_data
 {
 	int	**tex_arr;
-	void	*no_text;
-	void	*so_text;
-	void	*we_text;
-	void	*ea_text;
-	char	*img_addr;
-	int	bpp;
-	int	ll;
-	int	end;
 	int	height;
 	int	width;
 }	t_tdata;
