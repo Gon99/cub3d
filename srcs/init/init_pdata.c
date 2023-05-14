@@ -32,8 +32,6 @@ void	init_pdata(t_gdata *gdata)
 	int	z;
 
 	x = 0;
-	gdata->h_prop = MAP_HEIGHT / gdata->height;
-	gdata->w_prop = MAP_WIDTH / gdata->width;
 	while(gdata->map[x])
 	{
 		z = 0;
@@ -63,7 +61,7 @@ void	init_pdata(t_gdata *gdata)
 	gdata->pdata->dir_y = 0.0;
 	gdata->pdata->plane_x = 0.0;
 	gdata->pdata->plane_y = 0.0; 
-	gdata->pdata->vel_spin = 0.01;
+	gdata->pdata->vel_spin = 0.08;
 	//initial direction of vector
 	if (gdata->pdata->p == 'N')
 	{

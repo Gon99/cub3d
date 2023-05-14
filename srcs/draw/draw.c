@@ -25,11 +25,9 @@ void	draw_ceiling(t_mdata *mdata)
 
 	i = 0;
 	limit = MAP_WIDTH * MAP_HEIGHT / 2;
-	printf("LIM: %d\n", limit);
 	while (i < limit)
 	{
-		printf("I: %d\n", i);
-		((unsigned int*)mdata->win_addr)[i] = 0xFF0000;
+		mdata->win_addr[i] = 0xFF0000;
 		i++;
 	}
 }
@@ -41,16 +39,14 @@ void	draw_floor(t_mdata *mdata)
 
 	start = MAP_WIDTH * MAP_HEIGHT / 2;
 	limit = MAP_WIDTH * MAP_HEIGHT;
-	printf("IMG: %p\n", mdata->win_addr);
 	while (start < limit)
 	{
-		printf("ST: %d\n", start);
-		((unsigned int*)mdata->win_addr)[start] = 0xFFA500;
+		mdata->win_addr[start] = 0xFFA500;
 		start++;
 	}
 }
 
-int	get_wall_hit_x(t_pdata *pdata, float perp)
+float	get_wall_hit_x(t_pdata *pdata, float perp)
 {
 	float	wall;
 	int	side;
@@ -60,11 +56,11 @@ int	get_wall_hit_x(t_pdata *pdata, float perp)
 		wall = pdata->x + perp * pdata->ray_dir_x;
 	else
 		wall = pdata->y + perp * pdata->ray_dir_y;
-	wall -= (int)wall;
+	wall -= floor(wall);
 	return (wall);
 }
 
-int	get_texture_idx(t_pdata *pdata)
+int	get_tex_idx(t_pdata *pdata)
 {
 	int	side;
 	int	idx;
@@ -82,27 +78,56 @@ int	get_texture_idx(t_pdata *pdata)
 
 void	draw_img(t_mdata *mdata, int x, int y, unsigned int color)
 {
-	mdata->win_addr[MAP_WIDTH * x + y] = color;
+//	mdata->win_addr[MAP_WIDTH * y + x] = 0x000000;
+	mdata->win_addr[MAP_WIDTH * y + x] = color;
 }
 
-void	draw_wall(t_gdata *gdata, float perp, int x)
+void	do_draw_textured(t_gdata *gdata, int start, int end, int x)
+{
+	int	tex_x;
+	int	tex_y;
+	int	y;
+	float	step;
+	float	texpos;
+
+	int half = MAP_HEIGHT / 2;
+	float perp = gdata->pdata->perp;
+	gdata->tdata->tex_num = get_tex_idx(gdata->pdata);
+	tex_x = get_wall_hit_x(gdata->pdata, perp) * (float)TEX_WIDTH;
+	step = (float)TEX_HEIGHT / ((int)(MAP_HEIGHT / perp));
+	texpos = ((start - half + ((int)(MAP_HEIGHT / perp)) / 2)) * step;
+	y = start;
+//	printf("SIDE: %d\n", gdata->pdata->side);
+//	printf("TEXNUM: %d\n", gdata->tdata->tex_num);
+//	printf("TEX_X: %d\n", tex_x);
+//	printf("STEP: %f\n", step);
+//	printf("TEXPOS: %f\n", texpos);
+//	printf("--------------\n");
+//	printf("Y: %d\n", y);
+//	printf("END: %d\n", end);
+	while (y < end)
+	{
+		tex_y = (int)texpos & (TEX_HEIGHT - 1);
+		texpos += step;
+//		printf("X: %d\n", x);
+//		printf("Y: %d\n", y);
+//		printf("TEX_Y: %d\n", tex_y);
+//		printf("TEX_POS: %f\n", texpos);
+//		break ;
+		draw_img(gdata->mdata, x, y, gdata->tdata->tex_arr[gdata->tdata->tex_num][TEX_HEIGHT * tex_y + tex_x]);
+		y++;
+	}
+}
+
+void	draw_wall(t_gdata *gdata, int x)
 {
 	int	line_height;
 	int	start;
 	int	end;
 	int	half;
-	int	tex_x;
-	int	tex_y;
-	float	step;
-	float	tex_idx;
-	int	tex_num;
-	t_pdata *pdata;
-	t_mdata *mdata;
-	t_tdata *tdata;
+	float	perp;
 
-	pdata = gdata->pdata;
-	mdata = gdata->mdata;
-	tdata = gdata->tdata;
+	perp = gdata->pdata->perp;
 	half = MAP_HEIGHT / 2;
 	line_height = (int)(MAP_HEIGHT / perp);
 	start = half - (line_height / 2);
@@ -111,16 +136,5 @@ void	draw_wall(t_gdata *gdata, float perp, int x)
 		start = 0;
 	if (end > MAP_HEIGHT - 1)
 		end = MAP_HEIGHT - 1;
-	tex_x = get_wall_hit_x(pdata, perp);
-	step = (float)TEX_HEIGHT / ((int)(MAP_HEIGHT / perp));
-	tex_idx = ((start - half + ((int)(MAP_HEIGHT / perp)) / 2)) * step;
-	tex_num = get_texture_idx(pdata);
-	while (start < end)
-	{
-		tex_y = (int)tex_idx & (TEX_HEIGHT - 1);
-		tex_idx += step;
-	//	my_mlx_pixel_put(mdata, x, start, parse_color("0, 0, 0"));
-		draw_img(mdata, x, start, tdata->tex_arr[tex_num][TEX_HEIGHT * tex_y + tex_x]);
-		start++;
-	}
+	do_draw_textured(gdata, start, end, x);
 }

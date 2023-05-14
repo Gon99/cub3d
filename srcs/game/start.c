@@ -90,7 +90,7 @@ static void	do_dda(t_gdata *gdata)
 	pdata->map_y = map_y;
 }
 
-static float	get_perp_wall_dist(t_pdata *pdata)
+static void	get_perp_wall_dist(t_pdata *pdata)
 {
 	int	x_weight;
 	int	y_weight;
@@ -104,10 +104,19 @@ static float	get_perp_wall_dist(t_pdata *pdata)
 	else if (pdata->side == 1 || pdata->side == 2)
 		perp = (pdata->map_y - (pdata->y) \
 			+ y_weight) / pdata->ray_dir_y;	
-	return (perp);
+	pdata->perp = perp;
 }
 
-//void	draw_floor_ceiling(t_tdata *tdata)
+void	draw(t_mdata *mdata, int x, int y, unsigned int color)
+{
+	int	*buff;
+
+	buff =  mdata->win_addr;
+	printf("POS: %d\n", MAP_WIDTH * y + x);
+	buff[MAP_WIDTH * y + x] = color;
+}
+
+//void	draw_floor_ceiling(t_mdata *mdata)
 //{
 //	int	x;
 //	int	floor;
@@ -122,8 +131,8 @@ static float	get_perp_wall_dist(t_pdata *pdata)
 //	{
 //		while (ceil < half)
 //		{
-//			((unsigned int*)tdata->img_addr)[MAP_WIDTH * x * floor] = 0xFFA500;
-//			((unsigned int*)tdata->img_addr)[MAP_WIDTH * x * ceil] = 0xFF0000;
+//			draw(mdata, x, floor, 0xFFA500);
+//			draw(mdata, x, ceil, 0xFF0000);
 //			floor++;
 //			ceil++;
 //		}
@@ -136,24 +145,21 @@ static float	get_perp_wall_dist(t_pdata *pdata)
 void	raycasting(t_gdata *gdata)
 {
 	int	x;
-	float	perp;
 	t_pdata	*pdata;
 	t_mdata *mdata;
-//	t_tdata *tdata;
 
 	x = 0;
 	pdata = gdata->pdata;
 	mdata = gdata->mdata;
-//	tdata = gdata->tdata;
 	draw_floor(mdata);
-//	draw_ceiling(mdata);
+	draw_ceiling(mdata);
 	while (++x < MAP_WIDTH)
 	{
 		init_raycast(pdata, x);
 		get_ray_dir(pdata);
 		do_dda(gdata);
-		perp = get_perp_wall_dist(pdata);
-		draw_wall(gdata, perp, x);
+		get_perp_wall_dist(pdata);
+		draw_wall(gdata, x);
 	}
 	mlx_put_image_to_window(mdata->ptr, mdata->win, mdata->win_img, 0, 0);
 }

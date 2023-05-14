@@ -38,7 +38,7 @@
 # define TILE_SIZE 1.0
 # define FOV 60.00
 # define HALF_FOV FOV / 2
-# define SPEED 0.03
+# define SPEED 0.08
 
 /*
  * PLAYER_DATA
@@ -57,6 +57,7 @@ typedef struct	p_data
 	float	ray_dir_y;
 	float	map_x;
 	float	map_y;
+	float	perp;
 	float	delta_dist_x;
 	float	delta_dist_y;
 	float	side_dist_x;
@@ -79,6 +80,8 @@ typedef struct	m_data
 	int		bpp_win;
 	int		ll_win;
 	int		end_win;
+	int	img_w;
+	int	img_h;
 }	t_mdata;
 
 typedef struct ray
@@ -124,6 +127,7 @@ typedef struct	t_data
 	int	**tex_arr;
 	int	height;
 	int	width;
+	int	tex_num;
 }	t_tdata;
 
 /*
@@ -144,8 +148,6 @@ typedef struct s_data
 	int		error;
 	int		height;
 	int		width;
-	float	h_prop;
-	float	w_prop;
 	t_pdata	*pdata;
 	t_mdata *mdata;
 	t_rdata *rdata;

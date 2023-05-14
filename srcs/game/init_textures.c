@@ -38,39 +38,54 @@ static void	init_tex_arr(t_tdata *tdata)
 	tdata->tex_arr = tex_arr;
 }
 
-static void	load_tex(t_tdata *tdata, t_mdata *mdata, int tex_num)
+static void	load_tex(t_tdata *tdata, t_mdata *aux, int tex_num, t_mdata *mdata)
 {
 	int	x;
 	int	y;
 
-	mdata->win_addr = (int *)mlx_get_data_addr(mdata->win_img, \
-		&mdata->bpp_win, &mdata->ll_win, &mdata->end_win);
-	if (!mdata->win_addr)
+	aux->win_addr = (int *)mlx_get_data_addr(aux->win_img, \
+		&aux->bpp_win, &aux->ll_win, &aux->end_win);
+//	printf("LL: %d\n", aux->ll_win);
+//	printf("END: %d\n", aux->end_win);
+//	printf("BPP: %d\n", aux->bpp_win);
+	if (!aux->win_addr)
 	{
-		mlx_destroy_image(mdata->ptr, mdata->win_img);
+		mlx_destroy_image(mdata->ptr, aux->win_img);
 		exit(0);
 	}
-	x = 0;
-	while (x < tdata->height)
+	y = 0;
+	int c = 0;
+	while (y < aux->img_h)
 	{
-		y = 0;
-		while (y < tdata->width)
+		x = 0;
+		while (x < aux->img_w)
 		{
-			tdata->tex_arr[tex_num][TEX_WIDTH * x + y] = \
-				mdata->win_addr[tdata->width * x + y];
-			y++;
+			tdata->tex_arr[tex_num][TEX_WIDTH * y + x] = \
+				aux->win_addr[aux->img_w * y + x];
+//			printf("VAL: %d\n", aux->win_addr[aux->img_w*y+x]);
+//			printf("W: %d\n", aux->img_w);
+//			printf("Y: %d\n", y);
+//			printf("X: %d\n", x);
+//			printf("---------------\n");
+			x++;
 		}
-		x++;
+		c++;
+//		printf("VUELTA: %d\n", c);
+		y++;
 	}
-	mlx_destroy_image(mdata->ptr, mdata->win_img);
+	mlx_destroy_image(mdata->ptr, aux->win_img);
 }
 
-static void	tex_chequer(t_tdata *tdata, t_mdata *mdata, char *tex)
+static void	tex_chequer(t_mdata *mdata, t_mdata *aux, char *tex)
 {
 
-	mdata->win_img = mlx_xpm_file_to_image(mdata->ptr, \
-		rm_nl(tex), &tdata->width, &tdata->height);
-	if (!mdata->win_img)
+	aux->win_img = mlx_xpm_file_to_image(mdata->ptr, \
+		rm_nl(tex), &aux->img_w, &aux->img_h);
+//	printf("W: %d\n", aux->img_w);
+//	printf("H: %d\n", aux->img_h);
+//	printf("TEX: %s\n", rm_nl(tex));
+//	printf("WIN: %p\n", aux->win_img);
+	if (!aux->win_img)
 	{
 		write(1, "Invalid texture\n", 16);
 		exit(0);
@@ -79,13 +94,15 @@ static void	tex_chequer(t_tdata *tdata, t_mdata *mdata, char *tex)
 
 void	init_textures(t_tdata *tdata, t_gdata *gdata, t_mdata *mdata)
 {
+	t_mdata aux;
+
 	init_tex_arr(tdata);
-	tex_chequer(tdata, mdata, gdata->no);
-	load_tex(tdata, mdata, 0);
-	tex_chequer(tdata, mdata, gdata->so);
-	load_tex(tdata, mdata, 1);
-	tex_chequer(tdata, mdata, gdata->ea);
-	load_tex(tdata, mdata, 2);
-	tex_chequer(tdata, mdata, gdata->we);
-	load_tex(tdata, mdata, 3);
+	tex_chequer(mdata, &aux, gdata->no);
+	load_tex(tdata, &aux, 0, mdata);
+	tex_chequer(mdata, &aux, gdata->so);
+	load_tex(tdata, &aux, 1, mdata);
+	tex_chequer(mdata, &aux, gdata->ea);
+	load_tex(tdata, &aux, 2, mdata);
+	tex_chequer(mdata, &aux, gdata->we);
+	load_tex(tdata, &aux, 3, mdata);
 }
