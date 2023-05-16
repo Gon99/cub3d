@@ -22,12 +22,21 @@
 # include "libft/libft.h"
 # include "structs_macros_cub3d.h"
 
+/*
+ * srcs/parser/check
+ */
+int		extension_check(char *map);
 
 /*
- * SRCS/INIT/
+ * srcs/init/init_gdata
  */
-
 void	init_gdata(t_gdata *gdata, t_pdata *pdata, t_mdata *mdata, t_rdata *rdata);
+
+/*
+ * srcs/parser/fill_map
+ */
+int		fill_map(char *map, t_gdata *gdata);
+
 void	init_pdata(t_gdata *gdata);
 void	init_textures(t_tdata *tdata, t_gdata *gdata, t_mdata *mdata);
 void	init_mlx(t_gdata *gdata);
@@ -42,13 +51,11 @@ int		is_map_line(char *line);
 int		is_empty_line(char *line);
 int		repeated_chars_check(char **map);
 int		is_whole_spaces(char *line);
-int		fill_map(char *map, t_gdata *gdata);
 int		iter_spaces_idx(char *line, int i);
 int		file_length(int fd);
 void	flood_fill(t_gdata *gdata, int x, int y);
 int		is_player_letter(char c);
 char	*rm_nl(char *line);
-int		extension_check(char *map);
 
 /*
  *	utils/init.c

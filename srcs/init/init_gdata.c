@@ -12,6 +12,12 @@
 
 #include "../../includes/cub3d.h"
 
+/*
+ ** Init the main structure of the program.
+ ** 
+ ** @param void init_gdata the main structure;
+*/
+
 void	init_gdata(t_gdata *gdata, t_pdata *pdata, t_mdata *mdata, t_rdata *rdata)
 {
 	gdata->no = 0;

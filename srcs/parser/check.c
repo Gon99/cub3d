@@ -12,6 +12,12 @@
 
 #include "../../includes/cub3d.h"
 
+/*
+ ** Check the file extension.
+ **
+ ** @param char *map the file name of the map to read;
+ ** @return int	-1 error; file extension length.
+ */
 int	extension_check(char *map)
 {
 	int	l;

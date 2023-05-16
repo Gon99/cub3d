@@ -27,7 +27,6 @@ int	main(int argc, char **argv)
 	if (!fill_map(argv[1], &gdata))
 		return (write(1, "Error data\n", 11));
 	init_pdata(&gdata);
-//	init_rdata(&gdata);
 	flood_fill(&gdata, pdata.y, pdata.x);
 	if (gdata.error)
 		return (write(1, "Error\n", 6));
