@@ -6,17 +6,17 @@
 /*   By: goliano- <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/04 11:58:30 by goliano-          #+#    #+#             */
-/*   Updated: 2023/03/01 18:48:52 by goliano-         ###   ########.fr       */
+/*   Updated: 2023/05/16 18:12:17 by ajimenez         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/cub3d.h"
 
-inline static void	my_mlx_pixel_put(t_mdata *mdata, int x, int y, int color)
-{
-	*(unsigned int *)(mdata->win_addr + \
-	(y * mdata->ll_win + x * (mdata->bpp_win / 8))) = color;
-}
+//inline static void	my_mlx_pixel_put(t_mdata *mdata, int x, int y, int color)
+//{
+//	*(unsigned int *)(mdata->win_addr + \
+//	(y * mdata->ll_win + x * (mdata->bpp_win / 8))) = color;
+//}
 
 void	draw_ceiling(t_mdata *mdata)
 {

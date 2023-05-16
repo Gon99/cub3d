@@ -6,7 +6,7 @@
 /*   By: goliano- <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/13 16:16:19 by goliano-          #+#    #+#             */
-/*   Updated: 2023/03/01 16:55:51 by goliano-         ###   ########.fr       */
+/*   Updated: 2023/05/16 18:11:53 by ajimenez         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -96,6 +96,7 @@ static void	get_perp_wall_dist(t_pdata *pdata)
 	int	y_weight;
 	float	perp;
 	
+	perp = pdata->perp;
 	x_weight = (1 - pdata->step_x) / 2;
 	y_weight = (1 - pdata->step_y) / 2;
 	if (pdata->side == 3 || pdata->side == 4)

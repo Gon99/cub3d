@@ -6,7 +6,7 @@
 /*   By: ajimenez <ajimenez@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/11 19:16:11 by ajimenez          #+#    #+#             */
-/*   Updated: 2023/01/23 15:18:51 by goliano-         ###   ########.fr       */
+/*   Updated: 2023/05/16 18:26:09 by ajimenez         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,8 +36,8 @@ static void	copy_map(t_gdata *gdata, int r)
 		gdata->map_len++;
 		r++;
 	}
-	aux = gdata->map_len - 1;
-	gdata->map = calloc(sizeof(char *), aux + 1);
+	aux = gdata->map_len - 1; //TODO -> ver contador del calloc y mapa
+	gdata->map = ft_calloc(sizeof(char *), aux + 2);
 	if (!gdata->map)
 		return ;
 	while (is_map_line(gdata->file[x]))

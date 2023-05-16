@@ -6,7 +6,7 @@
 /*   By: ajimenez <ajimenez@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/23 12:26:53 by ajimenez          #+#    #+#             */
-/*   Updated: 2023/01/23 12:31:50 by ajimenez         ###   ########.fr       */
+/*   Updated: 2023/05/16 18:08:39 by ajimenez         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,7 +54,6 @@ static void	load_tex(t_tdata *tdata, t_mdata *aux, int tex_num, t_mdata *mdata)
 		exit(0);
 	}
 	y = 0;
-	int c = 0;
 	while (y < aux->img_h)
 	{
 		x = 0;
@@ -69,7 +68,6 @@ static void	load_tex(t_tdata *tdata, t_mdata *aux, int tex_num, t_mdata *mdata)
 //			printf("---------------\n");
 			x++;
 		}
-		c++;
 //		printf("VUELTA: %d\n", c);
 		y++;
 	}
