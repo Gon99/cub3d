@@ -6,7 +6,7 @@
 /*   By: ajimenez <ajimenez@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/16 14:16:48 by ajimenez          #+#    #+#             */
-/*   Updated: 2023/03/01 15:55:57 by goliano-         ###   ########.fr       */
+/*   Updated: 2023/05/17 19:40:46 by ajimenez         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,7 +63,9 @@ static int	key_hooks_down(int keycode, t_gdata *gdata)
 	int	type;
 
 	type = key_type(keycode);
-	if (type == 1 || type == 3)
+	if (keycode == ESC)
+		close_mlx(gdata->mdata, "ESC\n");
+	else if (type == 1 || type == 3)
 		move_ws(gdata, type);
 	else if (type == 2 || type == 4)
 		move_ad(gdata, type);

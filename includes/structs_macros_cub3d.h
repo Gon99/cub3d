@@ -6,7 +6,7 @@
 /*   By: ajimenez <ajimenez@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/16 14:08:17 by ajimenez          #+#    #+#             */
-/*   Updated: 2023/03/01 15:56:34 by goliano-         ###   ########.fr       */
+/*   Updated: 2023/05/17 19:41:48 by ajimenez         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,9 @@
 
 # define LEFT_Y		0
 # define LEFT_X		-1
-
+ 
+# define ESC          53
+ 
 # define MAP_HEIGHT	480
 # define MAP_WIDTH 640
 # define TEX_HEIGHT 64

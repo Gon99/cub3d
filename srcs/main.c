@@ -6,7 +6,7 @@
 /*   By: goliano- <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/31 15:55:14 by goliano-          #+#    #+#             */
-/*   Updated: 2023/03/01 10:56:01 by goliano-         ###   ########.fr       */
+/*   Updated: 2023/05/17 19:48:43 by ajimenez         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,9 @@ int	main(int argc, char **argv)
 	t_rdata	rdata;
 
 	(void)argc;
-	if (extension_check(argv[1]) < 0)
+	if (argc < 2)
+		return (1);
+	if (extension_check(argv[1]) == false)
 		return (write(1, "Error name\n", 11));
 	init_gdata(&gdata, &pdata, &mdata, &rdata);
 	if (!fill_map(argv[1], &gdata))

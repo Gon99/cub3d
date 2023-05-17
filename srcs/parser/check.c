@@ -6,7 +6,7 @@
 /*   By: ajimenez <ajimenez@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/11 19:24:09 by ajimenez          #+#    #+#             */
-/*   Updated: 2023/01/11 19:25:28 by ajimenez         ###   ########.fr       */
+/*   Updated: 2023/05/17 19:44:57 by ajimenez         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,15 +20,26 @@
  */
 int	extension_check(char *map)
 {
-	int	l;
-	int	r;
+	//int	l;
+	//int	r;
 
-	map = ft_strtrim(map, " ");
-	l = ft_strlen(map) - 4;
-	r = -1;
-	if (l > 0)
-		r = ft_strcmp(&map[l], ".cub");
-	return (r);
+	//map = ft_strtrim(map, " ");
+	//l = ft_strlen(map) - 4;
+	//r = -1;
+	//if (l > 0)
+	//	r = ft_strcmp(&map[l], ".cub");
+	//return (r);
+	char	*aux;
+	size_t	i;
+
+	i = 0;
+	aux = ft_strrchr(map, '.');
+	if (!aux)
+		return (false);
+	if (aux[i] == '.' && aux[i + 1] == 'c' && aux[i + 2] == 'u'
+		&& aux[i + 3] == 'b' && aux[i + 4] == '\0')
+		return (true);
+	return (false);
 }
 
 int	map_data_check(t_gdata *gdata)
