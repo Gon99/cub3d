@@ -6,7 +6,7 @@
 /*   By: ajimenez <ajimenez@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/16 14:12:07 by ajimenez          #+#    #+#             */
-/*   Updated: 2023/05/17 19:44:32 by ajimenez         ###   ########.fr       */
+/*   Updated: 2023/05/22 18:29:15 by ajimenez         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +27,7 @@
  * srcs/parser/check
  */
 int		extension_check(char *map);
+int 	check_color(char *str);
 
 /*
  * srcs/init/init_gdata
