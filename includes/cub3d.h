@@ -26,7 +26,7 @@
 /*
  * srcs/parser/check
  */
-int		extension_check(char *map);
+int	extension_check(char *map);
 int 	check_color(char *str);
 
 /*
@@ -35,14 +35,36 @@ int 	check_color(char *str);
 void	init_gdata(t_gdata *gdata, t_pdata *pdata, t_mdata *mdata, t_rdata *rdata);
 
 /*
+ * srcs/init/init_pdata
+ */
+void	init_pdata(t_gdata *gdata);
+
+/*
  * srcs/parser/fill_map
  */
 int		fill_map(char *map, t_gdata *gdata);
 
-void	init_pdata(t_gdata *gdata);
-void	init_textures(t_tdata *tdata, t_gdata *gdata, t_mdata *mdata);
+/*
+ * srcs/parser/flood_fill.c
+ */
+void	flood_fill(t_gdata *gdata, int x, int y);
+
+/*
+ * srcs/init/init_mlx.c
+ */
 void	init_mlx(t_gdata *gdata);
+
+/*
+ * srcs/init/init_textures.c
+ */
+void	init_textures(t_tdata *tdata, t_gdata *gdata, t_mdata *mdata);
+
 void	init_rdata(t_gdata *gdata);
+
+/*
+ * srcs/game/parse_color.c
+ */
+int		parse_color(char *str);
 
 /*
  * SRCS/PARSER/
@@ -55,7 +77,6 @@ int		repeated_chars_check(char **map);
 int		is_whole_spaces(char *line);
 int		iter_spaces_idx(char *line, int i);
 int		file_length(int fd);
-void	flood_fill(t_gdata *gdata, int x, int y);
 int		is_player_letter(char c);
 char	*rm_nl(char *line);
 
@@ -76,7 +97,6 @@ void	turn_left(t_gdata *gdata);
  * srcs/game
  */
 
-int		parse_color(char *str);
 int		key_hook(int keycode, t_mdata *mlx);
 void	ft_game(t_mdata *mdata, t_gdata *gdata, t_tdata *tdata);
 
@@ -85,7 +105,6 @@ void	ft_game(t_mdata *mdata, t_gdata *gdata, t_tdata *tdata);
  */
 void	hooks_call(t_gdata *gdata, t_mdata *mdata);
 int	key_type(int key);
-void	start(t_gdata *gdata, int keycode);
 
 /*
  * START
@@ -94,16 +113,12 @@ void	start(t_gdata *gdata, int keycode);
 void	update_player(t_pdata *pdata, t_gdata *gdata, int key);
 void	calc_rays_dist(t_gdata *gdata);
 void	raycasting(t_gdata *gdata);
-//void	my_mlx_pixel_put(t_mdata *mdata, int x, int y, int color);
-//int		player_colision(int x, int y, t_gdata *gdata);
 
 /*
  * srcs/draw/draw.c
  */
-//void	draw_all(t_gdata *gdata/*, int x_dest, int y_dest*/);
-//void	draw_first_part_map(t_gdata *gdata);
-void	draw_ceiling(t_mdata *mdata);
-void	draw_floor(t_mdata *mdata);
+void	draw_ceiling(t_gdata *gdata, t_mdata *mdata);
+void	draw_floor(t_gdata *gdata, t_mdata *mdata);
 void	draw_wall(t_gdata *gdata, int x);
 
 /*

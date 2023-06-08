@@ -12,15 +12,34 @@
 
 #include "../../includes/cub3d.h"
 
+/*
+ ** Close window functionality.
+ **
+ ** @t_mdata *mdata Mlx struct;
+ ** @return int Return 0;
+ **
+*/
 static int	close_mlx(t_mdata *mlx, char *msg)
 {
-	printf("%s\n", msg);
+	printf("%s", msg);
 	mlx_destroy_window(mlx->ptr, mlx->win);
 	//TODO -> Liberar
 	exit(0);
 	return (0);
 }
 
+/*
+ ** Key 13  | 133 = w.
+ ** Key 1   | 97  = s.
+ ** Key 0   | 115 = a.
+ ** Key 2   | 100 = d.
+ ** Key 123 | 65363 = <-.
+ ** Key 124 | 65361 = ->.
+ **
+ ** @param int key Integer representation of holded key;
+ ** @return int The keycode represented in the program.
+ **
+*/
 int	key_type(int key)
 {
 	int	type;
@@ -41,23 +60,13 @@ int	key_type(int key)
 	return (type);
 }
 
-//static int	key_hooks_up(int keycode, t_gdata *gdata)
-//{
-//	int	type;
-//
-//	type = key_type(keycode);
-//	if (type >= 1 && type <= 4)
-////		gdata->pdata->move = 0;
-//	else if (type == 5 || type == 6)
-//		gdata->pdata->spin = 0;
-////	if (type > 0 && type < 7)
-////		update_player(gdata, keycode);
-////	start(gdata, keycode);
-////	update_player(gdata, keycode);
-//	return (0);
-//}
-
-
+/*
+ ** Key hook functionality.
+ **
+ ** @param int keycode Integer that represents the key;
+ ** @param t_gdata *gdata Main struct;
+ **
+*/
 static int	key_hooks_down(int keycode, t_gdata *gdata)
 {
 	int	type;
@@ -73,36 +82,32 @@ static int	key_hooks_down(int keycode, t_gdata *gdata)
 		turn_right(gdata);
 	else if (type == 6)
 		turn_left(gdata);
-//	start(gdata, keycode);
-//	if (type > 0 && type < 7)
-//		update_player(gdata->pdata, gdata, keycode);
 	return (0);
 }
 
+/*
+ ** Loop hook main function execution.
+ ** 
+ ** @param t_gdata *gdata Main struct;
+ **
+ */
 static int	draw_n(t_gdata *gdata)
 {
 	raycasting(gdata);
-//	calc_rays_dist(gdata);
-//	draw_all(gdata);
 	return (0);
 }
 
-/*static int	hook_handler(int keycode, t_mdata *mdata)
-{
-	if (keycode == 53)
-	{
-		mlx_destroy_window(mdata->ptr, mdata->win);
-		exit(1);
-	}
-	return (0);
-}*/
-
+/*
+ ** Event association, player movement, window management.
+ ** Loop hook, callback execution of main function.
+ **
+ ** @param t_gdata *gdata Global struct;
+ ** @param t_mdata *mdata Mlx struct;
+ **
+ */
 void	hooks_call(t_gdata *gdata, t_mdata *mdata)
 {
 	mlx_hook(mdata->win, 2, 1L << 0, key_hooks_down, gdata);
-//	mlx_hook(mdata->win, 3, 1L << 1, key_hooks_down, gdata);
 	mlx_hook(mdata->win, 17, 1L << 1, close_mlx, mdata);
 	mlx_loop_hook(mdata->ptr, draw_n ,gdata);
-//	mlx_key_hook(win, key_hooks, gdata);
-//	mlx_hook(win, 2, 1L<<0, hook_handler, mdata);
 }

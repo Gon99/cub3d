@@ -12,21 +12,13 @@
 
 #include "../../includes/cub3d.h"
 
-double	init_angle(char pv)
-{
-	double	angle;
+/*
+ ** Init coordinates of player in map.
+ **
+ ** @param t_gdata *gdata global gdata struct.
+*/
 
-	angle = 0;
-	if (pv == 'N')
-		angle = 3 * M_PI / 2;
-	else if (pv == 'S')
-		angle = M_PI / 2;
-	else if (pv == 'E')
-		angle = M_PI;
-	return (angle);
-}
-
-void	init_pdata(t_gdata *gdata)
+static void	init_player_coords(t_gdata *gdata)
 {
 	int	x;
 	int	z;
@@ -45,24 +37,25 @@ void	init_pdata(t_gdata *gdata)
 			}
 			z++;
 		}
-		//printf("MAP: %s\n", gdata->map[max]);
 		x++;
 	}
-//	printf("X: %f\n", gdata->pdata->x);
-//	printf("Y: %f\n", gdata->pdata->y);
-//	gdata->pdata->move = 0;
-//	gdata->pdata->spin = 0;
-//	gdata->pdata->vel = 0.1;
-//	gdata->pdata->vel_spin = 1 * (M_PI / 180);
-//	gdata->pdata->vel_spin = to_radians(3);
-//	gdata->pdata->angle = init_angle(gdata->pdata->p);
-	
 	gdata->pdata->dir_x = 0.0;
 	gdata->pdata->dir_y = 0.0;
 	gdata->pdata->plane_x = 0.0;
 	gdata->pdata->plane_y = 0.0; 
+}
+
+/*
+ ** Init player struct.
+ ** rir_   Direction vector of player.
+ ** plane_ Plane vector.
+ **
+ ** @param t_gdata *gdata global gdata struct.
+*/
+void	init_pdata(t_gdata *gdata)
+{
+	init_player_coords(gdata);
 	gdata->pdata->vel_spin = 0.08;
-	//initial direction of vector
 	if (gdata->pdata->p == 'N')
 	{
 		gdata->pdata->dir_y = 1;

@@ -12,6 +12,12 @@
 
 #include "../../includes/cub3d.h"
 
+/*
+ ** File opener.
+ ** @param char *file;
+ ** 
+ ** @return -1 error; non-negative success;
+*/ 
 static int	open_file(char *file)
 {
 	int	fd;
@@ -25,6 +31,12 @@ static int	open_file(char *file)
 	return (fd);
 }
 
+/*
+ ** Copy in a reversed way the map into malloc array to gdata.
+ **
+ ** @param t_gdata *gdata The global structure;
+ ** @param r The index of the line where the maps starts;
+*/ 
 static void	copy_map(t_gdata *gdata, int r)
 {
 	int	x;
@@ -48,6 +60,11 @@ static void	copy_map(t_gdata *gdata, int r)
 	}
 }
 
+/*
+ ** Copy the values of textures.
+ **
+ ** @param t_gdata *gdata The global structure;
+*/ 
 static void	copy_map_data(t_gdata *gdata)
 {
 	int		i;
@@ -77,6 +94,12 @@ static void	copy_map_data(t_gdata *gdata)
 	copy_map(gdata, r);
 }
 
+/*
+ ** Copy the whole file to an array to be stored in gdata.
+ **
+ ** @param char *map The name of the map to open;
+ ** @param t_gdata *gdata The global structure;
+*/ 
 static void	copy_file(char *map, t_gdata *gdata)
 {
 	char	*line;
@@ -98,6 +121,14 @@ static void	copy_file(char *map, t_gdata *gdata)
 	close(fd);
 }
 
+/*
+ ** Copy the whole file into reserved array and the map.
+ ** Some parser functionalities.
+ **
+ ** @param char *map The name of the map to open;
+ ** @param t_gdata *gdata The global structure;
+ ** @return int 0 if error; 1 good;
+*/
 int	fill_map(char *map, t_gdata *gdata)
 {
 	copy_file(map, gdata);

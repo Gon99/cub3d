@@ -12,6 +12,13 @@
 
 #include "../../includes/cub3d.h"
 
+/*
+ ** Checks if map is closed in the player mov range.
+ **
+ ** @param t_gdata *gdata The global struct;
+ ** @param int y The position of the player in the y-axis;
+ ** @param int x The position of the player in the x-axis;
+*/
 void	flood_fill(t_gdata *gdata, int y, int x)
 {
 	if (!gdata->map[y])
@@ -21,10 +28,7 @@ void	flood_fill(t_gdata *gdata, int y, int x)
 	}
 	if (gdata->map[y][x] == '0' || is_player_letter(gdata->map[y][x]))
 	{
-//		if (!is_player_letter(gdata->map[x][y]))
 		gdata->map[y][x] = '2';
-//		else
-//			gdata->map[x][y] = '4';
 		flood_fill(gdata, y + 1, x);
 		flood_fill(gdata, y - 1, x);
 		flood_fill(gdata, y, x + 1);

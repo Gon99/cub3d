@@ -12,6 +12,17 @@
 
 #include "../../includes/cub3d.h"
 
+/*
+ ** Initialization of variables.
+ ** camera_x   -> Value in the x-axis of the camera_plane.
+ ** ray_dir    -> Ray direction vector.
+ ** map        -> Square of map where the ray is.
+ ** delta_dist -> First step of ray move.
+ **
+ ** @param t_pdata *pdata Player struct;
+ ** @param int x Vertical stripe;
+ **
+*/
 static void	init_raycast(t_pdata *pdata, int x)
 {
 	float	camera_x;
@@ -30,6 +41,13 @@ static void	init_raycast(t_pdata *pdata, int x)
 	pdata->ray_dir_y = ray_dir_y;
 }
 
+/*
+ ** Calculate the initial distance of ray (side_dist).
+ ** Indicates the step direction of ray (step).
+ **
+ ** t_pdata *pdata Player struct.
+ **
+*/
 static void	get_ray_dir(t_pdata *pdata)
 {
 	if (pdata->ray_dir_x < 0)
@@ -54,6 +72,14 @@ static void	get_ray_dir(t_pdata *pdata)
 	}
 }
 
+/*
+ ** Perform DDA algorithm.
+ ** Depends on the direction increments the ray 1 square until collision.
+ ** Store the colision side of the ray 1 - N, 2 - S, 3 - E, 4 - W.
+ **
+ ** t_gdata *gdata Main struct;
+ **
+*/
 static void	do_dda(t_gdata *gdata)
 {
 	int	hit;
@@ -90,6 +116,13 @@ static void	do_dda(t_gdata *gdata)
 	pdata->map_y = map_y;
 }
 
+/*
+ ** Calculates the distance between the player and the wall.
+ ** Depends on the side of the colision to calculate.
+ **
+ ** t_pdata *pdata Player struct;
+ **
+*/
 static void	get_perp_wall_dist(t_pdata *pdata)
 {
 	int	x_weight;
@@ -108,41 +141,13 @@ static void	get_perp_wall_dist(t_pdata *pdata)
 	pdata->perp = perp;
 }
 
-void	draw(t_mdata *mdata, int x, int y, unsigned int color)
-{
-	int	*buff;
-
-	buff =  mdata->win_addr;
-	printf("POS: %d\n", MAP_WIDTH * y + x);
-	buff[MAP_WIDTH * y + x] = color;
-}
-
-//void	draw_floor_ceiling(t_mdata *mdata)
-//{
-//	int	x;
-//	int	floor;
-//	int	ceil;
-//	int	half;
-//
-//	half = MAP_HEIGHT / 2;
-//	x = 0;
-//	floor = half;
-//	ceil = 0;
-//	while (x < MAP_WIDTH)
-//	{
-//		while (ceil < half)
-//		{
-//			draw(mdata, x, floor, 0xFFA500);
-//			draw(mdata, x, ceil, 0xFF0000);
-//			floor++;
-//			ceil++;
-//		}
-//		x++;
-//		floor = half;
-//		ceil = 0;
-//	}
-//}
-
+/*
+ ** Main core function.
+ ** Draw floor and ceiling and main algorithm.
+ **
+ ** t_gdata *gdata Main struct;
+ **
+ */
 void	raycasting(t_gdata *gdata)
 {
 	int	x;
@@ -152,8 +157,8 @@ void	raycasting(t_gdata *gdata)
 	x = 0;
 	pdata = gdata->pdata;
 	mdata = gdata->mdata;
-	draw_floor(mdata);
-	draw_ceiling(mdata);
+	draw_floor(gdata, mdata);
+	draw_ceiling(gdata, mdata);
 	while (++x < MAP_WIDTH)
 	{
 		init_raycast(pdata, x);
@@ -164,8 +169,3 @@ void	raycasting(t_gdata *gdata)
 	}
 	mlx_put_image_to_window(mdata->ptr, mdata->win, mdata->win_img, 0, 0);
 }
-
-//void	update_player(t_pdata *pdata, t_gdata *gdata, int key)
-//{
-//	player_move(pdata, gdata, key);
-//}

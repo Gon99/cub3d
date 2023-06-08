@@ -12,6 +12,13 @@
 
 #include "../../includes/cub3d.h"
 
+/*
+ ** Init texture array.
+ ** Four textures to work NO(0) - SO(1) - EA(2) - WE(3).
+ **
+ ** @param t_tdata *tdata Texture array.
+ **
+ */
 static void	init_tex_arr(t_tdata *tdata)
 {
 	int	**tex_arr;
@@ -38,19 +45,30 @@ static void	init_tex_arr(t_tdata *tdata)
 	tdata->tex_arr = tex_arr;
 }
 
-static void	load_tex(t_tdata *tdata, t_mdata *aux, int tex_num, t_mdata *mdata)
+/*
+ ** Texture association from mlx image to the texture array.
+ ** NO = tex_num 0
+ ** SO = tex_num 1
+ ** EA = tex_num 2
+ ** WE = tex_num 3
+ **
+ ** @param t_tdata *tdata Texture struct;
+ ** @param t_mdata *mdata Aux mlx struct;
+ ** @param int tex_num Index of the texture in the array;
+ ** @param void *ptr Original Mlx pointer;
+ **
+*/
+
+static void	load_tex(t_tdata *tdata, t_mdata *aux, int tex_num, void *ptr)
 {
 	int	x;
 	int	y;
 
 	aux->win_addr = (int *)mlx_get_data_addr(aux->win_img, \
 		&aux->bpp_win, &aux->ll_win, &aux->end_win);
-//	printf("LL: %d\n", aux->ll_win);
-//	printf("END: %d\n", aux->end_win);
-//	printf("BPP: %d\n", aux->bpp_win);
 	if (!aux->win_addr)
 	{
-		mlx_destroy_image(mdata->ptr, aux->win_img);
+		mlx_destroy_image(ptr, aux->win_img);
 		exit(0);
 	}
 	y = 0;
@@ -61,28 +79,27 @@ static void	load_tex(t_tdata *tdata, t_mdata *aux, int tex_num, t_mdata *mdata)
 		{
 			tdata->tex_arr[tex_num][TEX_WIDTH * y + x] = \
 				aux->win_addr[aux->img_w * y + x];
-//			printf("VAL: %d\n", aux->win_addr[aux->img_w*y+x]);
-//			printf("W: %d\n", aux->img_w);
-//			printf("Y: %d\n", y);
-//			printf("X: %d\n", x);
-//			printf("---------------\n");
 			x++;
 		}
-//		printf("VUELTA: %d\n", c);
 		y++;
 	}
-	mlx_destroy_image(mdata->ptr, aux->win_img);
+	mlx_destroy_image(ptr, aux->win_img);
 }
 
+/*
+ ** Assign the texture to and aux mlx img.
+ ** Each img has his own height and width.
+ **
+ ** @param t_mdata *mdata Mlx struct;
+ ** @param t_mdata *tdata Texture array;
+ ** @param char *tex Texture path;
+ **
+*/
 static void	tex_chequer(t_mdata *mdata, t_mdata *aux, char *tex)
 {
 
 	aux->win_img = mlx_xpm_file_to_image(mdata->ptr, \
 		rm_nl(tex), &aux->img_w, &aux->img_h);
-//	printf("W: %d\n", aux->img_w);
-//	printf("H: %d\n", aux->img_h);
-//	printf("TEX: %s\n", rm_nl(tex));
-//	printf("WIN: %p\n", aux->win_img);
 	if (!aux->win_img)
 	{
 		write(1, "Invalid texture\n", 16);
@@ -90,17 +107,25 @@ static void	tex_chequer(t_mdata *mdata, t_mdata *aux, char *tex)
 	}
 }
 
+/*
+ ** Initialize of textures, texture array creation, image association and values.
+ **
+ ** @param t_tdata *tdata Texture struct;
+ ** @param t_gdata *gdata Global struct;
+ ** @param t_mdata *mdata Mlx struct;
+ **
+ */
 void	init_textures(t_tdata *tdata, t_gdata *gdata, t_mdata *mdata)
 {
 	t_mdata aux;
 
 	init_tex_arr(tdata);
 	tex_chequer(mdata, &aux, gdata->no);
-	load_tex(tdata, &aux, 0, mdata);
+	load_tex(tdata, &aux, 0, mdata->ptr);
 	tex_chequer(mdata, &aux, gdata->so);
-	load_tex(tdata, &aux, 1, mdata);
+	load_tex(tdata, &aux, 1, mdata->ptr);
 	tex_chequer(mdata, &aux, gdata->ea);
-	load_tex(tdata, &aux, 2, mdata);
+	load_tex(tdata, &aux, 2, mdata->ptr);
 	tex_chequer(mdata, &aux, gdata->we);
-	load_tex(tdata, &aux, 3, mdata);
+	load_tex(tdata, &aux, 3, mdata->ptr);
 }

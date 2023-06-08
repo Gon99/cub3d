@@ -12,6 +12,15 @@
 
 #include "../../includes/cub3d.h"
 
+/*
+ ** Init the mlx.
+ ** Creates the window, image, and image address.
+ ** Initializes the MAP_WIDTH and MAP_HEIGHT.
+ **
+ ** @param t_gdata *gdata The global struct;
+ **
+*/
+
 void	init_mlx(t_gdata *gdata)
 {
 	t_mdata *mdata;
@@ -24,8 +33,4 @@ void	init_mlx(t_gdata *gdata)
 		&mdata->bpp_win, &mdata->ll_win, &mdata->end_win);
 	mdata->img_w = MAP_WIDTH;
 	mdata->img_h = MAP_HEIGHT;
-	//gdata->mdata->map_img = mlx_new_image(gdata->mdata->ptr, gdata->width * TILE_SIZE, gdata->height * TILE_SIZE);
-	//gdata->mdata->map_addr = mlx_get_data_addr(gdata->mdata->map_img, &gdata->mdata->bpp_map, &gdata->mdata->ll_map, &gdata->mdata->end_map);
-//	mdata->img = mlx_new_image(mdata->mlx, gdata->height, gdata->width);
-//	mdata->addr = mlx_get_data_addr(mdata->img, &mdata->bpp, &mdata->line_length, &mdata->endian);
 }

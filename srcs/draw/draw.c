@@ -12,40 +12,58 @@
 
 #include "../../includes/cub3d.h"
 
-//inline static void	my_mlx_pixel_put(t_mdata *mdata, int x, int y, int color)
-//{
-//	*(unsigned int *)(mdata->win_addr + \
-//	(y * mdata->ll_win + x * (mdata->bpp_win / 8))) = color;
-//}
-
-void	draw_ceiling(t_mdata *mdata)
+/*
+ ** Draw half bottom part of window.
+ **
+ ** @param t_gdata *gdata Main struct;
+ ** @param t_mdata *mdata Mlx struct;
+ **
+*/
+void	draw_floor(t_gdata *gdata, t_mdata *mdata)
 {
 	int 	i;
 	int	limit;
+	int	color;
 
 	i = 0;
 	limit = MAP_WIDTH * MAP_HEIGHT / 2;
+	color = parse_color(gdata->f);
 	while (i < limit)
 	{
-		mdata->win_addr[i] = 0xFF0000;
+		mdata->win_addr[i] = color;
 		i++;
 	}
 }
-
-void	draw_floor(t_mdata *mdata)
+/*
+ ** Draw half top part of window.
+ **
+ ** @param t_gdata *gdata Main struct;
+ ** @param t_mdata *mdata Mlx struct;
+*/
+void	draw_ceiling(t_gdata *gdata, t_mdata *mdata)
 {
 	int	start;
 	int	limit;
+	int	color;
 
 	start = MAP_WIDTH * MAP_HEIGHT / 2;
 	limit = MAP_WIDTH * MAP_HEIGHT;
+	color = parse_color(gdata->c);
 	while (start < limit)
 	{
-		mdata->win_addr[start] = 0xFFA500;
+		mdata->win_addr[start] = color;
 		start++;
 	}
 }
 
+/*
+ ** Returns the value where the wall was hit.
+ ** We use it later to calculate the x value of the texture.
+ **
+ ** @param t_pdata *pdata Player struct;
+ ** @param float perp Perp distance to wall;
+ ** @return float Position where the wall is hit;
+*/
 float	get_wall_hit_x(t_pdata *pdata, float perp)
 {
 	float	wall;
@@ -60,6 +78,13 @@ float	get_wall_hit_x(t_pdata *pdata, float perp)
 	return (wall);
 }
 
+/*
+ ** Returns the position in the array_texture depending on the side hit;
+ ** 0 -> N, 1 -> S, 2 -> E, 3 -> W.
+ **
+ ** @param t_pdata *pdata Player struct;
+ ** @return int The idx of the texture in the array;
+*/
 int	get_tex_idx(t_pdata *pdata)
 {
 	int	side;
@@ -78,10 +103,19 @@ int	get_tex_idx(t_pdata *pdata)
 
 void	draw_img(t_mdata *mdata, int x, int y, unsigned int color)
 {
-//	mdata->win_addr[MAP_WIDTH * y + x] = 0x000000;
 	mdata->win_addr[MAP_WIDTH * y + x] = color;
 }
 
+
+/*
+ ** Second main draw function.
+ ** Needed calculations and draw textured wall in window.
+ **
+ ** @param t_gdata *gdata Main struct;
+ ** @param int start Integer value to start the wall draw;
+ ** @param int end Integer value to end the dall draw;
+ ** @param int x Vertical stripe;
+*/
 void	do_draw_textured(t_gdata *gdata, int start, int end, int x)
 {
 	int	tex_x;
@@ -97,28 +131,24 @@ void	do_draw_textured(t_gdata *gdata, int start, int end, int x)
 	step = (float)TEX_HEIGHT / ((int)(MAP_HEIGHT / perp));
 	texpos = ((start - half + ((int)(MAP_HEIGHT / perp)) / 2)) * step;
 	y = start;
-//	printf("SIDE: %d\n", gdata->pdata->side);
-//	printf("TEXNUM: %d\n", gdata->tdata->tex_num);
-//	printf("TEX_X: %d\n", tex_x);
-//	printf("STEP: %f\n", step);
-//	printf("TEXPOS: %f\n", texpos);
-//	printf("--------------\n");
-//	printf("Y: %d\n", y);
-//	printf("END: %d\n", end);
 	while (y < end)
 	{
 		tex_y = (int)texpos & (TEX_HEIGHT - 1);
 		texpos += step;
-//		printf("X: %d\n", x);
-//		printf("Y: %d\n", y);
-//		printf("TEX_Y: %d\n", tex_y);
-//		printf("TEX_POS: %f\n", texpos);
-//		break ;
 		draw_img(gdata->mdata, x, y, gdata->tdata->tex_arr[gdata->tdata->tex_num][TEX_HEIGHT * tex_y + tex_x]);
 		y++;
 	}
 }
 
+/*
+ ** Main draw function.
+ ** Calculates the size of the wall to draw, line_height.
+ ** Calculates the limits of the wall to draw.
+ **
+ ** @param t_gdata *gdata Main struct;
+ ** @param int x Vertical stripe;
+ **
+*/
 void	draw_wall(t_gdata *gdata, int x)
 {
 	int	line_height;

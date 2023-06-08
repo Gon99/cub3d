@@ -20,15 +20,6 @@
  */
 int	extension_check(char *map)
 {
-	//int	l;
-	//int	r;
-
-	//map = ft_strtrim(map, " ");
-	//l = ft_strlen(map) - 4;
-	//r = -1;
-	//if (l > 0)
-	//	r = ft_strcmp(&map[l], ".cub");
-	//return (r);
 	char	*aux;
 	size_t	i;
 

@@ -41,10 +41,10 @@ INIT_PATH	 = srcs/init/
 PARSER_PATH  = srcs/parser/
 ANGLE_PATH	 = srcs/angle/
 
-GAME_FL		 = game.c init_textures.c key_hook.c moves.c parse_color.c \
+GAME_FL		 = game.c key_hook.c moves.c parse_color.c \
 			   start.c player_dir.c steps.c
 DRAW_FL		 = draw.c
-INIT_FL		 = init_gdata.c init_pdata.c init_rdata.c init_mlx.c
+INIT_FL		 = init_gdata.c init_pdata.c init_rdata.c init_mlx.c init_textures.c
 PARSER_FL	 = utils_file.c iter_spaces_idx.c is_line.c flood_fill.c fill_map.c check.c \
 			   parse_color.c
 ANGLE_FL	 = angle.c

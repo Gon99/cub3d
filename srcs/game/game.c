@@ -12,6 +12,15 @@
 
 #include "../../includes/cub3d.h"
 
+/*
+ ** Finish parser and start of program, initialize textures and execution.
+ ** 
+ ** @param t_mdata *mdata Mlx struct;
+ ** @param t_gdata *gdata Main struct;
+ ** @param t_tdata *tdata Texture struct;
+ **
+ */
+
 void	ft_game(t_mdata *mdata, t_gdata *gdata, t_tdata *tdata)
 {
 	init_mlx(gdata);
