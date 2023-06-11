@@ -27,8 +27,16 @@ int	parse_color(char *str)
 {
 	char	**sp;
 	int	color;
+	int	i;
 
 	sp = ft_split(str, ',');
 	color = (ft_atoi(sp[0]) << 16 | ft_atoi(sp[1]) << 8 | ft_atoi(sp[2]));
+	i = 0;
+	while (sp[i])
+	{
+		free(sp[i]);
+		i++;
+	}
+	free(sp);
 	return (color);
 }

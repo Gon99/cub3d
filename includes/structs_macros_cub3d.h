@@ -31,6 +31,7 @@
 # define LEFT_X		-1
  
 # define ESC          53
+# define ESC_L        65307
  
 # define MAP_HEIGHT	480
 # define MAP_WIDTH 640

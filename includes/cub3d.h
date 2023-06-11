@@ -140,6 +140,12 @@ int	is_down(float angle);
 int	is_left(float angle);
 
 /*
+ * srcs/free/free.c
+ */
+void	free_map(t_gdata *gdata);
+void	free_tex(t_tdata *tdata);
+
+/*
  * srcs/game/steps.c
  */
 float	get_x_step_hor(float angle);

@@ -106,7 +106,6 @@ void	draw_img(t_mdata *mdata, int x, int y, unsigned int color)
 	mdata->win_addr[MAP_WIDTH * y + x] = color;
 }
 
-
 /*
  ** Second main draw function.
  ** Needed calculations and draw textured wall in window.

@@ -40,6 +40,7 @@ DRAW_PATH	 = srcs/draw/
 INIT_PATH	 = srcs/init/
 PARSER_PATH  = srcs/parser/
 ANGLE_PATH	 = srcs/angle/
+FREE_PATH	 = srcs/free/
 
 GAME_FL		 = game.c key_hook.c moves.c parse_color.c \
 			   start.c player_dir.c steps.c
@@ -49,6 +50,7 @@ PARSER_FL	 = utils_file.c iter_spaces_idx.c is_line.c flood_fill.c fill_map.c ch
 			   parse_color.c
 ANGLE_FL	 = angle.c
 MATH_FL		 = math.c
+FREE_FL		 = free.c
 
 SRCS         = 	srcs/main.c \
 				$(addprefix $(GAME_PATH), $(GAME_FL)) \
@@ -56,7 +58,8 @@ SRCS         = 	srcs/main.c \
 				$(addprefix $(PARSER_PATH), $(PARSER_FL)) \
 				$(addprefix $(DRAW_PATH), $(DRAW_FL)) \
 				$(addprefix $(ANGLE_PATH), $(ANGLE_FL)) \
-				$(addprefix $(MATH_PATH), $(MATH_FL))
+				$(addprefix $(MATH_PATH), $(MATH_FL)) \
+				$(addprefix $(FREE_PATH), $(FREE_FL))
 
 OBJS	= $(SRCS:.c=.o)
 COMP	= $(CC) $(CFLAGS) $(SRCS) $(LIBFT) $(LIBMLX) $(MLXFLGS) -o $(NAME)
