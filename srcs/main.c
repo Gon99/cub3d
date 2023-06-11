@@ -27,11 +27,17 @@ int	main(int argc, char **argv)
 		return (write(1, "Error name\n", 11));
 	init_gdata(&gdata, &pdata, &mdata, &rdata);
 	if (!fill_map(argv[1], &gdata))
+	{
+		free_map(&gdata);
 		return (write(1, "Error data\n", 11));
+	}
 	init_pdata(&gdata);
 	flood_fill(&gdata, pdata.y, pdata.x);
 	if (gdata.error)
-		return (write(1, "Error\n", 6));
+	{
+		free_map(&gdata);
+		return (write(1, "Map error\n", 10));
+	}
 	ft_game(&mdata, &gdata, &tdata);
 	return (1);
 }

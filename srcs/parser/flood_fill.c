@@ -21,7 +21,7 @@
 */
 void	flood_fill(t_gdata *gdata, int y, int x)
 {
-	if (!gdata->map[y])
+	if (!gdata->map[y] || !gdata->map[y][x])
 	{
 		gdata->error = 1;
 		return ;
