@@ -6,7 +6,7 @@
 /*   By: ajimenez <ajimenez@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/11 19:30:32 by ajimenez          #+#    #+#             */
-/*   Updated: 2023/06/21 18:43:48 by ajimenez         ###   ########.fr       */
+/*   Updated: 2023/07/22 19:00:14 by goliano-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,6 +74,6 @@ void	init_pdata(t_gdata *gdata)
 	else
 	{
 		gdata->pdata->dir_x = -1.0;
-		gdata->pdata->dir_y = 0.66;
+		gdata->pdata->plane_y = 0.66;
 	}
 }

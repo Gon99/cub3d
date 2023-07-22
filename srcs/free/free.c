@@ -6,7 +6,7 @@
 /*   By: ajimenez <ajimenez@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/14 19:59:33 by ajimenez          #+#    #+#             */
-/*   Updated: 2023/06/14 20:00:06 by ajimenez         ###   ########.fr       */
+/*   Updated: 2023/07/22 18:33:04 by goliano-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,6 @@ void	free_map(t_gdata *gdata)
 	int	i;
 
 	i = 0;
-	printf("1\n");
 	while (gdata->file[i])
 	{
 		free(gdata->file[i]);
