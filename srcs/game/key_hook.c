@@ -6,7 +6,7 @@
 /*   By: ajimenez <ajimenez@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/16 14:16:48 by ajimenez          #+#    #+#             */
-/*   Updated: 2023/06/14 20:16:03 by ajimenez         ###   ########.fr       */
+/*   Updated: 2023/07/22 17:22:49 by goliano-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,9 +53,9 @@ int	key_type(int key)
 	type = 0;
 	if (key == 13 || key == 119)
 		type = 1;
-	else if (key == 1 || key == 97)
+	else if (key == 0 || key == 97)
 		type = 2;
-	else if (key == 0 || key == 115)
+	else if (key == 1 || key == 115)
 		type = 3;
 	else if (key == 2 || key == 100)
 		type = 4;

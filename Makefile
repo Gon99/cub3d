@@ -6,7 +6,7 @@
 #    By: ajimenez <ajimenez@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/02/04 15:43:39 by ajimenez          #+#    #+#              #
-#    Updated: 2023/07/22 13:20:10 by ajimenez         ###   ########.fr        #
+#    Updated: 2023/07/22 17:33:33 by goliano-         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -92,7 +92,6 @@ clean:
 					@make clean -sC ./includes/libft
 					$(RM) $(OBJS) $(OBJS_B)
 					@rm -rf libft.a libmlx.a cub3d.dSYM cub3d.a
-					@rm $(LIBMLX)
 
 fclean: 	clean
 					@make fclean -sC ./includes/libft

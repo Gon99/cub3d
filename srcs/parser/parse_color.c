@@ -6,7 +6,7 @@
 /*   By: ajimenez <ajimenez@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/14 12:45:03 by ajimenez          #+#    #+#             */
-/*   Updated: 2023/07/21 22:23:15 by ajimenez         ###   ########.fr       */
+/*   Updated: 2023/07/22 17:43:25 by goliano-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,22 +49,12 @@ int	check_color(char *str)
 
 	ret = true;
 	sp = ft_split(str, ',');
-	ft_putmatrix(sp);
 	if (ft_matrixlen(sp) != 3)
-	{
-		printf("SPLIT\n");
 		ret = false;
-	}
 	if (!check_digit(str))
-	{
-		printf("digit\n");
 		ret = false;
-	}
 	if (!check_bounds(sp))
-	{
-		printf("BOUNDS\n");
 		ret = false;
-	}
 	ft_free_matrix(sp);
 	return (ret);
 }
