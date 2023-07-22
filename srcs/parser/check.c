@@ -6,7 +6,7 @@
 /*   By: ajimenez <ajimenez@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/11 19:24:09 by ajimenez          #+#    #+#             */
-/*   Updated: 2023/05/17 19:44:57 by ajimenez         ###   ########.fr       */
+/*   Updated: 2023/07/21 22:19:53 by ajimenez         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,6 @@ int	map_data_check(t_gdata *gdata)
 		r = 0;
 	return (r);
 }
-
 
 int	repeated_chars_check(char **map)
 {

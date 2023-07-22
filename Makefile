@@ -6,7 +6,7 @@
 #    By: ajimenez <ajimenez@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/02/04 15:43:39 by ajimenez          #+#    #+#              #
-#    Updated: 2023/05/22 18:28:37 by ajimenez         ###   ########.fr        #
+#    Updated: 2023/07/22 13:20:10 by ajimenez         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -43,8 +43,8 @@ ANGLE_PATH	 = srcs/angle/
 FREE_PATH	 = srcs/free/
 
 GAME_FL		 = game.c key_hook.c moves.c parse_color.c \
-			   start.c player_dir.c steps.c
-DRAW_FL		 = draw.c
+			   start.c player_dir.c steps.c do_dda.c
+DRAW_FL		 = draw.c draw_wall.c
 INIT_FL		 = init_gdata.c init_pdata.c init_rdata.c init_mlx.c init_textures.c
 PARSER_FL	 = utils_file.c iter_spaces_idx.c is_line.c flood_fill.c fill_map.c check.c \
 			   parse_color.c

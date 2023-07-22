@@ -6,13 +6,13 @@
 /*   By: ajimenez <ajimenez@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/14 12:45:03 by ajimenez          #+#    #+#             */
-/*   Updated: 2023/02/16 10:53:02 by ajimenez         ###   ########.fr       */
+/*   Updated: 2023/07/21 22:23:15 by ajimenez         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/cub3d.h"
 
-static int check_bounds(char **sp)
+static int	check_bounds(char **sp)
 {
 	int	i;
 	int	aux;
@@ -25,11 +25,10 @@ static int check_bounds(char **sp)
 			return (false);
 		aux++;
 	}
-
 	return (true);
 }
 
-static int check_digit(char *s)
+static int	check_digit(char *s)
 {
 	int	aux;
 
@@ -37,16 +36,16 @@ static int check_digit(char *s)
 	while (s[aux])
 	{
 		if (!ft_isdigit(s[aux]) && s[aux] != ',' && s[aux] != '\n')
-				return (false);
+			return (false);
 		aux++;
 	}
 	return (true);
 }
 
-int check_color(char *str)
+int	check_color(char *str)
 {
 	char	**sp;
-	int 	ret;
+	int		ret;
 
 	ret = true;
 	sp = ft_split(str, ',');
@@ -56,7 +55,6 @@ int check_color(char *str)
 		printf("SPLIT\n");
 		ret = false;
 	}
-//	if (ft_iter_matrix_bool(sp, ft_isdigit))
 	if (!check_digit(str))
 	{
 		printf("digit\n");

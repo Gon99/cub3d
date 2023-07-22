@@ -6,7 +6,7 @@
 /*   By: ajimenez <ajimenez@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/16 14:12:07 by ajimenez          #+#    #+#             */
-/*   Updated: 2023/05/22 18:29:15 by ajimenez         ###   ########.fr       */
+/*   Updated: 2023/07/22 13:07:21 by ajimenez         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -97,6 +97,7 @@ void	turn_left(t_gdata *gdata);
  * srcs/game
  */
 
+void	do_dda(t_gdata *gdata);
 int		key_hook(int keycode, t_mdata *mlx);
 void	ft_game(t_mdata *mdata, t_gdata *gdata, t_tdata *tdata);
 
@@ -120,6 +121,8 @@ void	raycasting(t_gdata *gdata);
 void	draw_ceiling(t_gdata *gdata, t_mdata *mdata);
 void	draw_floor(t_gdata *gdata, t_mdata *mdata);
 void	draw_wall(t_gdata *gdata, int x);
+float	get_wall_hit_x(t_pdata *pdata, float perp);
+int		get_tex_idx(t_pdata *pdata);
 
 /*
  * srcs/angle/angle.c

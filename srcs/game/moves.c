@@ -6,7 +6,7 @@
 /*   By: goliano- <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/28 16:22:28 by goliano-          #+#    #+#             */
-/*   Updated: 2023/01/23 12:25:06 by goliano-         ###   ########.fr       */
+/*   Updated: 2023/06/14 20:07:57 by ajimenez         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,42 +14,50 @@
 
 void	move_ws(t_gdata *gdata, int t)
 {
-	t_pdata *pdata;
+	t_pdata	*pdata;
 
 	pdata = gdata->pdata;
 	if (t == 1)
 	{
-		if (gdata->map[(int)pdata->y][(int)(pdata->x + pdata->dir_x * SPEED)] != '1')
+		if (gdata->map[(int)pdata->y][(int)(pdata->x \
+					+ pdata->dir_x * SPEED)] != '1')
 			pdata->x += pdata->dir_x * SPEED;
-		if (gdata->map[(int)(pdata->y + pdata->dir_y * SPEED)][(int)pdata->x] != '1')
+		if (gdata->map[(int)(pdata->y + pdata->dir_y \
+					* SPEED)][(int)pdata->x] != '1')
 			pdata->y += pdata->dir_y * SPEED;
 	}
 	if (t == 3)
 	{
-		if (gdata->map[(int)pdata->y][(int)(pdata->x - pdata->dir_x * SPEED)] != '1')
+		if (gdata->map[(int)pdata->y][(int)(pdata->x \
+					- pdata->dir_x * SPEED)] != '1')
 			pdata->x -= pdata->dir_x * SPEED;
-		if (gdata->map[(int)(pdata->y - pdata->dir_y * SPEED)][(int)pdata->x] != '1')
+		if (gdata->map[(int)(pdata->y - pdata->dir_y \
+					* SPEED)][(int)pdata->x] != '1')
 			pdata->y -= pdata->dir_y * SPEED;
 	}
 }
 
 void	move_ad(t_gdata *gdata, int t)
 {
-	t_pdata *pdata;
+	t_pdata	*pdata;
 
 	pdata = gdata->pdata;
 	if (t == 2)
 	{
-		if (gdata->map[(int)pdata->y][(int)(pdata->x - pdata->plane_x * SPEED)] != '1')
+		if (gdata->map[(int)pdata->y][(int)(pdata->x \
+					- pdata->plane_x * SPEED)] != '1')
 			pdata->x -= pdata->plane_x * SPEED;
-		if (gdata->map[(int)(pdata->y - pdata->plane_y * SPEED)][(int)pdata->x] != '1')
+		if (gdata->map[(int)(pdata->y - pdata->plane_y \
+					* SPEED)][(int)pdata->x] != '1')
 			pdata->y -= pdata->plane_y * SPEED;
 	}
 	if (t == 4)
 	{
-		if (gdata->map[(int)pdata->y][(int)(pdata->x + pdata->plane_x * SPEED)] != '1')
+		if (gdata->map[(int)pdata->y][(int)(pdata->x \
+					+ pdata->plane_x * SPEED)] != '1')
 			pdata->x += pdata->plane_x * SPEED;
-		if (gdata->map[(int)(pdata->y + pdata->plane_y * SPEED)][(int)pdata->x] != '1')
+		if (gdata->map[(int)(pdata->y + pdata->plane_y \
+					* SPEED)][(int)pdata->x] != '1')
 			pdata->y += pdata->plane_y * SPEED;
 	}
 }
@@ -73,10 +81,10 @@ void	turn_right(t_gdata *gdata)
 
 void	turn_left(t_gdata *gdata)
 {
-	float	aux;
-	float	aux2;
-	float	vspin;
-	t_pdata *pdata;
+	float		aux;
+	float		aux2;
+	float		vspin;
+	t_pdata		*pdata;
 
 	pdata = gdata->pdata;
 	aux = pdata->dir_x;

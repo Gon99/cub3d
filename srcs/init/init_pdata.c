@@ -6,7 +6,7 @@
 /*   By: ajimenez <ajimenez@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/11 19:30:32 by ajimenez          #+#    #+#             */
-/*   Updated: 2023/02/21 14:55:38 by goliano-         ###   ########.fr       */
+/*   Updated: 2023/06/21 18:43:48 by ajimenez         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ static void	init_player_coords(t_gdata *gdata)
 	int	z;
 
 	x = 0;
-	while(gdata->map[x])
+	while (gdata->map[x])
 	{
 		z = 0;
 		while (gdata->map[x][z])
@@ -42,7 +42,7 @@ static void	init_player_coords(t_gdata *gdata)
 	gdata->pdata->dir_x = 0.0;
 	gdata->pdata->dir_y = 0.0;
 	gdata->pdata->plane_x = 0.0;
-	gdata->pdata->plane_y = 0.0; 
+	gdata->pdata->plane_y = 0.0;
 }
 
 /*

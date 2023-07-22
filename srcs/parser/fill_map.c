@@ -6,7 +6,7 @@
 /*   By: ajimenez <ajimenez@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/11 19:16:11 by ajimenez          #+#    #+#             */
-/*   Updated: 2023/05/22 18:26:58 by ajimenez         ###   ########.fr       */
+/*   Updated: 2023/07/21 22:21:10 by ajimenez         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,8 @@
  ** @param char *file;
  ** 
  ** @return -1 error; non-negative success;
-*/ 
+*/
+
 static int	open_file(char *file)
 {
 	int	fd;
@@ -36,7 +37,8 @@ static int	open_file(char *file)
  **
  ** @param t_gdata *gdata The global structure;
  ** @param r The index of the line where the maps starts;
-*/ 
+*/
+
 static void	copy_map(t_gdata *gdata, int r)
 {
 	int	x;
@@ -48,7 +50,7 @@ static void	copy_map(t_gdata *gdata, int r)
 		gdata->map_len++;
 		r++;
 	}
-	aux = gdata->map_len - 1; //TODO -> ver contador del calloc y mapa
+	aux = gdata->map_len - 1;
 	gdata->map = ft_calloc(sizeof(char *), aux + 2);
 	if (!gdata->map)
 		return ;
@@ -64,7 +66,8 @@ static void	copy_map(t_gdata *gdata, int r)
  ** Copy the values of textures.
  **
  ** @param t_gdata *gdata The global structure;
-*/ 
+*/
+
 static void	copy_map_data(t_gdata *gdata)
 {
 	int		i;
@@ -99,7 +102,8 @@ static void	copy_map_data(t_gdata *gdata)
  **
  ** @param char *map The name of the map to open;
  ** @param t_gdata *gdata The global structure;
-*/ 
+*/
+
 static void	copy_file(char *map, t_gdata *gdata)
 {
 	char	*line;

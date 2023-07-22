@@ -6,7 +6,7 @@
 /*   By: ajimenez <ajimenez@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/23 12:26:53 by ajimenez          #+#    #+#             */
-/*   Updated: 2023/05/16 18:08:39 by ajimenez         ###   ########.fr       */
+/*   Updated: 2023/06/21 18:42:36 by ajimenez         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -97,7 +97,6 @@ static void	load_tex(t_tdata *tdata, t_mdata *aux, int tex_num, void *ptr)
 */
 static void	tex_chequer(t_mdata *mdata, t_mdata *aux, char *tex)
 {
-
 	aux->win_img = mlx_xpm_file_to_image(mdata->ptr, \
 		rm_nl(tex), &aux->img_w, &aux->img_h);
 	if (!aux->win_img)
@@ -117,7 +116,7 @@ static void	tex_chequer(t_mdata *mdata, t_mdata *aux, char *tex)
  */
 void	init_textures(t_tdata *tdata, t_gdata *gdata, t_mdata *mdata)
 {
-	t_mdata aux;
+	t_mdata	aux;
 
 	init_tex_arr(tdata);
 	tex_chequer(mdata, &aux, gdata->no);

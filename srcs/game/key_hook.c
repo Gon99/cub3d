@@ -6,7 +6,7 @@
 /*   By: ajimenez <ajimenez@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/16 14:16:48 by ajimenez          #+#    #+#             */
-/*   Updated: 2023/05/17 19:40:46 by ajimenez         ###   ########.fr       */
+/*   Updated: 2023/06/14 20:16:03 by ajimenez         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,14 +21,13 @@
 */
 static int	close_mlx(t_gdata *gdata, char *msg)
 {
-	t_mdata *mlx;
-	t_tdata *tdata;
+	t_mdata	*mlx;
+	t_tdata	*tdata;
 
 	mlx = gdata->mdata;
 	tdata = gdata->tdata;
 	printf("%s", msg);
 	mlx_destroy_window(mlx->ptr, mlx->win);
-	//TODO -> Liberar
 	free_map(gdata);
 	free_tex(tdata);
 	exit(0);
@@ -98,6 +97,7 @@ static int	key_hooks_down(int keycode, t_gdata *gdata)
  ** @param t_gdata *gdata Main struct;
  **
  */
+
 static int	draw_n(t_gdata *gdata)
 {
 	raycasting(gdata);
@@ -112,9 +112,9 @@ static int	draw_n(t_gdata *gdata)
  ** @param t_mdata *mdata Mlx struct;
  **
  */
+
 void	hooks_call(t_gdata *gdata, t_mdata *mdata)
 {
 	mlx_hook(mdata->win, 2, 1L << 0, key_hooks_down, gdata);
-//	mlx_hook(mdata->win, 17, 1L << 1, close_mlx, gdata);
-	mlx_loop_hook(mdata->ptr, draw_n ,gdata);
+	mlx_loop_hook(mdata->ptr, draw_n, gdata);
 }

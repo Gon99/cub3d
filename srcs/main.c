@@ -6,7 +6,7 @@
 /*   By: goliano- <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/31 15:55:14 by goliano-          #+#    #+#             */
-/*   Updated: 2023/05/17 19:48:43 by ajimenez         ###   ########.fr       */
+/*   Updated: 2023/06/14 19:47:51 by ajimenez         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,11 +16,10 @@ int	main(int argc, char **argv)
 {
 	t_gdata	gdata;
 	t_pdata	pdata;
-	t_mdata mdata;
+	t_mdata	mdata;
 	t_tdata	tdata;
 	t_rdata	rdata;
 
-	(void)argc;
 	if (argc < 2)
 		return (1);
 	if (extension_check(argv[1]) == false)

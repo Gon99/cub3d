@@ -6,7 +6,7 @@
 /*   By: goliano- <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/16 16:48:19 by goliano-          #+#    #+#             */
-/*   Updated: 2023/03/01 15:37:43 by goliano-         ###   ########.fr       */
+/*   Updated: 2023/06/14 20:00:52 by ajimenez         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,6 @@ float	get_x_step_ver(float angle)
 	if (is_left(angle))
 		step *= -1;
 	return (step);
-
 }
 
 float	get_y_step_ver(float angle)

@@ -6,7 +6,7 @@
 /*   By: ajimenez <ajimenez@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/23 12:26:05 by ajimenez          #+#    #+#             */
-/*   Updated: 2023/01/23 16:54:13 by goliano-         ###   ########.fr       */
+/*   Updated: 2023/06/21 18:41:57 by ajimenez         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@
 
 void	init_mlx(t_gdata *gdata)
 {
-	t_mdata *mdata;
+	t_mdata	*mdata;
 
 	mdata = gdata->mdata;
 	mdata->ptr = mlx_init();
