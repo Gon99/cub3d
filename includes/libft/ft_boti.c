@@ -6,7 +6,7 @@
 /*   By: ajimenez <ajimenez@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/08 14:30:11 by ajimenez          #+#    #+#             */
-/*   Updated: 2023/01/08 15:46:14 by ajimenez         ###   ########.fr       */
+/*   Updated: 2023/07/22 13:48:18 by ajimenez         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ int	ft_boti(long binary)
 	i = 0;
 	while (binary)
 	{
-		mod = binary % 10;		
+		mod = binary % 10;
 		binary /= 10;
 		decimal += mod * pow(2, i);
 		i++;

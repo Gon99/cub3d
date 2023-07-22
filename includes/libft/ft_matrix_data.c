@@ -6,14 +6,14 @@
 /*   By: ajimenez <ajimenez@student.42madrid>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/10 15:04:29 by ajimenez          #+#    #+#             */
-/*   Updated: 2023/01/23 15:26:20 by goliano-         ###   ########.fr       */
+/*   Updated: 2023/07/22 13:50:18 by ajimenez         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 #include <stddef.h>
 
-static size_t ft_matrixheight(char **matrix)
+static size_t	ft_matrixheight(char **matrix)
 {
 	ssize_t	height;
 
@@ -26,8 +26,8 @@ static size_t ft_matrixheight(char **matrix)
 static	size_t	ft_matrixwidth(char **matrix)
 {
 	ssize_t	width;
-	int	x;
-	int	j;
+	int		x;
+	int		j;
 
 	width = 0;
 	x = 0;

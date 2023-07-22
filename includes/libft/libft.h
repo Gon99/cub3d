@@ -6,7 +6,7 @@
 /*   By: ajimenez <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/04 14:13:14 by ajimenez          #+#    #+#             */
-/*   Updated: 2023/01/23 15:02:30 by goliano-         ###   ########.fr       */
+/*   Updated: 2023/07/22 13:44:18 by ajimenez         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,14 +48,14 @@ typedef struct s_matrix_data
 /*
 **Dlst Library
 */
-void	ft_dlstadd_back(t_dlist **dlst, t_dlist *new);
-void	ft_dlstadd_front(t_dlist **lst, t_dlist *new);
-void	ft_dlstclear(t_dlist **lst, void (*del)(void *));
-void	ft_dlstdelone(t_dlist *lst, void (*del)(void *));
-t_dlist	*ft_lstnew_struct(void *newcontent, size_t size);
-t_dlist	*ft_dlstlast(t_dlist *lst);
-t_dlist *ft_dlstnew(void *content);
-int		ft_dlstsize(t_dlist *lst);
+void			ft_dlstadd_back(t_dlist **dlst, t_dlist *new);
+void			ft_dlstadd_front(t_dlist **lst, t_dlist *new);
+void			ft_dlstclear(t_dlist **lst, void (*del)(void *));
+void			ft_dlstdelone(t_dlist *lst, void (*del)(void *));
+t_dlist			*ft_lstnew_struct(void *newcontent, size_t size);
+t_dlist			*ft_dlstlast(t_dlist *lst);
+t_dlist			*ft_dlstnew(void *content);
+int				ft_dlstsize(t_dlist *lst);
 
 /*
 **Is Library

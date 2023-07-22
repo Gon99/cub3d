@@ -6,7 +6,7 @@
 /*   By: ajimenez <ajimenez@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/08 13:59:21 by ajimenez          #+#    #+#             */
-/*   Updated: 2023/01/08 14:26:14 by ajimenez         ###   ########.fr       */
+/*   Updated: 2023/07/22 13:49:23 by ajimenez         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ long	ft_atob(const char *s)
 	f = 1;
 	while (decimal)
 	{
-		mod = decimal % 2;		
+		mod = decimal % 2;
 		binary = binary + mod * f;
 		f = f * 10;
 		decimal = decimal / 2;
